@@ -106,4 +106,95 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+	public function actionPdfUpload(){
+		$model = new PdfTable();
+		if(isset($_POST['PdfTable'])){
+			$model->attributes = $_POST['PdfTable'];
+			$uploadFile = CUploadedFile::getInstance($model,'path');
+			$filename = "{$uploadFile}";
+			$model->path = $filename;
+			$model->created = time();
+			if($model->save()){
+				$uploadFile->saveAs(Yii::app()->basePath.'/../upload/pdf/'.$uploadFile);
+				$this->redirect(array('site/pdfUpload'));
+			}
+		}
+		
+		$this->render('pdfUpload',array('model'=>$model));
+	}
+	
+	public function actionBookList(){
+		$model = new PdfTable();
+		$posts = $model->findAll();
+		$this->render('bookList',array('posts'=>$posts));
+	}
+	
+	public function actionBookRead($id){
+		$model = new PdfTable();
+		$post = $model->findByPk($id);
+		
+		$this->render('bookRead',array('post'=>$post));		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public function actionCreate(){
+        $model=new Banner;  // this is my model related to table
+        if(isset($_POST['Banner']))
+        {
+            $rnd = rand(0,9999);  // generate random number between 0-9999
+            $model->attributes=$_POST['Banner'];
+ 
+            $uploadedFile=CUploadedFile::getInstance($model,'image');
+            $fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
+            $model->image = $fileName;
+ 
+            if($model->save())
+            {
+                $uploadedFile->saveAs(Yii::app()->basePath.'/../banner/'.$fileName);  // image will uplode to rootDirectory/banner/
+                $this->redirect(array('Create'));
+            }
+        }
+        $this->render('create',array(
+            'model'=>$model,
+        ));
+    }
+
+    public function actionUpdate($id){
+        $model=$this->loadModel($id);
+ 
+        if(isset($_POST['Banner']))
+        {
+            $_POST['Banner']['image'] = $model->image;
+            $model->attributes=$_POST['Banner'];
+ 
+            $uploadedFile=CUploadedFile::getInstance($model,'image');
+ 
+            if($model->save())
+            {
+                if(!empty($uploadedFile))  // check if uploaded file is set or not
+                {
+                    $uploadedFile->saveAs(Yii::app()->basePath.'/../banner/'.$model->image);
+                }
+                $this->redirect(array('admin'));
+            }
+ 
+        }
+ 
+        $this->render('update',array(
+            'model'=>$model,
+        ));
+    }
+
 }
