@@ -227,18 +227,3 @@ div.search-form
 {
 	background: #80CFFF;
 }
-
-#header ul{
-	display: inline;
-	list-style: none;
-	float: right;
-	position: relative;
-	top: -50px;
-}
-#header ul li{
-	display: inline;
-}
-
-#header ul li+li:before{
-	content: '| ' ;
-}

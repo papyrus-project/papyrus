@@ -151,6 +151,18 @@ class SiteController extends Controller
 		
 		$this->render('bookRead',array('post'=>$post));		
 	}
+	
+	public function actionImpressum(){
+		$this->render('impressum');
+	}
+	
+	public function actionDSA(){
+		$this->render('DSA');
+	}
+	
+	public function actionAgbs(){
+		$this->render('agbs');
+	}
 
 
 

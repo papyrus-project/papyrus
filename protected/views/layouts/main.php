@@ -4,80 +4,78 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-
+    <!-- Bootstrap -->
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/some.css" rel="stylesheet" media="screen">
+    
 	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
+	
+	<!-- <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
+	
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />  -->
+	
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-
+	<![endif] -->
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
-
-<div class="container" id="page">
-
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-		<ul>
-			<li><a href="index.php?r=site/Impressum">Impressum</a></li>
-			<li><a href="index.php?r=site/Kontakt">Kontakt</a></li>
-			<li><a href="index.php?r=site/AGBs">AGBs</a></li>
-			<li><a href="index.php?r=site/Datenschutzerklärung">Datenschutzerklärung</a></li>
-		</ul>
-	</div><!-- header -->
-
-	<div id="mainmenu">
-		<form>
-			<input placeholder="Search" />
-		</form>
+	<div id="page">
+		<div class="header">
+			<a class="brand" href="<?php echo Yii::app()->request->baseUrl ?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+			<ul>
+				<li><a href="?r=site/Impressum">Impressum</a></li>
+				<li><a href="?r=site/contact">Kontakt</a></li>
+				<li><a href="?r=site/AGBs">AGBs</a></li>
+				<li><a href="?r=site/DSA">Datenschutzerklärung</a></li>
+			</ul>
+		</div><!-- header -->
+	
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="container">
+					<input placeholder="Search" />
+					<?php 
+						if (Yii::app()->user->isGuest):
+					?>
+						<a href="?r=bum/users/signup">Register</a>
+						<a href="?r=bum/users/login">login</a>
+					<?php
+						else :
+					?>
+						<a href="?r=user/profile"><?=Yii::app()->user->name?></a>
+						<a href="?r=site/logout">logout</a>			
+					<?php
+						endif;
+					?>
+				</div>
+			</div>
+		</div><!-- navbar -->
+		<?php /*
+		if(isset($this->breadcrumbs)):?>
+			<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+				'links'=>$this->breadcrumbs,
+			)); ?><!-- breadcrumbs -->
+		<?php endif */ ?>
 		
-		<?php 
-			if (Yii::app()->user->isGuest):
-		?>
-			<a href="?r=bum/users/login">login</a>
-		<?php
-			else :
-		?>
-			<a href="?r=site/logout">logout <?=Yii::app()->user->name?></a>			
-		<?php
-			endif;
-		?>
-		<?php /*$this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Upload', 'url'=>array('/site/pdfupload')),
-				array('label'=>'Books', 'url'=>array('/site/bookList')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/bum/users/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		));*/ ?>
-
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
-
-	<?php echo $content; ?>
-
-	<div class="clear"></div>
-
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by Team Papyrus.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
-
-</div><!-- page -->
-
+		<div class='container'>
+			<?php echo $content; ?>
+		</div>
+	
+		<div id="footer">
+			<div class="container">
+				Copyright &copy; <?php echo date('Y'); ?> by Team Papyrus.<br/>
+				All Rights Reserved.<br/>
+				<?php echo Yii::powered(); ?>
+			</div>
+		</div><!-- footer -->
+	
+	</div><!-- page -->
+	
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>
 </body>
 </html>
