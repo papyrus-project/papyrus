@@ -27,7 +27,9 @@ class UserController extends Controller
 	 */
 	 
 	public function actionEdit(){
-		$model = UserEdit::model()->findByPk(Yii::app()->user->id);
+		if(Yii::app()->user->isGuest)
+			$this->redirect(array('bum/users/login'));
+		$model = UserData::model()->findByPk(Yii::app()->user->id);
 		if(!empty($_POST)){
 			$model->setAttributes($_POST);
 			$model->save();
@@ -36,8 +38,11 @@ class UserController extends Controller
 		$this->render('edit',array('model'=>$model));
 	}
 	
-	public function actionProfile(){
-		$this->render('profile');
+	public function actionProfile($id){
+		if(!$id)
+			$id = Yii::app()->user->id;
+		$model = UserData::model()->findByPk($id);
+		$this->render('profile',array('model' => $model,'sexes'=>array(1=>'male',2=>'female')));
 	}
 	
 	public function actionFavorits(){

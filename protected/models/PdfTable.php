@@ -2,18 +2,24 @@
 class PdfTable extends CActiveRecord{
 	
 	public $id;
-	public $path;
-	public $titel;
+	public $title;
+	public $description;
+	public $file_path;
+	public $cover_path;
+	public $base_id;
+	public $views;
+	public $downloads;
 	public $created;
 	
 	public function tableName(){
-		return 'books_pdf';
+		return 'books';
 	}
 	
 	public function rules(){
 		return array(
-			array('path','file','types'=>'pdf'),
-			array('titel, path','required'),
+			array('file_path','file','types'=>'pdf'),
+			array('cover_path','file','types'=>'jpg,jpeg,png'),
+			array('title, file_path','required'),
 			
 		);
 	}

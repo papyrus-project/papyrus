@@ -45,8 +45,9 @@
 						<a href="?r=bum/users/login">login</a>
 					<?php
 						else :
-					?>
-						<a href="?r=user/profile"><?=Yii::app()->user->name?></a>
+					?>						
+						<a href="?r=books/upload">upload</a>
+						<a href="?r=user/profile&id="><?=Yii::app()->user->name?></a>
 						<a href="?r=site/logout">logout</a>			
 					<?php
 						endif;

@@ -1,6 +1,12 @@
 <?php
-class UserEdit extends CActiveRecord{
+class UserData extends CActiveRecord{
 	
+	public $id;
+	public $name;
+	public $birthday;
+	public $location;
+	public $sex;
+	public $homepage;
 	public $description;
 	
 	public function tableName(){

@@ -2216,3 +2216,441 @@ Stack trace:
 #10 {main}
 REQUEST_URI=/projekt/Git/?r=user/Subscriptions
 ---
+2014/05/09 16:45:05 [error] [php] Trying to get property of non-object (C:\xampp\htdocs\Projekt\Git\protected\views\user\edit.php:5)
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(869): UserController->renderFile()
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(782): UserController->renderPartial()
+#2 C:\xampp\htdocs\Projekt\Git\protected\controllers\UserController.php(36): UserController->render()
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CInlineAction.php(49): UserController->actionEdit()
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): UserController->runAction()
+#6 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): UserController->runActionWithFilters()
+#7 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): UserController->run()
+#8 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\Projekt\Git\index.php(13): CWebApplication->run()
+REQUEST_URI=/projekt/Git/index.php?r=user/edit
+in C:\xampp\htdocs\Projekt\Git\protected\views\user\edit.php (5)
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\UserController.php (36)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/09 16:47:50 [error] [exception.CException] exception 'CException' with message 'Property "CWebApplication.isGuest" is not defined.' in C:\xampp\htdocs\Projekt\Git\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\base\CModule.php(105): CComponent->__get('isGuest')
+#1 C:\xampp\htdocs\Projekt\Git\protected\controllers\UserController.php(30): CModule->__get('isGuest')
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CInlineAction.php(49): UserController->actionEdit()
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('edit')
+#7 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('user/edit')
+#8 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#9 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/projekt/Git/index.php?r=user/edit
+---
+2014/05/10 12:43:43 [error] [exception.CException] exception 'CException' with message 'Property "UserData.wohnort" is not defined.' in C:\xampp\htdocs\Projekt\Git\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\db\ar\CActiveRecord.php(145): CComponent->__get('wohnort')
+#1 C:\xampp\htdocs\Projekt\Git\protected\views\user\edit.php(18): CActiveRecord->__get('wohnort')
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#5 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(782): CController->renderPartial('edit', Array, true)
+#6 C:\xampp\htdocs\Projekt\Git\protected\controllers\UserController.php(38): CController->render('edit', Array)
+#7 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CInlineAction.php(49): UserController->actionEdit()
+#8 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#10 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('edit')
+#12 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('user/edit')
+#13 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/projekt/Git/?r=user/edit
+---
+2014/05/10 13:18:11 [error] [exception.CException] exception 'CException' with message 'Property "UserData.dynamic_attributes" is not defined.' in C:\xampp\htdocs\Projekt\Git\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\db\ar\CActiveRecord.php(145): CComponent->__get('dynamic_attribu...')
+#1 C:\xampp\htdocs\Projekt\Git\protected\models\UserData.php(30): CActiveRecord->__get('dynamic_attribu...')
+#2 C:\xampp\htdocs\Projekt\Git\protected\controllers\UserController.php(34): UserData->setAttributes(Array)
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CInlineAction.php(49): UserController->actionEdit()
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('edit')
+#8 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('user/edit')
+#9 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/projekt/Git/index.php?r=user/edit
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=user/edit
+---
+2014/05/10 13:19:53 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('profile')
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('user/profile')
+#5 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#6 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/projekt/Git/index.php?r=user/profile
+---
+2014/05/10 13:20:55 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('profile')
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('user/profile')
+#5 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#6 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/projekt/Git/index.php?r=user/profile
+---
+2014/05/10 13:20:57 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('profile')
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('user/profile')
+#5 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#6 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/projekt/Git/index.php?r=user/profile
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=user/profile
+---
+2014/05/10 13:20:59 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('profile')
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('user/profile')
+#5 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#6 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/projekt/Git/index.php?r=user/profile
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=user/profile
+---
+2014/05/10 13:21:05 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('profile')
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('user/profile')
+#5 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#6 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/projekt/Git/index.php?r=user/profile
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=user/profile
+---
+2014/05/10 13:26:32 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('profile')
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('user/profile')
+#5 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#6 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/projekt/Git/index.php?r=user/profile
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=user/profile&id=0
+---
+2014/05/10 13:55:58 [error] [php] Undefined variable: model (C:\xampp\htdocs\Projekt\Git\protected\views\user\profile.php:3)
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(869): UserController->renderFile()
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(782): UserController->renderPartial()
+#2 C:\xampp\htdocs\Projekt\Git\protected\controllers\UserController.php(45): UserController->render()
+#3 unknown(0): UserController->actionProfile()
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#5 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(308): CInlineAction->runWithParams()
+#7 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): UserController->runAction()
+#8 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): UserController->runActionWithFilters()
+#9 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): UserController->run()
+#10 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\Projekt\Git\index.php(13): CWebApplication->run()
+REQUEST_URI=/projekt/Git/index.php?r=user/profile&id=-1
+in C:\xampp\htdocs\Projekt\Git\protected\views\user\profile.php (3)
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\UserController.php (45)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 13:56:38 [error] [php] Trying to get property of non-object (C:\xampp\htdocs\Projekt\Git\protected\views\user\profile.php:3)
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(869): UserController->renderFile()
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(782): UserController->renderPartial()
+#2 C:\xampp\htdocs\Projekt\Git\protected\controllers\UserController.php(45): UserController->render()
+#3 unknown(0): UserController->actionProfile()
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#5 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(308): CInlineAction->runWithParams()
+#7 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): UserController->runAction()
+#8 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): UserController->runActionWithFilters()
+#9 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): UserController->run()
+#10 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\Projekt\Git\index.php(13): CWebApplication->run()
+REQUEST_URI=/projekt/Git/index.php?r=user/profile&id=-1
+in C:\xampp\htdocs\Projekt\Git\protected\views\user\profile.php (3)
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\UserController.php (45)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 14:42:44 [error] [exception.CException] exception 'CException' with message 'Property "PdfTable.titel" is not defined.' in C:\xampp\htdocs\Projekt\Git\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\db\ar\CActiveRecord.php(145): CComponent->__get('titel')
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\helpers\CHtml.php(2529): CActiveRecord->__get('titel')
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\helpers\CHtml.php(2252): CHtml::resolveValue(Object(PdfTable), 'titel')
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\helpers\CHtml.php(1434): CHtml::activeInputField('text', Object(PdfTable), 'titel', Array)
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\widgets\CActiveForm.php(725): CHtml::activeTextField(Object(PdfTable), 'titel', Array)
+#5 C:\xampp\htdocs\Projekt\Git\protected\views\books\upload.php(21): CActiveForm->textField(Object(PdfTable), 'titel')
+#6 C:\xampp\htdocs\Projekt\Git\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#7 C:\xampp\htdocs\Projekt\Git\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#9 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(782): CController->renderPartial('Upload', Array, true)
+#10 C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php(43): CController->render('Upload', Array)
+#11 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CInlineAction.php(49): BooksController->actionUpload()
+#12 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#13 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#14 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('upload')
+#16 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('books/upload')
+#17 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#18 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/projekt/Git/index.php?r=books/upload
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=user/profile&id=
+---
+2014/05/10 14:43:22 [error] [exception.CException] exception 'CException' with message 'Property "PdfTable.titel" is not defined.' in C:\xampp\htdocs\Projekt\Git\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\db\ar\CActiveRecord.php(145): CComponent->__get('titel')
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\helpers\CHtml.php(2529): CActiveRecord->__get('titel')
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\helpers\CHtml.php(2252): CHtml::resolveValue(Object(PdfTable), 'titel')
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\helpers\CHtml.php(1434): CHtml::activeInputField('text', Object(PdfTable), 'titel', Array)
+#4 C:\xampp\htdocs\Projekt\Git\framework\web\widgets\CActiveForm.php(725): CHtml::activeTextField(Object(PdfTable), 'titel', Array)
+#5 C:\xampp\htdocs\Projekt\Git\protected\views\books\upload.php(21): CActiveForm->textField(Object(PdfTable), 'titel')
+#6 C:\xampp\htdocs\Projekt\Git\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#7 C:\xampp\htdocs\Projekt\Git\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#9 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(782): CController->renderPartial('Upload', Array, true)
+#10 C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php(43): CController->render('Upload', Array)
+#11 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CInlineAction.php(49): BooksController->actionUpload()
+#12 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#13 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#14 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('upload')
+#16 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('books/upload')
+#17 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#18 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/projekt/Git/index.php?r=books/upload
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=user/profile&id=
+---
+2014/05/10 14:49:07 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 14:49:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "pdfUpload".' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(270): CController->missingAction('pdfUpload')
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('pdfUpload')
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('site/pdfUpload')
+#3 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/projekt/Git/index.php?r=site/pdfUpload
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=books/upload
+---
+2014/05/10 14:56:07 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 14:56:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "upload".' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(270): CController->missingAction('upload')
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('upload')
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('site/upload')
+#3 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/projekt/Git/index.php?r=site/upload
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=books/upload
+---
+2014/05/10 14:58:13 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 14:58:41 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:20:30 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:20:30 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:20:30 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:20:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "upload".' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(270): CController->missingAction('upload')
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('upload')
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('site/upload')
+#3 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/projekt/Git/index.php?r=site/upload
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=books/upload
+---
+2014/05/10 15:23:18 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:23:18 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:23:18 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:23:47 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:23:47 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:23:47 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:25:02 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:25:02 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:25:02 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:25:56 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:25:56 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:25:56 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:26:26 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:26:26 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:26:26 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:26:43 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:26:43 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:26:43 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:27:06 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:27:06 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:27:06 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:28:05 [error] [php] include(text.php): failed to open stream: No such file or directory (C:\xampp\htdocs\Projekt\Git\framework\YiiBase.php:427)
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\validators\CValidator.php(186): import()
+#1 C:\xampp\htdocs\Projekt\Git\framework\base\CModel.php(287): createValidator()
+#2 C:\xampp\htdocs\Projekt\Git\framework\base\CModel.php(260): PdfTable->createValidators()
+#3 C:\xampp\htdocs\Projekt\Git\framework\base\CModel.php(547): PdfTable->getValidators()
+#4 C:\xampp\htdocs\Projekt\Git\framework\base\CModel.php(468): PdfTable->getSafeAttributeNames()
+#5 C:\xampp\htdocs\Projekt\Git\framework\base\CComponent.php(152): PdfTable->setAttributes()
+#6 C:\xampp\htdocs\Projekt\Git\framework\db\ar\CActiveRecord.php(161): PdfTable->__set()
+#7 C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php(32): PdfTable->__set()
+#8 C:\xampp\htdocs\Projekt\Git\framework\web\actions\CInlineAction.php(49): BooksController->actionUpload()
+#9 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(308): CInlineAction->runWithParams()
+#10 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): BooksController->runAction()
+#11 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): BooksController->runActionWithFilters()
+#12 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): BooksController->run()
+#13 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\Projekt\Git\index.php(13): CWebApplication->run()
+REQUEST_URI=/projekt/Git/index.php?r=books/upload
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:29:15 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:29:15 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:29:15 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:29:45 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:29:45 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:29:45 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:31:46 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:31:46 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:31:46 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:31:46 [error] [php] Undefined index: description (C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php:33)
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(286): BooksController->runAction()
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(265): BooksController->runActionWithFilters()
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): BooksController->run()
+#3 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 C:\xampp\htdocs\Projekt\Git\index.php(13): CWebApplication->run()
+REQUEST_URI=/projekt/Git/index.php?r=books/upload
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (33)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:32:02 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:32:02 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:32:02 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:35:57 [warning] [application] Failed to set unsafe attribute "file_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:35:57 [warning] [application] Failed to set unsafe attribute "cover_path" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:35:57 [warning] [application] Failed to set unsafe attribute "description" of "PdfTable".
+in C:\xampp\htdocs\Projekt\Git\protected\controllers\BooksController.php (32)
+in C:\xampp\htdocs\Projekt\Git\index.php (13)
+2014/05/10 15:35:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "upload".' in C:\xampp\htdocs\Projekt\Git\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\Projekt\Git\framework\web\CController.php(270): CController->missingAction('upload')
+#1 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(282): CController->run('upload')
+#2 C:\xampp\htdocs\Projekt\Git\framework\web\CWebApplication.php(141): CWebApplication->runController('site/upload')
+#3 C:\xampp\htdocs\Projekt\Git\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\Projekt\Git\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/projekt/Git/index.php?r=site/upload
+HTTP_REFERER=http://localhost/projekt/Git/index.php?r=books/upload
+---

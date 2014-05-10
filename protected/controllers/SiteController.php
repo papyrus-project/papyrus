@@ -121,23 +121,6 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
-
-	public function actionPdfUpload(){
-		$model = new PdfTable();
-		if(isset($_POST['PdfTable'])){
-			$model->attributes = $_POST['PdfTable'];
-			$uploadFile = CUploadedFile::getInstance($model,'path');
-			$filename = "{$uploadFile}";
-			$model->path = $filename;
-			$model->created = time();
-			if($model->save()){
-				$uploadFile->saveAs(Yii::app()->basePath.'/../upload/pdf/'.$uploadFile);
-				$this->redirect(array('site/pdfUpload'));
-			}
-		}
-		
-		$this->render('pdfUpload',array('model'=>$model));
-	}
 	
 	public function actionBookList(){
 		$model = new PdfTable();
