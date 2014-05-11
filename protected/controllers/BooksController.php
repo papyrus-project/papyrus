@@ -19,7 +19,26 @@ class BooksController extends Controller
 	}
 	
 	public function actionFiles(){
-		$this->render('files');
+        $id=14; //buch id
+        if(!$id)
+			$id = Yii::app()->books->id;
+        //tabellen joinen
+		$model = Books::model()->with('users', 'bookgenres', 'booktypes', 'languanges', 'users1')->findByPk($id);
+        
+        //languages auslesen und als 1 string schreiben
+        $lang1 = Books::model()->findByPk($id)->languanges;
+        $lang = '';
+        foreach($lang1 as $value){
+            $lang = $lang . $value['language'] . ', ';   
+            
+        }//genres auslesen und als 1 string schreiben
+        $genre = Books::model()->findByPk($id)->bookgenres;
+        $genres = '';
+        foreach($genre as $value){
+            $genres = $genres . $value['genre'] . ', ';
+        }
+        //booktype sollte ueberarbeitet werden!
+		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres,));
 	}
 	
 	public function actionEdit(){
@@ -50,8 +69,8 @@ class BooksController extends Controller
 			$i = 0;
 			$coverInfo = pathinfo($covername);
 			do{
-				$cover_path = '/../upload/cover/'.$coverInfo['filename'].'-'.$i++.'.'.$coverInfo['extension'];
-			} while(is_file(Yii::app()->basePath.$cover_path));
+				$cover_path = $coverInfo['filename'].'-'.$i++.'.'.$coverInfo['extension'];
+			} while(is_file(Yii::app()->basePath.'/../upload/cover/'.$cover_path));
 			$model->cover_path = $cover_path;
 			
 			//Eintrag in die Datenbank
