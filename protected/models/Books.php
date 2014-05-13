@@ -18,16 +18,43 @@
  * @property integer $words
  * @property string $updated
  * @property integer $views
+ * @property integer $booktype_id
+ * @property integer $language_id
+ * @property string $author
  *
  * The followings are the available model relations:
- * @property Users[] $users
+ * @property UsersData $author0
+ * @property Booktype $booktype
+ * @property Languanges $language
  * @property Bookgenre[] $bookgenres
- * @property Booktype[] $booktypes
- * @property Languanges[] $languanges
- * @property Users[] $users1
+ * @property Users[] $users
  */
 class Books extends CActiveRecord
 {
+    //public $id;
+    public $title;
+    public $description;
+    public $age_restriction;
+    //public $file_path;
+    public $cover_path;
+    public $cover_artist;
+    //public $base_id;
+    //public $created;
+    //public $downloads;
+    //public $favorite_count;
+    public $words;
+    //public $updated;
+    //public $views;
+    public $booktype_id;
+    public $language_id;
+    //public $author;
+
+    //The followings are the available model relations:
+    //public $author0;
+    private $bookgenres;
+    //public $booktype;
+    //public $language;
+    //public $users1;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -44,13 +71,14 @@ class Books extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, description, age_restriction, file_path, cover_path, cover_artist, base_id, created, downloads, favorite_count, words, views', 'required'),
-			array('age_restriction, base_id, downloads, favorite_count, words, views', 'numerical', 'integerOnly'=>true),
+			array('title, description, age_restriction, cover_path, cover_artist, words', 'required'),
+			array('age_restriction, base_id, downloads, favorite_count, words, views, booktype_id, language_id', 'numerical', 'integerOnly'=>true),
 			array('title, file_path, cover_path, cover_artist', 'length', 'max'=>255),
-			array('updated', 'safe'),
+			array('author', 'length', 'max'=>20),
+			array('updated, title, description, words, booktype_id, language_id, age_restriction, cover_artist', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, age_restriction, file_path, cover_path, cover_artist, base_id, created, downloads, favorite_count, words, updated, views', 'safe', 'on'=>'search'),
+			array('id, title, description, age_restriction, file_path, cover_path, cover_artist, base_id, created, downloads, favorite_count, words, updated, views, booktype_id, language_id, author', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,11 +90,11 @@ class Books extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::MANY_MANY, 'UserData', 'books_author(books_id, users_id)'),
+			'author0' => array(self::BELONGS_TO, 'UsersData', 'author'),
+			'booktype' => array(self::BELONGS_TO, 'Booktype', 'booktype_id'),
+			'language' => array(self::BELONGS_TO, 'Languanges', 'language_id'),
 			'bookgenres' => array(self::MANY_MANY, 'Bookgenre', 'books_bookgenre(books_id, bookgenre_id)'),
-			'booktypes' => array(self::MANY_MANY, 'Booktype', 'books_booktype(books_id, booktype_id)'),
-			'languanges' => array(self::MANY_MANY, 'Languanges', 'books_language(books_id, languages_id)'),
-			'users1' => array(self::MANY_MANY, 'Users', 'favorites(books_id, users_id)'),
+			'users' => array(self::MANY_MANY, 'Users', 'favorites(books_id, users_id)'),
 		);
 	}
 
@@ -90,6 +118,9 @@ class Books extends CActiveRecord
 			'words' => 'Words',
 			'updated' => 'Updated',
 			'views' => 'Views',
+			'booktype_id' => 'Booktype',
+			'language_id' => 'Language',
+			'author' => 'Author',
 		);
 	}
 
@@ -125,6 +156,9 @@ class Books extends CActiveRecord
 		$criteria->compare('words',$this->words);
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->compare('views',$this->views);
+		$criteria->compare('booktype_id',$this->booktype_id);
+		$criteria->compare('language_id',$this->language_id);
+		$criteria->compare('author',$this->author,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -141,4 +175,23 @@ class Books extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+    
+    public function getGenres()
+    {
+        $bookgenres = $this->bookgenres;
+        return($bookgenres);
+    }
+    public function addBookGenre($genre_id) {
+        $connection=Yii::app()->db; 
+        $command=$connection->createCommand('
+					INSERT INTO  `books_bookgenre` (
+						`books_id` ,
+						`bookgenre_id`
+					)
+					VALUES (
+						"'.$this->id.'",
+						"'.$genre_id.'"
+					)');
+        $rowCount=$command->execute();
+    }
 }

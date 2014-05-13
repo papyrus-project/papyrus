@@ -47,7 +47,7 @@ class Languanges extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'books' => array(self::MANY_MANY, 'Books', 'books_language(languages_id, books_id)'),
+			'books' => array(self::HAS_MANY, 'Books', 'language_id'),
 		);
 	}
 

@@ -18,31 +18,69 @@ class BooksController extends Controller
 		);
 	}
 	
-	public function actionFiles(){
-        $id=14; //buch id
+	public function actionFiles($id){
+        //zur startseite, wenn id fehlt
         if(!$id)
-			$id = Yii::app()->books->id;
+			$this->redirect(Yii::app()->createUrl(''));
         //tabellen joinen
-		$model = Books::model()->with('users', 'bookgenres', 'booktypes', 'languanges', 'users1')->findByPk($id);
+		$model = Books::model()->findByPk($id);
         
-        //languages auslesen und als 1 string schreiben
-        $lang1 = Books::model()->findByPk($id)->languanges;
-        $lang = '';
-        foreach($lang1 as $value){
-            $lang = $lang . $value['language'] . ', ';   
-            
-        }//genres auslesen und als 1 string schreiben
-        $genre = Books::model()->findByPk($id)->bookgenres;
+        //genres auslesen und als 1 string schreiben
+        $genre = $model->bookgenres;
         $genres = '';
         foreach($genre as $value){
             $genres = $genres . $value['genre'] . ', ';
         }
-        //booktype sollte ueberarbeitet werden!
-		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres,));
+        //buchtyp auslesen
+        $type = Booktype::model()->findByPk($model->booktype_id)->type;
+        //languages 
+        $lang = Languanges::model()->findByPk($model->language_id)->language;
+        //autor auslesen
+        $author = UserData::model()->findByPk($model->author)->name;
+        
+        //pseudo view counter
+        $views = $model->views + 1;
+        Books::model()->updateByPk($id, array('views'=> $views));
+        
+		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author));
 	}
 	
-	public function actionEdit(){
-		$this->render('edit');
+	public function actionEdit($id){
+        //zur startseite, wenn id fehlt
+        if(!$id)
+			$this->redirect(Yii::app()->createUrl(''));
+		$model = Books::model()->findByPk($id);
+        $languages = Languanges::model()->findAll();
+        $types = Booktype::model()->findAll();
+        if(isset($_POST['Books']))
+        {
+            // Erfasst die gesendeten Formulardaten
+            $model->attributes=$_POST['Books'];
+            // Validiert die Daten und kehrt zur vorherigen Seite zur¨¹ck, 
+            // wenn die Pr¨¹fung erfolgreich war.
+            if($model->validate()) {
+                //genres speichern, in arbeit!
+                if(isset($_POST['bookgenres']))
+                    foreach($_POST['bookgenres'] as $genre_id=>$checked)
+                    if($checked) {
+                        //$model->addBookGenre($genre_id); //Add Interest
+                    }
+                    else {
+                        //$model->removeBookGenre($genre_id); //Remove an Interest if it exists
+                    }
+                    
+                $model->setAttributes($_POST);
+                if($model->save()) {
+                  //happy dance
+                } 
+                else {
+                  throw new CHttpException(500, 'Something went wrong');
+                }
+                
+                $this->redirect(Yii::app()->createUrl('books/files', array('id'=>$model->id)));
+            }
+        }
+        $this->render('edit',array('model'=>$model));
 	}
 	
 	public function actionUpload(){
