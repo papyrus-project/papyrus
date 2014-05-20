@@ -6,24 +6,6 @@
 		<input type="text" name="name" value="<?php echo $model->name; ?>" />
 	</div>
 	<div class="row">
-		<label>birthday</label>
-		<?php 
-			$this->widget('zii.widgets.jui.CJuiDatePicker',array(
-		    'name'=>'birthday',
-	        'value'=> $model->birthday,
-		    // additional javascript options for the date picker plugin
-			'options'=>array(
-				'showAnim'=>'slideDown',
-				'dateFormat' => 'yy-mm-dd',
-				'changeMonth' => 'true',
-				'changeYear' => 'true'
-		    ),
-		    'htmlOptions'=>array(
-		        'style'=>'height:20px;',
-		    ),
-		));?>
-	</div>
-	<div class="row">
 		<label>location</label>
 		<input type="text" name="location" value="<?php echo $model->location; ?>" />
 	</div>

@@ -587,6 +587,9 @@ class UsersController extends BumController
 
                     $modelUsersData->invitations_left=Yii::app()->getModule('bum')->invitationDefaultNumber;            
                     $modelUsersData->id = $model->id;
+					$modelUsersData->birthday = $_POST['userdata']['year'].'-'.$_POST['userdata']['month'].'-'.$_POST['userdata']['day'];
+					$modelUsersData->name = $_POST['userdata']['name'];
+					$modelUsersData->sex = $_POST['userdata']['sex'];
                     $invitation->id_user_invited = $model->id;
 
                     $modelUsersData->activation_code = sha1(mt_rand(1, 99999).time().$model->email);
@@ -597,7 +600,7 @@ class UsersController extends BumController
                         $modelEmails->id_user = $model->id;
                         $modelEmails->name = $model->email;
                         $modelEmails->save();
-
+			
                         $message = $this->sendSignUpEmail($modelUsersData);
 
                         if(Yii::app()->mail->send($message)){

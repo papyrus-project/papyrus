@@ -56,8 +56,8 @@ class BooksController extends Controller
         {
             // Erfasst die gesendeten Formulardaten
             $model->attributes=$_POST['Books'];
-            // Validiert die Daten und kehrt zur vorherigen Seite zur¨¹ck, 
-            // wenn die Pr¨¹fung erfolgreich war.
+            // Validiert die Daten und kehrt zur vorherigen Seite zurï¿½ï¿½ck, 
+            // wenn die Prï¿½ï¿½fung erfolgreich war.
             if($model->validate()) {
                 //genres speichern, in arbeit!
                 if(isset($_POST['bookgenres']))
@@ -134,7 +134,7 @@ class BooksController extends Controller
 				
 				//Dateien hochladen
 				$uploadFile->saveAs(Yii::app()->basePath.$file_path);
-				$uploadCover->saveAs(Yii::app()->basePath.$cover_path);
+				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/'.$cover_path);
 				$this->redirect(array('books/upload'));
 			}
 		}

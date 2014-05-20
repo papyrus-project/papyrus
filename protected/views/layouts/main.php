@@ -38,17 +38,18 @@
 			<div class="navbar-inner">
 				<div class="container">
 					<input placeholder="Search" />
+					
 					<?php 
 						if (Yii::app()->user->isGuest):
 					?>
-						<a href="?r=bum/users/signup">Register</a>
-						<a href="?r=bum/users/login">login</a>
+						<a href="<?=Yii::app()->createAbsoluteUrl('users/signUp/bum');?>">Register</a>
+						<a href="<?=Yii::app()->createAbsoluteUrl('users/login/bum');?>">login</a>
 					<?php
 						else :
 					?>						
-						<a href="?r=books/upload">upload</a>
-						<a href="?r=user/profile&id="><?=Yii::app()->user->name?></a>
-						<a href="?r=site/logout">logout</a>			
+						<a href="<?=Yii::app()->createAbsoluteUrl('books/upload');?>">upload</a>
+						<a href="<?=Yii::app()->createAbsoluteUrl('user/profile',array('id'=>'0'));?>"><?=Yii::app()->user->name?></a>
+						<a href="<?=Yii::app()->createAbsoluteUrl('site/logout');?>">logout</a>			
 					<?php
 						endif;
 					?>

@@ -62,7 +62,41 @@
             <?php echo $form->error($model,'email'); ?>
         </div>
     </fieldset>
-    
+    <fieldset>
+    	<legend>Pers&ouml;nliche Angaben</legend>
+    	
+    	<div class="row">
+    		<label>Name</label>
+			<input type="text" name="userdata[name]"/>
+		</div>
+		
+		<div class="row">
+			<label>Geburtstag</label>
+			<select name="userdata[day]">
+				<?php for ($i=1; $i <= 31; $i++) : ?>
+					<option value="<?=$i;?>"><?=$i;?></option>
+				<?php endfor; ?>
+			</select>
+			<select name="userdata[month]">
+				<?php for ($i=1; $i <= 12; $i++) : ?>
+					<option value="<?=$i;?>"><?=$i;?></option>
+				<?php endfor; ?>
+			</select>
+			<select name="userdata[year]">
+				<?php for ($i=1900; $i <= date('Y'); $i++) : ?>
+					<option value="<?=$i;?>"><?=$i;?></option>
+				<?php endfor; ?>
+			</select>
+		</div>
+		<div class="row">
+			<label>Geschlecht</label>
+			<select name='userdata[sex]'>
+				<option value='0'>Keine Angabe</option>
+				<option value='1'>M&auml;nnlich</option>
+				<option value='2'>Weiblich</option>
+			</select>
+		</div>
+    </fieldset>
     <fieldset>
         <legend>Are you human?</legend>
         <?php if(CCaptcha::checkRequirements()): ?>

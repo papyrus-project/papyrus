@@ -33,9 +33,12 @@ class UserController extends Controller
 		if(!empty($_POST)){
 			$model->setAttributes($_POST);
 			$model->save();
-			$this->redirect(array('user/edit'));
+			$this->redirect(array('user/profile','id'=>''));
 		}
-		$this->render('edit',array('model'=>$model));
+		$date = explode('-', $model->birthday);
+		$this->render('edit',array(
+			'model'=>$model,
+			'birthday'=>$date));
 	}
 	
 	public function actionProfile($id){
