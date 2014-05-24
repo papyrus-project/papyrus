@@ -8,4 +8,21 @@ $this->pageTitle=Yii::app()->name;
 
 <h2>Landingpage</h2>
 
-<?= $this->pageTitle ?>
+<?php //foreach($books as $book) : ?>
+	<div class="row">
+		<a href="<?= Yii::app()->createUrl('books/files',array('id'=>$book->id))?>">
+			<?= $book->title ?>
+		</a><br />
+		<?php foreach($book->bookgenres as $genre): ?>
+			<?= $genre->genreName->genre ?>
+		<?php endforeach ?>
+		<?php
+			$this->widget('ext.SAImageDisplayer', array(
+		    'image' => $book->cover_path,
+		    'title' => $book->cover_path,
+		    'size' => 'thumb',
+		    'class' => '',
+		    'id' => '',
+		)); ?>
+	</div>
+<?php //endforeach ?>

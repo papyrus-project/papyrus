@@ -103,13 +103,17 @@ class BooksController extends Controller
 			
 			//Cover Datei verarbeiten
 			$uploadCover = CUploadedFile::getInstance($model,'cover_path');
-			$covername = "{$uploadCover}";
-			$i = 0;
-			$coverInfo = pathinfo($covername);
-			do{
-				$cover_path = $coverInfo['filename'].'-'.$i++.'.'.$coverInfo['extension'];
-			} while(is_file(Yii::app()->basePath.'/../upload/cover/'.$cover_path));
-			$model->cover_path = $cover_path;
+			if($uploadCover){
+				$covername = "{$uploadCover}";
+				$i = 0;
+				$coverInfo = pathinfo($covername);
+				do{
+					$cover_path = $coverInfo['filename'].'-'.$i++.'.'.$coverInfo['extension'];
+				} while(is_file(Yii::app()->basePath.'/../upload/cover/'.$cover_path));
+				$model->cover_path = $cover_path;
+			} else {
+				$model->cover_path = 'default';				
+			}
 			
 			//Eintrag in die Datenbank
 			if($model->save()){
@@ -134,12 +138,18 @@ class BooksController extends Controller
 				
 				//Dateien hochladen
 				$uploadFile->saveAs(Yii::app()->basePath.$file_path);
-				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/'.$cover_path);
-				$this->redirect(array('books/upload'));
+				if($uploadCover){
+					$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/'.$cover_path);
+				}
+				$this->redirect(array('books/edit/'.$model->id));
 			}
 		}
 		
 		$this->render('Upload',array('model'=>$model));
+	}
+
+	public function actionBookList($id){
+		$model = Books::model()->findAll();
 	}
 	
 }

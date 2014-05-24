@@ -47,11 +47,11 @@ class Books extends CActiveRecord
     //public $views;
     public $booktype_id;
     public $language_id;
-    //public $author;
+    public $author;
 
     //The followings are the available model relations:
     //public $author0;
-    private $bookgenres;
+    //public $bookgenres;
     //public $booktype;
     //public $language;
     //public $users1;
@@ -71,7 +71,7 @@ class Books extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, description, age_restriction, cover_path, cover_artist, words', 'required'),
+			array('title, age_restriction, cover_path, words', 'required'),
 			array('age_restriction, base_id, downloads, favorite_count, words, views, booktype_id, language_id', 'numerical', 'integerOnly'=>true),
 			array('title, file_path, cover_path, cover_artist', 'length', 'max'=>255),
 			array('author', 'length', 'max'=>20),
@@ -80,7 +80,21 @@ class Books extends CActiveRecord
 			// @todo Please remove those attributes that should not be searched.
 			array('id, title, description, age_restriction, file_path, cover_path, cover_artist, base_id, created, downloads, favorite_count, words, updated, views, booktype_id, language_id, author', 'safe', 'on'=>'search'),
 		);
-	}
+	} 
+	
+	public function scopes()
+    {
+        return array(
+            'published'=>array(
+                'condition'=>'status=1',
+            ),
+            'recently'=>array(
+                'order'=>'id DESC',
+                'limit'=>5,
+            ),
+        );
+    }
+	
 
 	/**
 	 * @return array relational rules.
@@ -93,7 +107,7 @@ class Books extends CActiveRecord
 			'author0' => array(self::BELONGS_TO, 'UsersData', 'author'),
 			'booktype' => array(self::BELONGS_TO, 'Booktype', 'booktype_id'),
 			'language' => array(self::BELONGS_TO, 'Languanges', 'language_id'),
-			'bookgenres' => array(self::MANY_MANY, 'Bookgenre', 'books_bookgenre(books_id, bookgenre_id)'),
+			'bookgenres' => array(self::HAS_MANY, 'Bookgenre', 'books_id'),
 			'users' => array(self::MANY_MANY, 'Users', 'favorites(books_id, users_id)'),
 		);
 	}

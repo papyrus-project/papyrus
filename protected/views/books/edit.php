@@ -23,7 +23,14 @@
 		<?= CHtml::activeLabel($model,'cover'); ?>
 		<?= CHtml::activeTextField($model,'cover_path'); ?>
 	</div>
-
+	<?php
+		$this->widget('ext.SAImageDisplayer', array(
+	    'image' => $model->cover_path,
+	    'title' => $model->cover_path,
+	    'size' => 'thumb',
+	    'class' => '',
+	    'id' => '',
+	)); ?>
 	<div class="row">
 		<?= CHtml::activeLabel($model,'cover_artist'); ?>
 		<?= CHtml::activeTextField($model,'cover_artist'); ?>
@@ -36,7 +43,7 @@
     
     <div class="row">
 		<?= CHtml::activeLabel($model,'language_id'); ?>
-		<?= CHtml::dropDownList('language',$model->language_id,CHtml::listData(Languanges::model()->findAll(), 'id', 'language')); ?>
+		<?= CHtml::dropDownList('language_id',$model->language_id,CHtml::listData(Languanges::model()->findAll(), 'id', 'language')); ?>
 	</div>
 
     <div class="row">

@@ -1,24 +1,13 @@
 <?php
-
-/**
- * This is the model class for table "bookgenre".
- *
- * The followings are the available columns in table 'bookgenre':
- * @property integer $bookgenre_id
- * @property string $genre
- *
- * The followings are the available model relations:
- * @property Books[] $books
- */
-class Bookgenre extends CActiveRecord
+class Genres extends CActiveRecord
 {
-    public $bookgenre_id;
+    //public $genre_id;
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'books_bookgenre';
+		return 'bookgenre';
 	}
 
 	/**
@@ -45,8 +34,7 @@ class Bookgenre extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'books' => array(self::HAS_ONE, 'Books', 'id'),
-			'genreName' => array(self::BELONGS_TO, 'Genres', 'bookgenre_id'),
+			'books' => array(self::HAS_MANY, 'Bookgenre', 'id'),
 		);
 	}
 

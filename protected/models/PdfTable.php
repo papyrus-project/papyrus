@@ -18,7 +18,7 @@ class PdfTable extends CActiveRecord{
 	public function rules(){
 		return array(
 			array('file_path','file','types'=>'pdf'),
-			array('cover_path','file','types'=>'jpg,jpeg,png'),
+			array('cover_path','file','types'=>'jpg,jpeg,png', 'allowEmpty' => true),
 			array('title, file_path','required'),
 			
 		);
