@@ -6,9 +6,13 @@ $this->pageTitle=Yii::app()->name;
 
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
-<h2>Landingpage</h2>
 
-<?php //foreach($books as $book) : ?>
+<?php 
+	if(!isset($books))
+		echo 'Zurzeit konnten keine ver&ouml;ffentlichten B&uuml;cher gefunden werden';
+	else
+		foreach($books as $book) : 
+?>
 	<div class="row">
 		<a href="<?= Yii::app()->createUrl('books/files',array('id'=>$book->id))?>">
 			<?= $book->title ?>
@@ -17,12 +21,23 @@ $this->pageTitle=Yii::app()->name;
 			<?= $genre->genreName->genre ?>
 		<?php endforeach ?>
 		<?php
-			$this->widget('ext.SAImageDisplayer', array(
-		    'image' => $book->cover_path,
-		    'title' => $book->cover_path,
-		    'size' => 'thumb',
-		    'class' => '',
-		    'id' => '',
-		)); ?>
+			try{
+				$this->widget('ext.SAImageDisplayer', array(
+				    'image' => $book->cover_path,
+				    'title' => $book->cover_path,
+				    'size' => 'thumb',
+				    'class' => '',
+				    'id' => '',
+			)); 
+			} catch(exception $e){
+				$this->widget('ext.SAImageDisplayer', array(
+				    'image' => '00-05-0.jpg',
+				    'title' => 'default Cover',
+				    'size' => 'thumb',
+				    'class' => '',
+				    'id' => '',
+				));
+			}
+?>
 	</div>
-<?php //endforeach ?>
+<?php endforeach ?>

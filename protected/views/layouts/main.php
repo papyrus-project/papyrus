@@ -25,7 +25,7 @@
 <body>
 	<div id="page">
 		<div class="header">
-			<a class="brand" href="<?php echo Yii::app()->request->baseUrl ?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+			<a class="brand" href="<? echo Yii::app()->createAbsoluteUrl('') ?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
 			<ul>
 				<li><a href="?r=site/Impressum">Impressum</a></li>
 				<li><a href="?r=site/contact">Kontakt</a></li>

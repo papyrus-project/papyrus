@@ -32,11 +32,34 @@ $form = $this->beginWidget(
 	 	<?php echo $form->error($model,'title'); ?>
 	</div>
 	
+	<div class="row">
+		<input type="checkbox" name="agb" required /> Hiermit stimme ich den 
+		<a href="<?= Yii::app()->createAbsoluteUrl('site/agbs') ?>">AGB</a> zu
+	</div>
+	
 	
 	<div class="row-buttons">
 		<?php echo CHtml::SubmitButton('senden');?>
 	</div>
-
+	
+	<script> 
+		 
+	    var intputElements = document.getElementsByTagName("INPUT");
+	    for (var i = 0; i < intputElements.length; i++) {
+	        intputElements[i].oninvalid = function (e) {
+	            e.target.setCustomValidity("");
+	            if (!e.target.validity.valid) {
+	                if (e.target.name == "agb") {
+	                    e.target.setCustomValidity("Akzeptier die AGB!");
+	                }
+	                else {
+	                    e.target.setCustomValidity("The field 'Password' cannot be left blank");
+	                }
+	            }
+	        };
+	    
+	}
+	</script>
 <?php
 	$this->endWidget();
 ?>

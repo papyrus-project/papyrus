@@ -29,7 +29,7 @@ class BooksController extends Controller
         $genre = $model->bookgenres;
         $genres = '';
         foreach($genre as $value){
-            $genres = $genres . $value['genre'] . ', ';
+            $genres = $genres . $value->genreName->genre . ', ';
         }
         //buchtyp auslesen
         $type = Booktype::model()->findByPk($model->booktype_id)->type;
@@ -93,14 +93,15 @@ class BooksController extends Controller
 			
 			//PDF Datei verarbeiten
 			$uploadFile = CUploadedFile::getInstance($model,'file_path');
-			$filename = "{$uploadFile}";
-			$i = 0;
-			$fileInfo = pathinfo($filename);
-			do {
-				$file_path = '/../upload/pdf/'.$fileInfo['filename'].'-'.$i++.'.'.$fileInfo['extension'];
-			} while (is_file(Yii::app()->basePath.$file_path));
-			$model->file_path = $file_path;
-			
+			if($uploadFile){
+				$filename = "{$uploadFile}";
+				$i = 0;
+				$fileInfo = pathinfo($filename);
+				do {
+					$file_path = '/../upload/pdf/'.$fileInfo['filename'].'-'.$i++.'.'.$fileInfo['extension'];
+				} while (is_file(Yii::app()->basePath.$file_path));
+				$model->file_path = $file_path;
+			}
 			//Cover Datei verarbeiten
 			$uploadCover = CUploadedFile::getInstance($model,'cover_path');
 			if($uploadCover){
@@ -137,7 +138,9 @@ class BooksController extends Controller
 					mkdir(Yii::app()->basePath.'/../upload/cover/',0777,true);
 				
 				//Dateien hochladen
-				$uploadFile->saveAs(Yii::app()->basePath.$file_path);
+				if($uploadFile){
+					$uploadFile->saveAs(Yii::app()->basePath.$file_path);
+				}
 				if($uploadCover){
 					$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/'.$cover_path);
 				}
@@ -145,7 +148,7 @@ class BooksController extends Controller
 			}
 		}
 		
-		$this->render('Upload',array('model'=>$model));
+		$this->render('upload',array('model'=>$model));
 	}
 
 	public function actionBookList($id){

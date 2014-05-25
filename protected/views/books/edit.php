@@ -24,13 +24,24 @@
 		<?= CHtml::activeTextField($model,'cover_path'); ?>
 	</div>
 	<?php
-		$this->widget('ext.SAImageDisplayer', array(
-	    'image' => $model->cover_path,
-	    'title' => $model->cover_path,
-	    'size' => 'thumb',
-	    'class' => '',
-	    'id' => '',
-	)); ?>
+		try{
+			$this->widget('ext.SAImageDisplayer', array(
+			    'image' => $model->cover_path,
+			    'title' => $model->cover_path,
+			    'size' => 'thumb',
+			    'class' => '',
+			    'id' => '',
+		)); 
+		} catch(exception $e){
+			// $this->widget('ext.SAImageDisplayer', array(
+			    // 'image' => 'default',
+			    // 'title' => 'default Cover',
+			    // 'size' => 'thumb',
+			    // 'class' => '',
+			    // 'id' => '',
+			// ));
+		}
+	?>
 	<div class="row">
 		<?= CHtml::activeLabel($model,'cover_artist'); ?>
 		<?= CHtml::activeTextField($model,'cover_artist'); ?>

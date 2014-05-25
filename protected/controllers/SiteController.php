@@ -41,11 +41,11 @@ class SiteController extends Controller
 			 // $result=Yii::app()->mail->send($message); 
 		// } catch (Exception $e) 
 		// {
-			// print_r('error: '.$e);    ->published()->recently()
+			// print_r('error: '.$e);    
 		// }
-		$model = Books::model()->with('bookgenres')->findByPk(22);
+		$model = Books::model()->published()->recently()->with('bookgenres')->findAll();
 		
-		$this->render('index',array('book' => $model));
+		$this->render('index',array('books' => $model));
 	}
 
 	/**
