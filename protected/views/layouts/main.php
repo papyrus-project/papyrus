@@ -5,9 +5,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
     <!-- Bootstrap -->
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen">
     <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/some.css" rel="stylesheet" media="screen">
-    
+	<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/chosen/chosen.css">
 	<!-- blueprint CSS framework -->
 	
 	<!-- <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -77,7 +77,22 @@
 	
 	</div><!-- page -->
 	
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>
+	
+  	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/chosen/chosen.jquery.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var config = {
+      '.chosen-select'           : {},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+      '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+  </script>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap/bootstrap.js" type="text/javascript"></script>
 </body>
 </html>

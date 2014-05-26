@@ -198,14 +198,14 @@ class Books extends CActiveRecord
     public function addBookGenre($genre_id) {
         $connection=Yii::app()->db; 
         $command=$connection->createCommand('
-					INSERT INTO  `books_bookgenre` (
-						`books_id` ,
-						`bookgenre_id`
-					)
-					VALUES (
-						"'.$this->id.'",
-						"'.$genre_id.'"
-					)');
+			DELETE
+			FROM alex.books_bookgenre
+			where books_id = 22;
+			
+			INSERT INTO alex.books_bookgenre (books_id,bookgenre_id) VALUES
+			(22,1),
+			(22,3);
+			');
         $rowCount=$command->execute();
     }
 }

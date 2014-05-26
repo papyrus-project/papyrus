@@ -83,7 +83,13 @@ class BooksController extends Controller
                 $this->redirect(Yii::app()->createUrl('books/files', array('id'=>$model->id)));
             }
         }
-        $this->render('edit',array('model'=>$model));
+		$selectedGenres = array();
+		foreach ($model->bookgenres as $foo => $bar) {
+			$selectedGenres[] = $bar->bookgenre_id; 
+		}
+		
+		
+        $this->render('edit',array('model'=>$model,'selectedGenres' => $selectedGenres));
 	}
 	
 	public function actionUpload(){

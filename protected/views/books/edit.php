@@ -61,10 +61,10 @@
 		<?= CHtml::activeLabel($model,'type'); ?>
 		<?= CHtml::dropDownList('booktype_id',$model->booktype_id,CHtml::listData(Booktype::model()->findAll(), 'id', 'type')); ?>
 	</div>
-
+	
     <div class="row">
-		<?= CHtml::activeLabel($model,'genre'); ?>
-		<?= CHtml::checkBoxList('bookgenres', $model->getGenres(), CHtml::listData(Bookgenre::model()->findAll(), 'id', 'genre'), array('multiple' => 'multiple')); ?>
+		<?= CHtml::activeLabel($model,'genre'); ?> 
+		<?= CHtml::dropDownList('genres', $selectedGenres, CHtml::listData(Genres::model()->findAll(), 'id', 'genre'), array('multiple' => 'multiple', 'class'=>'chosen-select', 'data-placeholder'=>'GIib genres')); ?>
 	</div>
 
     <div class="row submit">
