@@ -21,10 +21,11 @@ class BooksController extends Controller
 	public function actionFiles($id){
         //zur startseite, wenn id fehlt
         if(!$id)
-			$this->redirect(Yii::app()->createUrl(''));
+			$this->redirect(Yii::app()->createAbsoluteUrl(''));
         //tabellen joinen
 		$model = Books::model()->findByPk($id);
-        
+        if(!$model)
+			$this->redirect(Yii::app()->createAbsoluteUrl(''));
         //genres auslesen und als 1 string schreiben
         $genre = $model->bookgenres;
         $genres = '';
@@ -48,8 +49,10 @@ class BooksController extends Controller
 	public function actionEdit($id){
         //zur startseite, wenn id fehlt
         if(!$id)
-			$this->redirect(Yii::app()->createUrl(''));
+			$this->redirect(Yii::app()->createAbsoluteUrl(''));
 		$model = Books::model()->findByPk($id);
+		if(!$model || $model->author != Yii::app()->user->id)
+			$this->redirect(Yii::app()->createAbsoluteUrl(''));
         $languages = Languanges::model()->findAll();
         $types = Booktype::model()->findAll();
         if(isset($_POST['Books']))
@@ -89,7 +92,7 @@ class BooksController extends Controller
 			//Setzen der variablen
 			$model->attributes = $_POST['PdfTable'];
 			$model->description = $_POST['PdfTable']['description'];
-			$model->created = time();
+			
 			
 			//PDF Datei verarbeiten
 			$uploadFile = CUploadedFile::getInstance($model,'file_path');
@@ -113,7 +116,7 @@ class BooksController extends Controller
 				} while(is_file(Yii::app()->basePath.'/../upload/cover/'.$cover_path));
 				$model->cover_path = $cover_path;
 			} else {
-				$model->cover_path = 'default';				
+				$model->cover_path = 'default.jpg';				
 			}
 			
 			//Eintrag in die Datenbank

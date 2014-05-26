@@ -8,7 +8,7 @@
 <div>Alter: <?= $model->age_restriction ?></div>
 <?php 
 //coverbild anzeigen groesse 200x150, seitenverhaeltnis bleibt erhalten
-try{
+
 	$this->widget('ext.SAImageDisplayer', array(
 	    'image' => $model->cover_path,
 	    'title' => $model->cover_path,
@@ -16,15 +16,7 @@ try{
 	    'class' => '',
 	    'id' => '',
 )); 
-} catch(exception $e){
-	$this->widget('ext.SAImageDisplayer', array(
-	    'image' => 'default',
-	    'title' => 'default Cover',
-	    'size' => 'thumb',
-	    'class' => '',
-	    'id' => '',
-	));
-}
+
 ?>
 <div>Beschreibung: <br /><?= $model->description ?></div>
 <br />Statistik<br />
