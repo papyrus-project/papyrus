@@ -29,9 +29,14 @@ class BooksController extends Controller
         //genres auslesen und als 1 string schreiben
         $genre = $model->bookgenres;
         $genres = '';
+        $genreArray = array();
         foreach($genre as $value){
-            $genres = $genres . $value->genreName->genre . ', ';
+            $genreArray[] = $value->genreName->genre;
         }
+        if($genreArray)
+            $genres = implode(", ", $genreArray);
+        else
+            $genres = '';
         //buchtyp auslesen
         $type = Booktype::model()->findByPk($model->booktype_id)->type;
         //languages 
@@ -61,16 +66,16 @@ class BooksController extends Controller
             $model->attributes=$_POST['Books'];
             // Validiert die Daten und kehrt zur vorherigen Seite zur��ck, 
             // wenn die Pr��fung erfolgreich war.
+            $genres = '';
             if($model->validate()) {
-                //genres speichern, in arbeit!
-                if(isset($_POST['bookgenres']))
-                    foreach($_POST['bookgenres'] as $genre_id=>$checked)
-                    if($checked) {
-                        //$model->addBookGenre($genre_id); //Add Interest
+                //genres speichern
+                if(isset($_POST['genres'])) {
+                    foreach($_POST['genres'] as $genre_id=>$checked){
+                        $genres[] = '('.$id.','.$checked.')';
                     }
-                    else {
-                        //$model->removeBookGenre($genre_id); //Remove an Interest if it exists
-                    }
+                    $genresStr = implode(",", $genres) . ';';
+                    $model->addBookGenres($genresStr, $id); //Add Interest
+                }
                     
                 $model->setAttributes($_POST);
                 if($model->save()) {
@@ -79,7 +84,6 @@ class BooksController extends Controller
                 else {
                   throw new CHttpException(500, 'Something went wrong');
                 }
-                
                 $this->redirect(Yii::app()->createUrl('books/files', array('id'=>$model->id)));
             }
         }

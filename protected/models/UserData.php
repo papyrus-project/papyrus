@@ -23,7 +23,7 @@ class UserData extends CActiveRecord{
         return parent::model($className);
     }
 	
-	public function setAttributes($attributes) {
+	public function setAttributes1($attributes) {
         foreach ($attributes as $attribute=>$value) {
             if (property_exists( get_class ($this), $attribute)) {
                 $this->$attribute = $value;
