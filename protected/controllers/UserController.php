@@ -45,7 +45,15 @@ class UserController extends Controller
 		if(!$id)
 			$id = Yii::app()->user->id;
 		$model = UserData::model()->findByPk($id);
-		$this->render('profile',array('model' => $model,'sexes'=>array(1=>'male',2=>'female')));
+		if($id == Yii::app()->user->id)
+			$books = Books::model()->owns($id)->recently()->with('bookgenres')->findAll();
+		else
+			$books = Books::model()->owns($id)->published()->recently()->with('bookgenres')->findAll();
+		$this->render('profile',array(
+			'model' => $model,
+			'sexes'=>array(1=>'male',2=>'female'),
+			'books'=>$books,
+		));
 	}
 	
 	public function actionFavorits(){

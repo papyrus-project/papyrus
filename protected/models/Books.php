@@ -95,6 +95,13 @@ class Books extends CActiveRecord
         );
     }
 	
+	public function owns($by){
+        $this->getDbCriteria()->mergeWith(array(
+            'condition'=>'author='.$by,
+        ));
+        return $this;
+    }
+	
 
 	/**
 	 * @return array relational rules.

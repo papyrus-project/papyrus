@@ -94,5 +94,6 @@
     }
   </script>
 	<script src="<?= Yii::app()->request->baseUrl; ?>/js/bootstrap/bootstrap.js" type="text/javascript"></script>
+	<script src="<?= Yii::app()->request->baseUrl; ?>/js/papyrus.js" type="text/javascript"></script>
 </body>
 </html>

@@ -32,11 +32,15 @@ $form = $this->beginWidget(
 	 	<?php echo $form->error($model,'title'); ?>
 	</div>
 	
-	<div class="row">
-		<input type="checkbox" name="agb" required /> Hiermit stimme ich den 
-		<a href="<?= Yii::app()->createAbsoluteUrl('site/agbs') ?>">AGB</a> zu
+    <div class="row">
+		<?= CHtml::activeLabel($model,'type'); ?>
+		<?= CHtml::dropDownList('booktype_id','',array(0=>'Keine Altersbeschrenkung',6=>'Ab 6',12=>'Ab 12',16=>'Ab 16',18=>'Ab 18',)); ?>
 	</div>
 	
+	<div class="row">
+		<input type="checkbox" name="agb" required /> Hiermit stimme ich der 
+		<a href="<?= Yii::app()->createAbsoluteUrl('site/agbs') ?>">AGB</a> zu
+	</div>
 	
 	<div class="row-buttons">
 		<?php echo CHtml::SubmitButton('senden');?>
@@ -51,9 +55,6 @@ $form = $this->beginWidget(
 	            if (!e.target.validity.valid) {
 	                if (e.target.name == "agb") {
 	                    e.target.setCustomValidity("Akzeptier die AGB!");
-	                }
-	                else {
-	                    e.target.setCustomValidity("The field 'Password' cannot be left blank");
 	                }
 	            }
 	        };

@@ -26,5 +26,13 @@
 <div>Downloads: <?= $model->downloads ?></div>
 <div>Views: <?= $model->views ?></div>
 <div>Cover Artist: <?= $model->cover_artist ?></div>
-<a href="<?php $url=Yii::app()->createUrl('books/edit', array('id'=>$model->id)); echo ($url);?>">edit</a><br /><br />
+<? if($model->author != Yii::app()->user->id):?>
+	<button <?= !Yii::app()->user->isGuest?'onclick="favorise('.$model->author.','.Yii::app()->user->id.')"':''?>>
+		Favorisieren
+	</button>
+<? endif; ?>
+<? if($model->author == Yii::app()->user->id):?>
+	<a href="<?php $url=Yii::app()->createUrl('books/edit', array('id'=>$model->id)); echo ($url);?>">edit</a><br /><br />
+<? endif; ?>
+
 <pre><?php print_r($model); ?></pre>
