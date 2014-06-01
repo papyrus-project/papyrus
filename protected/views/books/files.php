@@ -27,7 +27,7 @@
 <div>Views: <?= $model->views ?></div>
 <div>Cover Artist: <?= $model->cover_artist ?></div>
 <? if($model->author != Yii::app()->user->id):?>
-	<button <?= !Yii::app()->user->isGuest?'onclick="favorise('.$model->author.','.Yii::app()->user->id.')"':''?>>
+	<button <?= !Yii::app()->user->isGuest?'onclick="favorise('.$model->id.')"':''?>>
 		Favorisieren
 	</button>
 <? endif; ?>
