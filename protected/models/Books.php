@@ -116,6 +116,7 @@ class Books extends CActiveRecord
 			'language' => array(self::BELONGS_TO, 'Languanges', 'language_id'),
 			'bookgenres' => array(self::HAS_MANY, 'Bookgenre', 'books_id'),
 			'users' => array(self::MANY_MANY, 'Users', 'favorites(books_id, users_id)'),
+			'comments' => array(self::HAS_MANY, 'Comments', 'ref_id'),
 		);
 	}
 

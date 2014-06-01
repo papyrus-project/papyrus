@@ -48,7 +48,30 @@ class BooksController extends Controller
         $views = $model->views + 1;
         Books::model()->updateByPk($id, array('views'=> $views));
         
-		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author));
+        //comments
+        $commentForm = new Comments();
+        if(isset($_POST['Comments'])) {
+            $commentForm->users_id = Yii::app()->user->id;
+            $commentForm->text = $_POST['Comments']['text'];
+            date_default_timezone_set('Europe/Berlin');
+            $commentForm->date = date('m/d/Y h:i:s a', time());
+            $commentForm->ref_id = $id;
+            if($commentForm->validate()) {
+                if($commentForm->save()) {
+                    //happy dance
+                } 
+                else {
+                    throw new CHttpException(500, 'Something went wrong');
+                }
+            }
+        }
+        $comments = array();
+        $commentList = Comments::model()->with('users')->findAllByAttributes(array('ref_id'=>$id));
+        foreach($commentList as $comment){
+            $comments[] = $comment;
+        }
+        
+		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments));
 	}
 	
 	public function actionEdit($id){
@@ -77,7 +100,6 @@ class BooksController extends Controller
                     $model->addBookGenres($genresStr, $id); //Add Interest
                 }
                     
-                $model->setAttributes($_POST);
                 if($model->save()) {
                   //happy dance
                 } 
@@ -128,21 +150,22 @@ class BooksController extends Controller
 			} else {
 				$model->cover_path = 'default.jpg';				
 			}
+            $model->author = Yii::app()->user->id;
 			
 			//Eintrag in die Datenbank
 			if($model->save()){
-				//Eintrag in die BooksAuthor
-				$connection=Yii::app()->db; 
-				$command=$connection->createCommand('
-					INSERT INTO  `books_author` (
-						`users_id` ,
-						`books_id`
-					)
-					VALUES (
-						"'.Yii::app()->user->id.'",
-						"'.$model->id.'"
-					)');
-				$rowCount=$command->execute();
+                ////Eintrag in die BooksAuthor
+                //$connection=Yii::app()->db; 
+                //$command=$connection->createCommand('
+                //    INSERT INTO  `books_author` (
+                //        `users_id` ,
+                //        `books_id`
+                //    )
+                //    VALUES (
+                //        "'.Yii::app()->user->id.'",
+                //        "'.$model->id.'"
+                //    )');
+                //$rowCount=$command->execute();
 				
 				//Ueberpruefen ob die Ordner schon vorhanden sind sonst neue erstellen
 				if(!is_dir(Yii::app()->basePath.'/../upload/pdf/'))
