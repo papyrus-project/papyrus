@@ -56,6 +56,7 @@ class BooksController extends Controller
             date_default_timezone_set('Europe/Berlin');
             $commentForm->date = date('m/d/Y h:i:s a', time());
             $commentForm->ref_id = $id;
+            $commentForm->belongsTo = 0;
             if($commentForm->validate()) {
                 if($commentForm->save()) {
                     //happy dance
