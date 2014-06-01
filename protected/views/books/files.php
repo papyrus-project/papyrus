@@ -1,3 +1,6 @@
+<?php
+	$this->pageTitle=Yii::app()->name.' - '.$model->title;
+?>
 <h1>files</h1>
 <div>Titel: <?= $model->title ?></div>
 <div>von: <?= $author ?></div>
@@ -18,7 +21,8 @@
 )); 
 
 ?>
-<div>Beschreibung: <br /><?= $model->description ?></div>
+<div class="og:description">Beschreibung: <br /><?= $model->description ?></div>
+<div class="fb-share-button" data-href="http://papyrus-project.noip.me/books/files/27" data-type="icon"></div>
 <br />Statistik<br />
 <div>Datei: <?= $model->file_path ?></div>
 <div>Erstellt am: <?= $model->created ?></div>

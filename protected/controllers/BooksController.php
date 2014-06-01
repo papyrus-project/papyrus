@@ -47,7 +47,8 @@ class BooksController extends Controller
         //pseudo view counter
         $views = $model->views + 1;
         Books::model()->updateByPk($id, array('views'=> $views));
-        
+        Yii::app()->clientScript->registerMetaTag($model->description, 'og:description');
+        Yii::app()->clientScript->registerMetaTag($model->title, 'og:title');
 		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author));
 	}
 	
