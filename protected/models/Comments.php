@@ -38,7 +38,7 @@ class Comments extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('users_id, text, date, belongsTo, ref_id', 'required'),
+			array('users_id, text, date, ref_id', 'required'),
 			array('belongsTo, ref_id, rating', 'numerical', 'integerOnly'=>true),
 			array('users_id', 'length', 'max'=>20),
 			// The following rule is used by search().

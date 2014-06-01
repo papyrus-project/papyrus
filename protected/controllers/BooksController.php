@@ -47,6 +47,11 @@ class BooksController extends Controller
         //pseudo view counter
         $views = $model->views + 1;
         Books::model()->updateByPk($id, array('views'=> $views));
+
+		//Meta daten fuer Facebookshare
+        Yii::app()->clientScript->registerMetaTag($model->description, 'og:description');
+        Yii::app()->clientScript->registerMetaTag($model->title, 'og:title');
+
         
         //comments
         $commentForm = new Comments();
