@@ -128,17 +128,22 @@ class BooksController extends Controller
 		$model = new PdfTable();
 		if(isset($_POST['PdfTable'])){
 			
-			//Setzen der variablen
-			
-			
-			//PDF Datei verarbeiten
-			$uploadFile = CUploadedFile::getInstance($model,'file_path');
-			
-			//Cover Datei verarbeiten
+						
+			//Cover Datei
 			$uploadCover = CUploadedFile::getInstance($model,'cover_path');
-			$newBookId = $this->uploadFile($uploadFile,$uploadCover);
+			if($_POST['uploadType']=='multi'){
+				$uploadFiles = CUploadedFile::getInstances($model,'file_path');
+				$newBookId = $this->uploadFile($uploadFiles[0],$uploadCover);
+				unset($uploadFiles[0]);
+				foreach ($uploadFiles as $uploadFile) {
+					$this->uploadFile($uploadFile,$uploadCover,$newBookId);
+				}
+			} else {
+				//PDF Datei verarbeiten
+				$uploadFile = CUploadedFile::getInstance($model,'file_path');
+				$newBookId = $this->uploadFile($uploadFile,$uploadCover);
+			}
 			//Eintrag in die Datenbank
-			
 			$this->redirect(array('books/edit/'.$newBookId));
 		}
 		
@@ -149,29 +154,22 @@ class BooksController extends Controller
 		$model = Books::model()->findAll();
 	}
 	
-	private function uploadFile($uploadFile,$uploadCover){
+	private function uploadFile($uploadFile,$uploadCover,$baseId=0){
 		
 		$model = new PdfTable();
 		$model->attributes = $_POST['PdfTable'];
+		$model->base_id = $baseId;
         $model->author = Yii::app()->user->id;
 		if($uploadFile){
 			$filename = "{$uploadFile}";
-			$i = 0;
 			$fileInfo = pathinfo($filename);
-			do {
-				$file_path = '/../upload/pdf/'.$fileInfo['filename'].'-'.$i++.'.'.$fileInfo['extension'];
-			} while (is_file(Yii::app()->basePath.$file_path));
-			$model->file_path = $file_path;
+			$model->file_path = 'blank';
 		}
 
 		if($uploadCover){
 			$covername = "{$uploadCover}";
-			$i = 0;
 			$coverInfo = pathinfo($covername);
-			do{
-				$cover_path = $coverInfo['filename'].'-'.$i++.'.'.$coverInfo['extension'];
-			} while(is_file(Yii::app()->basePath.'/../upload/cover/'.$cover_path));
-			$model->cover_path = $cover_path;
+			$model->cover_path = 'blank';
 		} else {
 			$model->cover_path = 'default.jpg';				
 		}
@@ -185,15 +183,18 @@ class BooksController extends Controller
 			
 			//Dateien hochladen
 			if($uploadFile){
-				$uploadFile->saveAs(Yii::app()->basePath.$file_path);
+				$model->file_path = '/../upload/pdf/'.$model->id.'.'.$fileInfo['extension'];
+				$uploadFile->saveAs(Yii::app()->basePath.$model->file_path);
 			}
 			if($uploadCover){
-				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/'.$cover_path);
+				$model->cover_path = $model->id.'.'.$coverInfo['extension'];
+				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/'.$model->cover_path);
 			}
+			$model->save();
 			return $model->id;
 		}
 		
-		throw new Exception("Error Processing Request", 1);
+		//throw new Exception("Error Processing Request", 1);
 		
 	}
 }

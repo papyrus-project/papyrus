@@ -16,13 +16,16 @@ $form = $this->beginWidget(
 		Komplettes Buch <input type="radio" name="uploadType" class="uploadType" checked value="single">
 		Einzelne Kapitel<input type="radio" name="uploadType" class="uploadType" value="multi">
 	</div>
-	<div class="row uploadPdf">
-		<?php echo $form->labelEx($model,'Pdf Datei');?><br />
-		<?php echo $form->fileField($model,'file_path');?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'Pdf Datei');?>
+		<div class="uploadPdf">
+			<?php echo $form->fileField($model,'file_path');?><br/ >
+			<button class="uploadAdd" type="button" >Add</button>
+	 	</div>
 	 	<?php echo $form->error($model,'file_path'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'Cover');?><br />
+		<?php echo $form->labelEx($model,'Cover');?>
 		<?php echo $form->fileField($model,'cover_path');?>
 	 	<?php echo $form->error($model,'cover_path'); ?>
 	</div>
@@ -52,9 +55,22 @@ $form = $this->beginWidget(
 	</div>
 	
 	<script> 
-		$('.uploadType').change(function(){
-			console.log($(this).val());
+		$('.uploadAdd').hide(0).click(function(){
+			console.log('stg');
+			$('.uploadPdf').append("<input name='PdfTable[file_path][]' type='file' style='display:block'>");
 		});
+		$('.uploadType').change(function(){
+			if($(this).val()=='single'){
+				$('.uploadPdf').children(':not(button)').slice(2).detach();
+				console.log($('.uploadPdf').children(':not(:first-child)').attr('name','PdfTable[file_path]'));
+				$('.uploadAdd').hide(0);
+			} else {
+				$('.uploadAdd').show(0);
+				console.log($('.uploadPdf').children(':not(:first-child)').attr('name','PdfTable[file_path][]'));
+			}
+		});
+		
+		//Warnung bei nicht akzeptieren der AGB setzen
 	    var intputElements = document.getElementsByTagName("INPUT");
 	    for (var i = 0; i < intputElements.length; i++) {
 	        intputElements[i].oninvalid = function (e) {

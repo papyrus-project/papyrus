@@ -17,10 +17,10 @@ class PdfTable extends CActiveRecord{
 	
 	public function rules(){
 		return array(
-			array('file_path','file','types'=>'pdf'),
+			array('file_path','file','types'=>'pdf', 'allowEmpty' => true),
 			array('cover_path','file','types'=>'jpg,jpeg,png', 'allowEmpty' => true),
 			array('title, file_path','required'),
-			array('title, description, age_restriction','safe'),
+			array('title, description, age_restriction, base_id','safe'),
 		);
 	}
 	
