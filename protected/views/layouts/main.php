@@ -23,6 +23,7 @@
 </head>
 
 <body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
 	   <script>
       window.fbAsyncInit = function() {
         FB.init({
@@ -67,8 +68,8 @@
 					<?php 
 						if (Yii::app()->user->isGuest):
 					?>
-						<a href="<?=Yii::app()->createAbsoluteUrl('users/signUp/bum');?>">Register</a>
-						<a href="<?=Yii::app()->createAbsoluteUrl('users/login/bum');?>">login</a>
+						<a href="<?=Yii::app()->createAbsoluteUrl('users/signUp');?>">Register</a>
+						<a href="<?=Yii::app()->createAbsoluteUrl('users/login');?>">login</a>
 					<?php
 						else :
 					?>						
@@ -104,7 +105,7 @@
 	
 	
   	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+
   <script src="<?= Yii::app()->request->baseUrl; ?>/js/chosen/chosen.jquery.js" type="text/javascript"></script>
   <script type="text/javascript">
     var config = {

@@ -20,7 +20,7 @@ class PdfTable extends CActiveRecord{
 			array('file_path','file','types'=>'pdf'),
 			array('cover_path','file','types'=>'jpg,jpeg,png', 'allowEmpty' => true),
 			array('title, file_path','required'),
-			
+			array('title, description, age_restriction','safe'),
 		);
 	}
 	
