@@ -21,7 +21,7 @@ class AjaxController extends Controller
 	public function actionFavoriseBook(){
 		$book=$_POST['book'];
 		$user=Yii::app()->user->id;
-		if($book = Books::model()->findByAttributes(array('author'=>$user,'id'=>$book)))
+		if($book == Books::model()->findByAttributes(array('author'=>$user,'id'=>$book)))
 			print('nein nein nein mr author nicht sein eigenes Buch favorisieren');
 		else{
 			$model = BooksFavorites::model()->findByAttributes(array('users_id'=>$user,'books_id'=>$book));
