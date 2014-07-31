@@ -44,17 +44,26 @@
 <?php if($model->author == Yii::app()->user->id): ?>
 	<a href="<?php $url=Yii::app()->createUrl('books/edit', array('id'=>$model->id)); echo ($url);?>">edit</a><br /><br />
 <?php endif; ?>
-<div>
+<div id='comments'>
     <h4>Kommentare</h4>
     
     <?php foreach($comments as $comment):?>
 		    <div class="row">
 		    <?= $comment->getAuthor($comment->users_id); ?><br/>
             <?= $comment->date; ?><br/>
-            <?= $comment->text; ?><br/><br/>
-	    </div>
+            <?= $comment->text; ?><br/>
+            <div class='edit'>
+                <?php 
+                if($comment->users_id == Yii::app()->user->id){
+                    echo '<a href='. Yii::app()->createUrl('books/files', array('id'=>$model->id)) . '>edit</a> ';
+                    echo '<a href='. Yii::app()->createUrl('books/files', array('id'=>$model->id)) . '>delete</a>';
+                    }
+                ?>
+            </div>
+	    </div><br/>
     <?php endforeach; ?>
-
+</div>
+<div id="newComment">
     <?php if(!Yii::app()->user->isGuest):?>
     <div class="form">
     <?= CHtml::beginForm(); ?>
@@ -62,16 +71,26 @@
         <?= CHtml::errorSummary($commentForm); ?>
 
        <div class="row">
+            <?= CHtml::activeHiddenField($commentForm, 'ref_id', array('value'=>$model->id)); ?>
 		    <?= CHtml::activeLabel($commentForm,'neuer Kommentar'); ?>
 		    <?= CHtml::activeTextArea($commentForm,'text'); ?>
 	    </div>
     
         <div class="row submit">
-            <?= CHtml::submitButton('Posten'); ?>
+            <?php echo CHtml::ajaxSubmitButton(
+	            'Submit request',
+	            array('books/postComment'),
+	            array(
+		            'update'=>'#com',
+	            )
+            );
+	        ?>
         </div>
     <?= CHtml::endForm(); ?>
     </div><!-- form -->
     <?php endif; ?>
     
 </div>
+
+<div id="com"></div>
 <pre><?php //print_r($comments); ?></pre>

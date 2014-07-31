@@ -55,22 +55,6 @@ class BooksController extends Controller
         
         //comments
         $commentForm = new Comments();
-        if(isset($_POST['Comments'])) {
-            $commentForm->users_id = Yii::app()->user->id;
-            $commentForm->text = $_POST['Comments']['text'];
-            date_default_timezone_set('Europe/Berlin');
-            $commentForm->date = date('m/d/Y h:i:s a', time());
-            $commentForm->ref_id = $id;
-            $commentForm->belongsTo = 0;
-            if($commentForm->validate()) {
-                if($commentForm->save()) {
-                    //happy dance
-                } 
-                else {
-                    throw new CHttpException(500, 'Something went wrong');
-                }
-            }
-        }
         $comments = array();
         $commentList = Comments::model()->with('users')->findAllByAttributes(array('ref_id'=>$id));
         foreach($commentList as $comment){
@@ -197,5 +181,44 @@ class BooksController extends Controller
 		//throw new Exception("Error Processing Request", 1);
 		
 	}
+
+    public function actionPostComment(){
+        
+        //comments
+        if(isset($_POST['Comments'])) {
+            $commentForm = new Comments();
+            $commentForm->users_id = Yii::app()->user->id;
+            $commentForm->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
+            //date_default_timezone_set('Europe/Berlin');
+            $commentForm->date = date('m/d/Y h:i:s a', time());
+            $commentForm->ref_id = $_POST['Comments']['ref_id'];
+            $commentForm->belongsTo = 0;
+            if($commentForm->validate()) {
+                if($commentForm->save()) {
+                    //happy dance
+                } 
+                else {
+                    throw new CHttpException(500, 'Something went wrong');
+                }
+            }
+        }
+        
+		//echo    CHtml::encode(print_r($_POST, true));
+        //echo    userData::model()->findByPk(Yii::app()->user->id)->name . '<br/>';
+        //echo    date('m/d/Y h:i:s a', time()) . '<br/>';
+        //echo    CHtml::encode(print_r($_POST['Comments']['text'], true));
+        
+        echo    '<script type="text/javascript">';
+        echo        'document.getElementById("comments").innerHTML = document.getElementById("comments").innerHTML + ';
+        echo        '"<div class=\"row\">';
+        echo                userData::model()->findByPk(Yii::app()->user->id)->name . '<br/>';
+        echo                date('m/d/Y h:i:s a', time()) . '<br/>';
+        echo                CHtml::encode(print_r($_POST['Comments']['text'], true)) . '<br/>';
+        echo                '<div class=\"edit\">';
+        echo                        '<a href=' . Yii::app()->createUrl('books/files', array('id'=>$_POST['Comments']['ref_id'])) . '>edit</a> ';
+        echo                        '<a href='. Yii::app()->createUrl('books/files', array('id'=>$_POST['Comments']['ref_id'])) . '>delete</a>';
+        echo                '</div>';
+        echo            '</div><br/>";</script>';
+    }
 }
 	
