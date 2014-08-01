@@ -22,7 +22,7 @@
 
 ?>
 <div class="og:description">Beschreibung: <br /><?= $model->description ?></div>
-<div class="fb-share-button" data-href="http://papyrus-project.noip.me/books/files/27" data-type="icon"></div>
+<div class="fb-share-button" data-href="http://papyrus-project.noip.me/books/files/<?=$model->id?>" data-type="icon"></div>
 <br />Statistik<br />
 <div>Datei: <?= $model->file_path ?></div>
 <div>Erstellt am: <?= $model->created ?></div>
@@ -31,15 +31,21 @@
 <div>Views: <?= $model->views ?></div>
 <div>Cover Artist: <?= $model->cover_artist ?></div>
 <?php if($model->author != Yii::app()->user->id):?>
-	<button <?= !Yii::app()->user->isGuest?'onclick="favorise('.$model->id.')"':''?>>
-		Favorisieren
-	</button>
 	<form>
-		<input type="hidden" name="book" value="<?=$model->id?>" />
-		<?= CHtml::ajaxSubmitButton(
-		    'Submit request',
+		<?= CHtml::ajaxButton(
+			//gucken ob das buch bereits favorisiesrt wurde
+		    BooksFavorites::model()->findByAttributes(array('users_id'=>YII::app()->user->id,'books_id'=>$model->id))?'unfavorise':'favorise',
 		    array('ajax/favoriseBook'),
 		    array(
+		    	'type'=>'POST',
+		    	'data'=>array('book'=>$model->id),
+		    	'success'=>'js:function(data){
+					console.log("success");
+			        $(".bookFavButton").val(data);
+			    }',
+			),
+			array(
+			    'class'=>'bookFavButton',
 			)
 		);?>
 	</form>

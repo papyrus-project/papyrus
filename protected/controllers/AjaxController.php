@@ -32,8 +32,10 @@ class AjaxController extends Controller
 				$model->users_id=$user;
 				$model->books_id=$book;
 				$model->save();
+				print('unfavorise');
 			} else{
 				$model->delete();
+				print('favorise');
 			}
 		}
 		/*
