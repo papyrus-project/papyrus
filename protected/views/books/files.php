@@ -34,12 +34,15 @@
 	<button <?= !Yii::app()->user->isGuest?'onclick="favorise('.$model->id.')"':''?>>
 		Favorisieren
 	</button>
-	<?= CHtml::ajaxSubmitButton(
-	    'Submit request',
-	    array('ajax/favoriseBook'),
-	    array(
-		)
-	);?>
+	<form>
+		<input type="hidden" name="book" value="<?=$model->id?>" />
+		<?= CHtml::ajaxSubmitButton(
+		    'Submit request',
+		    array('ajax/favoriseBook'),
+		    array(
+			)
+		);?>
+	</form>
 <?php endif; ?>
 <?php if($model->author == Yii::app()->user->id): ?>
 	<a href="<?php $url=Yii::app()->createUrl('books/edit', array('id'=>$model->id)); echo ($url);?>">edit</a><br /><br />

@@ -1,4 +1,4 @@
-<?
+<?php
 class AjaxController extends Controller
 {
 	public function actions()
@@ -22,7 +22,9 @@ class AjaxController extends Controller
 		$book=$_POST['book'];
 		$user=Yii::app()->user->id;
 		if($book == Books::model()->findByAttributes(array('author'=>$user,'id'=>$book)))
-			print('nein nein nein mr author nicht sein eigenes Buch favorisieren');
+			throw new CHttpException(401,'Own Books not favorisable');
+		else if(YII::app()->user->isGuest)
+			throw new CHttpException(401,'Login required');
 		else{
 			$model = BooksFavorites::model()->findByAttributes(array('users_id'=>$user,'books_id'=>$book));
 			if(!$model){
