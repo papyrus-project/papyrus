@@ -271,5 +271,11 @@ class BooksController extends Controller
         echo '</div>';
         echo CHtml::endForm();
     }
+
+	public function actionDownload($id){
+		$model = Books::model()->findByPk($id);
+		header('Content-Disposition: attachment; filename="'.$model->title.'.pdf"');
+		readfile(YII::app()->basePath.$model->file_path);
+	}
 }
 	
