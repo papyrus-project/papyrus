@@ -30,8 +30,16 @@
 <div>Downloads: <?= $model->downloads ?></div>
 <div>Views: <?= $model->views ?></div>
 <div>Cover Artist: <?= $model->cover_artist ?></div>
-<?php if($model->author != Yii::app()->user->id):?>
-	<form>
+<?php if(YII::app()->user->isGuest):?>
+	<?= CHtml::link(
+		"favorisieren",
+		array('users/login'),
+		array(
+			'class'=>'btn'
+		)
+	);?>
+<?php endif;?>
+<?php if($model->author != Yii::app()->user->id && !YII::app()->user->isGuest):?>
 		<?= CHtml::ajaxButton(
 			//gucken ob das buch bereits favorisiesrt wurde
 		    BooksFavorites::model()->findByAttributes(array('users_id'=>YII::app()->user->id,'books_id'=>$model->id))?'unfavorise':'favorise',
@@ -45,14 +53,19 @@
 			    }',
 			),
 			array(
-			    'class'=>'bookFavButton',
+			    'class'=>'btn bookFavButton',
 			)
 		);?>
-	</form>
 <?php endif; ?>
 <?php if($model->author == Yii::app()->user->id): ?>
 	<a href="<?php $url=Yii::app()->createUrl('books/edit', array('id'=>$model->id)); echo ($url);?>">edit</a><br /><br />
 <?php endif; ?>
+
+<?= CHtml::link(
+		'download',
+		array('books/download/'.$_GET['id'])
+		
+	);?>
 <div id='comments'>
     <h4>Kommentare</h4>
     
