@@ -182,43 +182,94 @@ class BooksController extends Controller
 		
 	}
 
-    public function actionPostComment(){
+    public function actionPostComment($id){
         
         //comments
         if(isset($_POST['Comments'])) {
-            $commentForm = new Comments();
-            $commentForm->users_id = Yii::app()->user->id;
-            $commentForm->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
-            //date_default_timezone_set('Europe/Berlin');
-            $commentForm->date = date('m/d/Y h:i:s a', time());
-            $commentForm->ref_id = $_POST['Comments']['ref_id'];
-            $commentForm->belongsTo = 0;
-            if($commentForm->validate()) {
-                if($commentForm->save()) {
+            if($_POST['Comments']['type'] == 'new') {
+                $commentForm = new Comments();
+                $commentForm->users_id = Yii::app()->user->id;
+                $commentForm->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
+                //date_default_timezone_set('Europe/Berlin');
+                $commentForm->date = date('m/d/Y h:i:s a', time());
+                $commentForm->ref_id = $id;
+                $commentForm->belongsTo = 0;
+                if($commentForm->validate()) {
+                    if($commentForm->save()) {
+                        //happy dance
+                    } 
+                    else {
+                        throw new CHttpException(500, 'Something went wrong');
+                    }
+                }
+            
+            echo    '<script type="text/javascript">';
+            echo        'document.getElementById("comments").innerHTML = document.getElementById("comments").innerHTML + ';
+            echo        '"<br/><div class=\"row\">';
+            echo                userData::model()->findByPk(Yii::app()->user->id)->name . '<br/>';
+            echo                date('m/d/Y h:i:s a', time()) . '<br/>';
+            echo                CHtml::encode(print_r($_POST['Comments']['text'], true)) . '<br/>';
+            echo                '<div class=\"edit\">';
+            echo                        '<a href=' . Yii::app()->createUrl('books/files', array('id'=>$id)) . '>edit</a> ';
+            echo                        '<a href='. Yii::app()->createUrl('books/files', array('id'=>$id)) . '>delete</a>';
+            
+            //echo                    CHtml::ajaxLink('Edit', array('books/editComment', 'id'=>$comment->id), array('update'=>'#newComment',)) . ' ';
+            //echo                    CHtml::ajaxLink('Delete', array('books/deleteComment', 'id'=>$comment->id), array('update'=>'#com',));
+            
+            echo                '</div>';
+            echo            '</div>";</script>';
+            }
+            else {
+                $model = Comments::model()->findByPk($_POST['Comments']['type']);
+                $model->text = CHtml::encode(print_r($_POST['Comments']['text'], true));;
+                if($model->save()) {
                     //happy dance
                 } 
                 else {
                     throw new CHttpException(500, 'Something went wrong');
                 }
+                
+                echo    '<script type="text/javascript">';
+                echo        'var element = document.getElementById("' . $model->id . '");';
+                echo        'element.innerHTML = "' . $model->date . '</br>' . $model->text . '</br>";';
+                echo        'element.innerHTML = element.innerHTML  + "<a href=' . Yii::app()->createUrl('books/files', array('id'=>$id)) . '>edit</a> <a href='. Yii::app()->createUrl('books/files', array('id'=>$id)) . '>delete</a>";';
+                echo    '</script>';
             }
         }
-        
-		//echo    CHtml::encode(print_r($_POST, true));
-        //echo    userData::model()->findByPk(Yii::app()->user->id)->name . '<br/>';
-        //echo    date('m/d/Y h:i:s a', time()) . '<br/>';
-        //echo    CHtml::encode(print_r($_POST['Comments']['text'], true));
-        
+    }
+    
+    public function actionDeleteComment($id){
+		$model = Comments::model()->findByPk($id)->delete();
         echo    '<script type="text/javascript">';
-        echo        'document.getElementById("comments").innerHTML = document.getElementById("comments").innerHTML + ';
-        echo        '"<div class=\"row\">';
-        echo                userData::model()->findByPk(Yii::app()->user->id)->name . '<br/>';
-        echo                date('m/d/Y h:i:s a', time()) . '<br/>';
-        echo                CHtml::encode(print_r($_POST['Comments']['text'], true)) . '<br/>';
-        echo                '<div class=\"edit\">';
-        echo                        '<a href=' . Yii::app()->createUrl('books/files', array('id'=>$_POST['Comments']['ref_id'])) . '>edit</a> ';
-        echo                        '<a href='. Yii::app()->createUrl('books/files', array('id'=>$_POST['Comments']['ref_id'])) . '>delete</a>';
-        echo                '</div>';
-        echo            '</div><br/>";</script>';
+        echo        'var element = document.getElementById("' . $id . '");';
+        echo        'element.outerHTML = "";';
+        echo        'delete element;';
+        echo    '</script>';
+    }
+    
+    public function actionEditComment($id){
+		$model = Comments::model()->findByPk($id);
+        echo CHtml::beginForm(); 
+ 
+        echo CHtml::errorSummary($model); 
+
+        echo '<div class="row">';
+        echo CHtml::activeHiddenField($model, 'type', array('value'=>$model->id));
+        echo CHtml::activeLabel($model,'edit Comment'); 
+        echo CHtml::activeTextArea($model,'text'); 
+        echo '</div>';
+    
+        echo '<div class="row submit">';
+        echo CHtml::ajaxSubmitButton(
+                        'Submit request',
+                        array('books/postComment', 'id'=>$model->id),
+                        array(
+                            'update'=>'#com',
+                        )
+                    );
+            
+        echo '</div>';
+        echo CHtml::endForm();
     }
 }
 	
