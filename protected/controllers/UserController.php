@@ -87,8 +87,18 @@ class UserController extends Controller
 		$this->render('sendPm',array('model'=>$model));
 	}
 	
+	public function actionViewMessage($id){
+		$model = Messages::model()->findByPk($id);
+		if(YII::app()->user->id != $model->sender && YII::app()->user->id != $model->receiver){
+			YII::app()->clientScript->registerScript('javascript','alert("BITCH")');
+			print_r('boese');
+			$this->redirect(YII::app()->createAbsoluteUrl('site/index'));
+		}
+		$this->render('pmView',array('message'=>$model));
+	}
+	
 	public function actionViewMessages(){
-		$model = Messages::model()->got()->with('userData')->findAll();
+		$model = Messages::model()->got()->with('sender0')->findAll();
 		$this->render('pmList',array('messages'=>$model));
 	}
 }
