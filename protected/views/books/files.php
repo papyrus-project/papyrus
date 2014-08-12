@@ -95,7 +95,7 @@ endif; ?>
     <?php foreach($comments as $comment):?>
 		    <br /><div id="<?= $comment->id; ?>" class="row">
 		    <?= $comment->getAuthor($comment->users_id); ?><br/>
-            <?= $comment->date; ?><br/>
+            <?= Yii::time($comment->date); ?><br/>
             <?= $comment->text; ?><br/>
             <div class='edit'>
                 <?php 
@@ -119,8 +119,8 @@ endif; ?>
               }
                 ?>
             </div>
-            <div id="answers<?= $comment->id ?>">
-                <?= CHtml::ajaxLink(
+                <div id="answers<?= $comment->id ?>">
+                    <?= CHtml::ajaxLink(
                                       'Antworten anzeigen',
                                       array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
                                       array(
@@ -129,14 +129,14 @@ endif; ?>
                                       array('id' => 'show'.uniqid())
                                   ) . ' ';
                 ?>
-            </div>
+                </div>
             <?php 
                 if(!Yii::app()->user->isGuest){
                     echo CHtml::ajaxLink(
                                           'Antwort schreiben',
                                           array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
                                           array(
-                                              'update'=>'#com',
+                                              'update'=>'#answers'.$comment->id,
                                           ), 
                                           array('id' => 'answer'.uniqid())
                                       );
