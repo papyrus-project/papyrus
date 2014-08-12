@@ -865,7 +865,7 @@ class YiiBase
 		'CListPager' => '/web/widgets/pagers/CListPager.php',
 	);
 	public static function time($time){
-		return date('H:i d.m.Y',$time);
+		return date('d.m.Y H:i',$time);
 	}
 }
 

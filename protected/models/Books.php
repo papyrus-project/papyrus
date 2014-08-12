@@ -69,7 +69,7 @@ class Books extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, age_restriction, cover_path, words', 'required'),
+			array('title, age_restriction, extension, words', 'required'),
 			array('age_restriction, base_id, downloads, favorite_count, words, views, booktype_id, language_id', 'numerical', 'integerOnly'=>true),
 			array('title, extension, cover_artist', 'length', 'max'=>255),
 			array('author', 'length', 'max'=>20),
