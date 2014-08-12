@@ -8,8 +8,7 @@
  * @property string $title
  * @property string $description
  * @property integer $age_restriction
- * @property string $file_path
- * @property string $cover_path
+ * @property string $extension
  * @property string $cover_artist
  * @property integer $base_id
  * @property string $created
@@ -35,8 +34,7 @@ class Books extends CActiveRecord
     public $title;
     public $description;
     public $age_restriction;
-    //public $file_path;
-    public $cover_path;
+    public $extension;
     public $cover_artist;
     //public $base_id;
     //public $created;
@@ -73,12 +71,12 @@ class Books extends CActiveRecord
 		return array(
 			array('title, age_restriction, cover_path, words', 'required'),
 			array('age_restriction, base_id, downloads, favorite_count, words, views, booktype_id, language_id', 'numerical', 'integerOnly'=>true),
-			array('title, file_path, cover_path, cover_artist', 'length', 'max'=>255),
+			array('title, extension, cover_artist', 'length', 'max'=>255),
 			array('author', 'length', 'max'=>20),
 			array('updated, title, description, words, booktype_id, language_id, age_restriction, cover_artist', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, age_restriction, file_path, cover_path, cover_artist, base_id, created, downloads, favorite_count, words, updated, views, booktype_id, language_id, author', 'safe', 'on'=>'search'),
+			array('id, title, description, age_restriction, extension, cover_artist, base_id, created, downloads, favorite_count, words, updated, views, booktype_id, language_id, author', 'safe', 'on'=>'search'),
 		);
 	} 
 	
@@ -130,8 +128,7 @@ class Books extends CActiveRecord
 			'title' => 'Title',
 			'description' => 'Description',
 			'age_restriction' => 'Age Restriction',
-			'file_path' => 'File Path',
-			'cover_path' => 'Cover Path',
+			'extension' => 'File extension',
 			'cover_artist' => 'Cover Artist',
 			'base_id' => 'Base',
 			'created' => 'Created',
@@ -168,8 +165,7 @@ class Books extends CActiveRecord
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('age_restriction',$this->age_restriction);
-		$criteria->compare('file_path',$this->file_path,true);
-		$criteria->compare('cover_path',$this->cover_path,true);
+		$criteria->compare('extension',$this->extension,true);
 		$criteria->compare('cover_artist',$this->cover_artist,true);
 		$criteria->compare('base_id',$this->base_id);
 		$criteria->compare('created',$this->created,true);

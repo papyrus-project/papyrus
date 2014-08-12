@@ -5,7 +5,7 @@ class PdfTable extends CActiveRecord{
 	public $title;
 	public $description;
 	public $file_path;
-	public $cover_path;
+	public $extension;
 	public $base_id;
 	public $views;
 	public $downloads;
@@ -17,9 +17,8 @@ class PdfTable extends CActiveRecord{
 	
 	public function rules(){
 		return array(
-			array('file_path','file','types'=>'pdf', 'allowEmpty' => true),
-			array('cover_path','file','types'=>'jpg,jpeg,png', 'allowEmpty' => true),
-			array('title, file_path','required'),
+			array('extension','file','types'=>'jpg,jpeg,png', 'allowEmpty' => true),
+			array('title','required'),
 			array('title, description, age_restriction, base_id','safe'),
 		);
 	}
