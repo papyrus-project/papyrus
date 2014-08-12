@@ -121,7 +121,7 @@ class BooksController extends Controller
 			
 						
 			//Cover Datei
-			$uploadCover = CUploadedFile::getInstance($model,'cover_path');
+			$uploadCover = CUploadedFile::getInstance($model,'extension');
 			if($_POST['uploadType']=='multi'){
 				$uploadFiles = CUploadedFile::getInstances($model,'file_path');
 				$newBookId = $this->uploadFile($uploadFiles[0],$uploadCover);
@@ -146,23 +146,20 @@ class BooksController extends Controller
 	}
 	
 	private function uploadFile($uploadFile,$uploadCover,$baseId=0){
-		
 		$model = new PdfTable();
 		$model->attributes = $_POST['PdfTable'];
 		$model->base_id = $baseId;
         $model->author = Yii::app()->user->id;
-		if($uploadFile){
-			$filename = "{$uploadFile}";
-			$fileInfo = pathinfo($filename);
-			$model->file_path = 'blank';
+		if(!$uploadFile){
+			throw new CException('Kein Buch');
 		}
 
 		if($uploadCover){
 			$covername = "{$uploadCover}";
 			$coverInfo = pathinfo($covername);
-			$model->cover_path = 'blank';
+			$model->extension = $coverInfo['extension'];
 		} else {
-			$model->cover_path = 'default.jpg';				
+			$model->extension = '';				
 		}
 		
 		if($model->save()){
@@ -172,19 +169,16 @@ class BooksController extends Controller
 			if(!is_dir(Yii::app()->basePath.'/../upload/cover/'))
 				mkdir(Yii::app()->basePath.'/../upload/cover/',0777,true);
 			
-			//Dateien hochladen
+			//Dateien Speichern
 			if($uploadFile){
-				$model->file_path = '/../upload/pdf/'.$model->id.'.'.$fileInfo['extension'];
-				$uploadFile->saveAs(Yii::app()->basePath.$model->file_path);
+				$uploadFile->saveAs(Yii::app()->basePath.'/../upload/pdf/'.$model->id.'.pdf');
 			}
 			if($uploadCover){
-				$model->cover_path = $model->id.'.'.$coverInfo['extension'];
-				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/'.$model->cover_path);
+				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/'.$model->id.'.'.$model->extension);
 			}
-			$model->save();
 			return $model->id;
 		}
-		
+		print_r($model->getErrors());die();
 		//throw new Exception("Error Processing Request", 1);
 		
 	}

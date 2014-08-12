@@ -18,16 +18,11 @@
 		<?= CHtml::activeLabel($model,'altersangabe'); ?>
 		<?= CHtml::activeTextField($model,'age_restriction'); ?>
 	</div>
-
-	<div class="row">
-		<?= CHtml::activeLabel($model,'cover'); ?>
-		<?= CHtml::activeTextField($model,'cover_path'); ?>
-	</div>
 	<?php
 		try{
 			$this->widget('ext.SAImageDisplayer', array(
-			    'image' => $model->cover_path,
-			    'title' => $model->cover_path,
+			    'image' => $model->id.'.'.$model->extension,
+			    'title' => $model->title,
 			    'size' => 'thumb',
 			    'class' => '',
 			    'id' => '',

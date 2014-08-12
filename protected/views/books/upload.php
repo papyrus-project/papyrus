@@ -19,15 +19,15 @@ $form = $this->beginWidget(
 	<div class="row">
 		<?php echo $form->labelEx($model,'Pdf Datei');?>
 		<div class="uploadPdf">
-			<?php echo $form->fileField($model,'file_path');?><br/ >
+			<?php echo $form->fileField($model,'file_path',array('required'=>'required'));?><br/ >
 			<button class="uploadAdd" type="button" >Add</button>
 	 	</div>
 	 	<?php echo $form->error($model,'file_path'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'Cover');?>
-		<?php echo $form->fileField($model,'cover_path');?>
-	 	<?php echo $form->error($model,'cover_path'); ?>
+		<?php echo $form->fileField($model,'extension');?>
+	 	<?php echo $form->error($model,'extension'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'title');?><br />

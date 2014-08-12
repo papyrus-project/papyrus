@@ -864,6 +864,9 @@ class YiiBase
 		'CLinkPager' => '/web/widgets/pagers/CLinkPager.php',
 		'CListPager' => '/web/widgets/pagers/CListPager.php',
 	);
+	public static function time($time){
+		return date('H:i d.m.Y',$time);
+	}
 }
 
 spl_autoload_register(array('YiiBase','autoload'));

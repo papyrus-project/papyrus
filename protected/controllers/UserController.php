@@ -63,4 +63,28 @@ class UserController extends Controller
 	public function actionSubscriptions(){
 		$this->render('Subscriptions');
 	}
+
+	public function actionSendPm($id){
+		if($id == YII::app()->user->id || YII::app()->user->isGuest){
+			$this->redirect(YII::app()->createUrl(''));
+		}
+		if(!UserData::model()->findByPk($id)){
+			$this->redirect(YII::app()->createUrl(''));
+		}
+		$model=new Messages();
+		if(isset($_POST['Messages'])){
+			$_POST['Messages']['from'] = YII::app()->user->id;
+			$_POST['Messages']['to'] = $id;
+			$_POST['Messages']['created'] = time();
+			$model->attributes=$_POST['Messages'];
+			print_r('dumm');
+			if($model->validate()){
+				if($model->save()){
+					print_r('gogo gadget save');
+					$this->redirect(YII::app()->createUrl('user/profile/'.$id));
+				}
+			}
+		}
+		$this->render('sendPm',array('model'=>$model));
+	}
 }
