@@ -84,7 +84,7 @@ endif; ?>
     <h4>Kommentare</h4>
     
     <?php foreach($comments as $comment):?>
-		    <div id="<?= $comment->id; ?>" class="row">
+		    <br /><div id="<?= $comment->id; ?>" class="row">
 		    <?= $comment->getAuthor($comment->users_id); ?><br/>
             <?= $comment->date; ?><br/>
             <?= $comment->text; ?><br/>
@@ -110,7 +110,29 @@ endif; ?>
               }
                 ?>
             </div>
-
+            <div id="answers<?= $comment->id ?>">
+                <?= CHtml::ajaxLink(
+                                      'Antworten anzeigen',
+                                      array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
+                                      array(
+                                          'update'=>'#answers'.$comment->id,
+                                      ), 
+                                      array('id' => 'show'.uniqid())
+                                  ) . ' ';
+                ?>
+            </div>
+            <?php 
+                if(!Yii::app()->user->isGuest){
+                    echo CHtml::ajaxLink(
+                                          'Antwort schreiben',
+                                          array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
+                                          array(
+                                              'update'=>'#com',
+                                          ), 
+                                          array('id' => 'answer'.uniqid())
+                                      );
+                }
+            ?>
 	    </div>
     <?php endforeach; ?>
 </div>

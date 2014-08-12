@@ -15,11 +15,9 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">asd
+	<div class="row">
 		<?php echo $form->labelEx($model,'text'); ?>
 		<?php echo $form->textArea($model,'text'); ?>
 		<?php echo $form->error($model,'text'); ?>
@@ -29,7 +27,7 @@
 				<?php echo
                           CHtml::ajaxSubmitButton(
                       'Submit request',
-                      array('books/test', 'id'=>$model->id),
+                      array('books/saveEdit', 'id'=>$model->id),
                       array(
                           'update'=>'#com',
                       ), 

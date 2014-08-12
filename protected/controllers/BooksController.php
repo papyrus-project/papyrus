@@ -65,7 +65,8 @@ class BooksController extends Controller
         $comments = array();
         $commentList = Comments::model()->with('users')->findAllByAttributes(array('ref_id'=>$id));
         foreach($commentList as $comment){
-            $comments[] = $comment;
+            if($comment->belongsTo == 0)
+                $comments[] = $comment;
         }
         
 		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments));
@@ -193,7 +194,6 @@ class BooksController extends Controller
             $commentForm->date = date('Y/m/d h:i:s a', time());
             $commentForm->ref_id = $id;
             $commentForm->belongsTo = 0;
-            echo print_r($commentForm);
             if($commentForm->validate()) {
                 if($commentForm->save()) {
                     //happy dance
@@ -205,7 +205,7 @@ class BooksController extends Controller
             
             echo    '<script type="text/javascript">';
             echo        'document.getElementById("comments").innerHTML = document.getElementById("comments").innerHTML + ';
-            echo        '"<br/><div class=\"row\">';
+            echo        '"<div class=\"row\">';
             echo                userData::model()->findByPk(Yii::app()->user->id)->name . '<br/>';
             echo                date('m/d/Y h:i:s a', time()) . '<br/>';
             echo                CHtml::encode(print_r($_POST['Comments']['text'], true)) . '<br/>';
@@ -232,28 +232,8 @@ class BooksController extends Controller
     
     public function actionShowEditCommentForm($id){
 		$model = Comments::model()->findByPk($id);
+        $model->text = CHtml::decode($model->text);
         echo $this->renderPartial('editComment', array('model' => $model, 'id'=>$model->id), true, true);
-        //echo CHtml::beginForm(); 
- 
-        //echo CHtml::errorSummary($model); 
-
-        //echo '<div class="row">';
-        //echo CHtml::activeHiddenField($model, 'type', array('value'=>$model->id));
-        //echo CHtml::activeLabel($model,'edit Comment'); 
-        //echo CHtml::activeTextArea($model,'text'); 
-        //echo '</div>';
-    
-        //echo '<div class="row submit">';
-        //echo CHtml::ajaxSubmitButton(
-        //                'Submit request',
-        //                array('books/test', 'id'=>$model->id),
-        //                array(
-        //                    'update'=>'#com',
-        //                )
-        //            );
-            
-        //echo '</div>';
-        //echo CHtml::endForm();
     }
 
 	public function actionDownload($id){
@@ -261,12 +241,20 @@ class BooksController extends Controller
 		header('Content-Disposition: attachment; filename="'.$model->title.'.pdf"');
 		readfile(YII::app()->basePath.$model->file_path);
 	}
+    
     public function actionShowNewCommentForm($id){
         $commentForm = new Comments();
         echo $this->renderPartial('newComment', array('model' => $commentForm, 'id'=>$id), true, true);
     }
     
-    public function actionTest($id){
+    public function actionShowNewAnswerForm($id, $belongsTo=null){
+        $commentForm = new Comments();
+        //$commentForm->belongsTo = 0;
+        echo $this->renderPartial('newAnswer', array('model' => $commentForm, 'id'=>$id, 'belongsTo'=>$belongsTo), true, true);
+        //echo $this->renderPartial('newAnswer', array('model' => $commentForm, 'id'=>$id), true, true);
+    }
+    
+    public function actionSaveEdit($id){
             $model = Comments::model()->findByPk($id);
             $model->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
             
@@ -284,6 +272,34 @@ class BooksController extends Controller
             echo    '</script>';
     }
     
+    public function actionPostAnswer($id, $belongsTo=0){
+        echo print_r($_POST);
+        if(isset($_POST['Comments'])) {
+            $commentForm = new Comments();
+            $commentForm->users_id = Yii::app()->user->id;
+            $commentForm->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
+            $commentForm->date = date('Y/m/d h:i:s a', time());
+            $commentForm->ref_id = $id;
+            $commentForm->belongsTo = $belongsTo;
+            if($commentForm->validate()) {
+                if($commentForm->save()) {
+                    //happy dance
+                } 
+                else {
+                    throw new CHttpException(500, 'Something went wrong');
+                }
+            }
+        }
+    }
+    public function actionShowAnswers($id, $belongsTo){
+        $comments = array();
+        $commentList = Comments::model()->with('users')->findAllByAttributes(array('ref_id'=>$id));
+        foreach($commentList as $comment){
+            if($comment->belongsTo == $belongsTo)
+                $comments[] = $comment;
+        }
+        echo $this->renderPartial('answers', array('comments' => $comments), true, true);
+    }
     
     public function actionNewComment($id){
         $model = new Comments();
@@ -293,5 +309,13 @@ class BooksController extends Controller
         $model = new Comments();
         $this->render('editComment',array('model'=>$model, 'id'=>$id));
 	}
+    public function actionNewAnswer($id, $belongsTo=0){
+        $model = new Comments();
+        $this->render('newAnswer',array('model'=>$model, 'id'=>$id, 'belongsTo'=>$belongsTo));
+	}
+    public function actionAnswer(){
+        $comments = array();
+        $this->render('answer',array('comment'=>$comments));
+    }
 }
 	
