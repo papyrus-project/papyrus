@@ -7,7 +7,7 @@
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'comments-newComment-form',
+	'id'=>'comments-newAnswer-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
 	// See class documentation of CActiveForm for details on this,
@@ -25,8 +25,8 @@
 
 	<div class="row buttons">
 				<?php echo CHtml::ajaxSubmitButton(
-                      'Kommentar posten',
-                      array('books/postComment', 'id'=>$id),
+                      'Antwort posten',
+                      array('books/postAnswer', 'id'=>$id, 'belongsTo'=>$belongsTo),
                       array(
                           'update'=>'#com',
                       ), 
