@@ -67,33 +67,18 @@
 		
 	);?>
 
-<div id="newComment">
-    <?php if(!Yii::app()->user->isGuest):?>
-    <div class="form">
-    <?= CHtml::beginForm(); ?>
- 
-        <?= CHtml::errorSummary($commentForm); ?>
 
-       <div class="row">            
-            <?= CHtml::activeHiddenField($commentForm, 'type', array('value'=>'new')); ?>
-		    <?= CHtml::activeLabel($commentForm,'neuer Kommentar'); ?>
-		    <?= CHtml::activeTextArea($commentForm,'text'); ?>
-	    </div>
-    
-        <div class="row submit">
-            <?php echo CHtml::ajaxSubmitButton(
-	            'Submit request',
-	            array('books/postComment', 'id'=>$model->id),
-	            array(
-		            'update'=>'#com',
-	            )
-            );
-	        ?>
-        </div>
-    <?= CHtml::endForm(); ?>
-    </div><!-- form -->
-    <?php endif; ?>
-    
+<div id="newComment">
+    <?php if(!Yii::app()->user->isGuest):
+    echo CHtml::ajaxLink(
+        'neuer Kommentar',
+        array('books/showNewCommentForm', 'id'=>$model->id),
+        array(
+            'update'=>'#newComment',
+        ), 
+        array('id' => uniqid())
+    );
+endif; ?>
 </div>
 <div id='comments'>
     <h4>Kommentare</h4>
@@ -105,24 +90,27 @@
             <?= $comment->text; ?><br/>
             <div class='edit'>
                 <?php 
-                if($comment->users_id == Yii::app()->user->id){
-                    echo CHtml::ajaxLink(
-	                                        'Edit',
-	                                        array('books/editComment', 'id'=>$comment->id),
-	                                        array(
-		                                        'update'=>'#newComment',// . $comment->id,
-	                                        )
-                                        ) . ' ';
-                    echo CHtml::ajaxLink(
-	                                        'Delete',
-	                                        array('books/deleteComment', 'id'=>$comment->id),
-	                                        array(
-		                                        'update'=>'#com',
-	                                        )
-                                        );
-                    }
+              if($comment->users_id == Yii::app()->user->id){
+                  echo CHtml::ajaxLink(
+                                          'Edit',
+                                          array('books/showEditCommentForm', 'id'=>$comment->id),
+                                          array(
+                                              'update'=>'#'.$comment->id,
+                                          ), 
+                                          array('id' => 'edit'.uniqid())
+                                      ) . ' ';
+                  echo CHtml::ajaxLink(
+                                          'Delete',
+                                          array('books/deleteComment', 'id'=>$comment->id),
+                                          array(
+                                              'update'=>'#com',
+                                          ), 
+                                          array('id' => 'delete'.uniqid())
+                                      );
+              }
                 ?>
             </div>
+
 	    </div>
     <?php endforeach; ?>
 </div>

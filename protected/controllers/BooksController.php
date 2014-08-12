@@ -26,6 +26,9 @@ class BooksController extends Controller
 		$model = Books::model()->findByPk($id);
         if(!$model)
 			$this->redirect(Yii::app()->createAbsoluteUrl(''));
+        
+        
+        
         //genres auslesen und als 1 string schreiben
         $genre = $model->bookgenres;
         $genres = '';
@@ -52,9 +55,13 @@ class BooksController extends Controller
         Yii::app()->clientScript->registerMetaTag($model->description, 'og:description');
         Yii::app()->clientScript->registerMetaTag($model->title, 'og:title');
 
-        
         //comments
         $commentForm = new Comments();
+        $commentForm->users_id = Yii::app()->user->id;
+        $commentForm->date = date('m/d/Y h:i:s a', time());
+        $commentForm->ref_id = $id;
+        $commentForm->belongsTo = 0;
+        
         $comments = array();
         $commentList = Comments::model()->with('users')->findAllByAttributes(array('ref_id'=>$id));
         foreach($commentList as $comment){
@@ -186,22 +193,21 @@ class BooksController extends Controller
         
         //comments
         if(isset($_POST['Comments'])) {
-            if($_POST['Comments']['type'] == 'new') {
-                $commentForm = new Comments();
-                $commentForm->users_id = Yii::app()->user->id;
-                $commentForm->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
-                //date_default_timezone_set('Europe/Berlin');
-                $commentForm->date = date('m/d/Y h:i:s a', time());
-                $commentForm->ref_id = $id;
-                $commentForm->belongsTo = 0;
-                if($commentForm->validate()) {
-                    if($commentForm->save()) {
-                        //happy dance
-                    } 
-                    else {
-                        throw new CHttpException(500, 'Something went wrong');
-                    }
+            $commentForm = new Comments();
+            $commentForm->users_id = Yii::app()->user->id;
+            $commentForm->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
+            $commentForm->date = date('Y/m/d h:i:s a', time());
+            $commentForm->ref_id = $id;
+            $commentForm->belongsTo = 0;
+            echo print_r($commentForm);
+            if($commentForm->validate()) {
+                if($commentForm->save()) {
+                    //happy dance
+                } 
+                else {
+                    throw new CHttpException(500, 'Something went wrong');
                 }
+            }
             
             echo    '<script type="text/javascript">';
             echo        'document.getElementById("comments").innerHTML = document.getElementById("comments").innerHTML + ';
@@ -213,28 +219,11 @@ class BooksController extends Controller
             echo                        '<a href=' . Yii::app()->createUrl('books/files', array('id'=>$id)) . '>edit</a> ';
             echo                        '<a href='. Yii::app()->createUrl('books/files', array('id'=>$id)) . '>delete</a>';
             
-            //echo                    CHtml::ajaxLink('Edit', array('books/editComment', 'id'=>$comment->id), array('update'=>'#newComment',)) . ' ';
+            //echo                    CHtml::ajaxLink('Edit', array('books/editComment', 'id'=>$commentForm->id), array('update'=>'#newComment',)) . ' ';
             //echo                    CHtml::ajaxLink('Delete', array('books/deleteComment', 'id'=>$comment->id), array('update'=>'#com',));
             
             echo                '</div>';
             echo            '</div>";</script>';
-            }
-            else {
-                $model = Comments::model()->findByPk($_POST['Comments']['type']);
-                $model->text = CHtml::encode(print_r($_POST['Comments']['text'], true));;
-                if($model->save()) {
-                    //happy dance
-                } 
-                else {
-                    throw new CHttpException(500, 'Something went wrong');
-                }
-                
-                echo    '<script type="text/javascript">';
-                echo        'var element = document.getElementById("' . $model->id . '");';
-                echo        'element.innerHTML = "' . $model->date . '</br>' . $model->text . '</br>";';
-                echo        'element.innerHTML = element.innerHTML  + "<a href=' . Yii::app()->createUrl('books/files', array('id'=>$id)) . '>edit</a> <a href='. Yii::app()->createUrl('books/files', array('id'=>$id)) . '>delete</a>";';
-                echo    '</script>';
-            }
         }
     }
     
@@ -247,35 +236,68 @@ class BooksController extends Controller
         echo    '</script>';
     }
     
-    public function actionEditComment($id){
+    public function actionShowEditCommentForm($id){
 		$model = Comments::model()->findByPk($id);
-        echo CHtml::beginForm(); 
+        echo $this->renderPartial('editComment', array('model' => $model, 'id'=>$model->id), true, true);
+        //echo CHtml::beginForm(); 
  
-        echo CHtml::errorSummary($model); 
+        //echo CHtml::errorSummary($model); 
 
-        echo '<div class="row">';
-        echo CHtml::activeHiddenField($model, 'type', array('value'=>$model->id));
-        echo CHtml::activeLabel($model,'edit Comment'); 
-        echo CHtml::activeTextArea($model,'text'); 
-        echo '</div>';
+        //echo '<div class="row">';
+        //echo CHtml::activeHiddenField($model, 'type', array('value'=>$model->id));
+        //echo CHtml::activeLabel($model,'edit Comment'); 
+        //echo CHtml::activeTextArea($model,'text'); 
+        //echo '</div>';
     
-        echo '<div class="row submit">';
-        echo CHtml::ajaxSubmitButton(
-                        'Submit request',
-                        array('books/postComment', 'id'=>$model->id),
-                        array(
-                            'update'=>'#com',
-                        )
-                    );
+        //echo '<div class="row submit">';
+        //echo CHtml::ajaxSubmitButton(
+        //                'Submit request',
+        //                array('books/test', 'id'=>$model->id),
+        //                array(
+        //                    'update'=>'#com',
+        //                )
+        //            );
             
-        echo '</div>';
-        echo CHtml::endForm();
+        //echo '</div>';
+        //echo CHtml::endForm();
     }
 
 	public function actionDownload($id){
 		$model = Books::model()->findByPk($id);
 		header('Content-Disposition: attachment; filename="'.$model->title.'.pdf"');
 		readfile(YII::app()->basePath.$model->file_path);
+	}
+    public function actionShowNewCommentForm($id){
+        $commentForm = new Comments();
+        echo $this->renderPartial('newComment', array('model' => $commentForm, 'id'=>$id), true, true);
+    }
+    
+    public function actionTest($id){
+            $model = Comments::model()->findByPk($id);
+            $model->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
+            
+            if($model->save()) {
+                //happy dance
+            } 
+            else {
+                throw new CHttpException(500, 'Something went wrong');
+            }
+        
+            echo    '<script type="text/javascript">';
+            echo        'var element = document.getElementById("' . $model->id . '");';
+            echo        'element.innerHTML = "</br>' . $model->date . '</br>' . $model->text . '</br>";';
+            echo        'element.innerHTML = element.innerHTML  + "<a href=' . Yii::app()->createUrl('books/files', array('id'=>$id)) . '>edit</a> <a href='. Yii::app()->createUrl('books/files', array('id'=>$id)) . '>delete</a>";';
+            echo    '</script>';
+    }
+    
+    
+    public function actionNewComment($id){
+        $model = new Comments();
+        $this->render('newComment',array('model'=>$model, 'id'=>$id));
+	}
+    public function actionEditComment($id){
+        $model = new Comments();
+        $this->render('editComment',array('model'=>$model, 'id'=>$id));
 	}
 }
 	
