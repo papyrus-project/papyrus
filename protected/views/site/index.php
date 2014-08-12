@@ -23,15 +23,15 @@ $this->pageTitle=Yii::app()->name;
 		<?php
 			try{
 				$this->widget('ext.SAImageDisplayer', array(
-				    'image' => $book->cover_path,
-				    'title' => $book->cover_path,
+				    'image' => $book->id.'.'.$book->extension,
+				    'title' => $book->title,
 				    'size' => 'thumb',
 				    'class' => '',
 				    'id' => '',
 			)); 
 			} catch(exception $e){
 				$this->widget('ext.SAImageDisplayer', array(
-				    'image' => '00-05-0.jpg',
+				    'image' => 'default.jpg',
 				    'title' => 'default Cover',
 				    'size' => 'thumb',
 				    'class' => '',

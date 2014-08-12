@@ -73,18 +73,22 @@ class UserController extends Controller
 		}
 		$model=new Messages();
 		if(isset($_POST['Messages'])){
-			$_POST['Messages']['from'] = YII::app()->user->id;
-			$_POST['Messages']['to'] = $id;
-			$_POST['Messages']['created'] = time();
-			$model->attributes=$_POST['Messages'];
-			print_r('dumm');
+			$model->sender = YII::app()->user->id;
+			$model->receiver = $id;
+			$model->subject = CHtml::encode(print_r($_POST['Messages']['subject'],true));
+			$model->message = CHtml::encode(print_r($_POST['Messages']['message'],true));
+			$model->verifyCode = $_POST['Messages']['verifyCode'];
 			if($model->validate()){
 				if($model->save()){
-					print_r('gogo gadget save');
 					$this->redirect(YII::app()->createUrl('user/profile/'.$id));
 				}
 			}
 		}
 		$this->render('sendPm',array('model'=>$model));
+	}
+	
+	public function actionViewMessages(){
+		$model = Messages::model()->got()->with('userData')->findAll();
+		$this->render('pmList',array('messages'=>$model));
 	}
 }

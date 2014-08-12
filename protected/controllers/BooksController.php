@@ -111,6 +111,8 @@ class BooksController extends Controller
 			$selectedGenres[] = $bar->bookgenre_id; 
 		}
 		
+		$model->title = CHtml::decode($model->title);
+		$model->description = CHtml::decode($model->description);
 		
         $this->render('edit',array('model'=>$model,'selectedGenres' => $selectedGenres));
 	}
@@ -148,6 +150,8 @@ class BooksController extends Controller
 	private function uploadFile($uploadFile,$uploadCover,$baseId=0){
 		$model = new PdfTable();
 		$model->attributes = $_POST['PdfTable'];
+		$model->title = CHtml::encode($_POST['PdfTable']['title']);
+		$model->description = CHtml::encode($_POST['PdfTable']['description']);
 		$model->base_id = $baseId;
         $model->author = Yii::app()->user->id;
 		if(!$uploadFile){
@@ -256,10 +260,17 @@ class BooksController extends Controller
         //echo CHtml::endForm();
     }
 
-	public function actionDownload($id){
+	public function actionDownload($id,$format){
+		$ext = array(
+			1=>'.pdf',
+			2=>'.epub',
+			3=>'.mobi',
+		);
 		$model = Books::model()->findByPk($id);
-		header('Content-Disposition: attachment; filename="'.$model->title.'.pdf"');
-		readfile(YII::app()->basePath.$model->file_path);
+		$model->downloads++;
+		$model->save();
+		header('Content-Disposition: attachment; filename="'.CHtml::decode($model->title).$ext[$format]);
+		readfile(YII::app()->basePath.'/../upload/pdf/'.$id.'.pdf');
 	}
     public function actionShowNewCommentForm($id){
         $commentForm = new Comments();

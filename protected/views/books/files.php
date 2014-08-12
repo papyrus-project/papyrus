@@ -13,8 +13,8 @@
 //coverbild anzeigen groesse 200x150, seitenverhaeltnis bleibt erhalten
 
 	$this->widget('ext.SAImageDisplayer', array(
-	    'image' => $model->cover_path,
-	    'title' => $model->cover_path,
+	    'image' => $model->id.'.'.$model->extension,
+	    'title' => $model->title,
 	    'size' => 'thumb',
 	    'class' => '',
 	    'id' => '',
@@ -24,8 +24,7 @@
 <div class="og:description">Beschreibung: <br /><?= $model->description ?></div>
 <div class="fb-share-button" data-href="http://papyrus-project.noip.me/books/files/<?=$model->id?>" data-type="icon"></div>
 <br />Statistik<br />
-<div>Datei: <?= $model->file_path ?></div>
-<div>Erstellt am: <?= $model->created ?></div>
+<div>Erstellt am: <?= YII::time($model->created) ?></div>
 <div>Favorisiert: <?= $model->favorite_count ?></div>
 <div>Downloads: <?= $model->downloads ?></div>
 <div>Views: <?= $model->views ?></div>
@@ -62,11 +61,21 @@
 <?php endif; ?>
 
 <?= CHtml::link(
-		'download',
-		array('books/download/'.$_GET['id'])
-		
-	);?>
-
+	'download pdf',
+	array('books/download/'.$_GET['id'].'.1')
+	
+);?><br />
+<?= CHtml::link(
+	'download epub',
+	array('books/download/'.$_GET['id'].'.2')
+	
+);?>
+<br />
+<?= CHtml::link(
+	'download mobi',
+	array('books/download/'.$_GET['id'].'.3')
+	
+);?><br />
 
 <div id="newComment">
     <?php if(!Yii::app()->user->isGuest):

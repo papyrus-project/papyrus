@@ -5,14 +5,14 @@
  *
  * The followings are the available columns in table 'messages':
  * @property string $message
- * @property string $from
- * @property string $to
+ * @property string $sender
+ * @property string $receiver
  * @property integer $read
  * @property string $created
  * @property string $subject
  *
  * The followings are the available model relations:
- * @property Users $from0
+ * @property Users $sender0
  * @property Users $to0
  */
 class Messages extends CActiveRecord
@@ -34,14 +34,14 @@ class Messages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('message, from, to, subject', 'required'),
+			array('message, sender, receiver, subject', 'required'),
 			array('read', 'numerical', 'integerOnly'=>true),
-			array('from, to', 'length', 'max'=>20),
+			array('sender, receiver', 'length', 'max'=>20),
 			array('subject', 'length', 'max'=>255),
 			array('created', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('message, from, to, read, created, subject', 'safe', 'on'=>'search'),
+			array('message, sender, receiver, read, created, subject', 'safe', 'on'=>'search'),
 			array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements()),
 		);
 	}
@@ -54,8 +54,7 @@ class Messages extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'from0' => array(self::BELONGS_TO, 'Users', 'from'),
-			'to0' => array(self::BELONGS_TO, 'Users', 'to'),
+			'userData' => array(self::HAS_ONE, 'UserData', 'id'),
 		);
 	}
 
@@ -66,15 +65,26 @@ class Messages extends CActiveRecord
 	{
 		return array(
 			'message' => 'Nachricht',
-			'from' => 'From',
-			'to' => 'To',
+			'sender' => 'sender',
+			'receiver' => 'To',
 			'read' => 'Read',
 			'created' => 'Created',
 			'subject' => 'Betreff',
 			'verifyCode'=>'Verification Code',
 		);
 	}
-
+	
+	public function scopes()
+    {
+        return array(
+            'got'=>array(
+                'condition'=>'receiver='.YII::app()->user->id,
+            ),
+            'send'=>array(
+                'condition'=>'sender='.YII::app()->user->id,
+            ),
+		);
+	}
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -94,7 +104,7 @@ class Messages extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('message',$this->message,true);
-		$criteria->compare('from',$this->from,true);
+		$criteria->compare('sender',$this->sender,true);
 		$criteria->compare('to',$this->to,true);
 		$criteria->compare('read',$this->read);
 		$criteria->compare('created',$this->created,true);
