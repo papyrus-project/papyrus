@@ -13,7 +13,7 @@
  *
  * The followings are the available model relations:
  * @property Users $sender0
- * @property Users $to0
+ * @property Users $receiver0
  */
 class Messages extends CActiveRecord
 {
@@ -54,7 +54,8 @@ class Messages extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'userData' => array(self::HAS_ONE, 'UserData', 'id'),
+			'sender0' => array(self::BELONGS_TO, 'UserData', 'sender'),
+			'receiver0' => array(self::BELONGS_TO, 'UsersData', 'receiver'),
 		);
 	}
 
@@ -76,13 +77,13 @@ class Messages extends CActiveRecord
 	
 	public function scopes()
     {
-        return array(
-            'got'=>array(
-                'condition'=>'receiver='.YII::app()->user->id,
-            ),
-            'send'=>array(
-                'condition'=>'sender='.YII::app()->user->id,
-            ),
+		return array(
+			'got'=>array(
+				'condition'=>'receiver='.YII::app()->user->id,
+			),
+			'send'=>array(
+				'condition'=>'sender='.YII::app()->user->id,
+			),
 		);
 	}
 	/**
