@@ -43,9 +43,33 @@ class SiteController extends Controller
 		// {
 			// print_r('error: '.$e);    
 		// }
-		$model = Books::model()->published()->recently()->with('bookgenres')->findAll();
-		
-		$this->render('index',array('books' => $model));
+        
+        $text = '';
+        $model = new Books('search');
+		if(isset($_GET['Books'])) {
+            $text = $_GET['Books']['title'];
+            if(!empty($text)){
+                $model->unsetAttributes();
+                $model->description = $text;   // any filtering value that you want to apply
+                $model->title = $text;
+                $model->status = 1;
+                $dataProvider = $model->search();
+                $model2 = Books::model();
+                $this->render('index',array('dataProvider' => $dataProvider, 'model2'=>$model2));
+            }
+            else
+            {
+                $model2 = Books::model();
+                $model = Books::model()->published()->recently()->with('bookgenres')->findAll();
+                $this->render('index',array('books' => $model, 'model2'=>$model2));
+            }
+        }
+        else
+        {
+            $model2 = Books::model();
+            $model = Books::model()->published()->recently()->with('bookgenres')->findAll();
+            $this->render('index',array('books' => $model, 'model2'=>$model2));
+        }
 	}
 
 	/**
