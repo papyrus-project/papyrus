@@ -64,10 +64,10 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container">
-					<?= CHtml::beginForm($this->createUrl(''), 'get'); ?>
-		                <?= CHtml::activeSearchField(Books::model(),'title'); ?>
-		                <?= CHtml::submitButton('Suchen'); ?>
-                    <?= CHtml::endForm(); ?>
+					<form method="get" action="<?= YII::app()->createAbsoluteUrl('')?> ">
+                        <input type="text" name="q"/>
+                        <input type="submit" />
+					</form>
 					
 					<?php 
 						if (Yii::app()->user->isGuest):

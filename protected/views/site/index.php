@@ -13,12 +13,10 @@ if(isset($dataProvider)){
         'itemView'=>'application.views.books.bookPreview',   // refers to the partial view named '_post'
         'sortableAttributes'=>array(
             'title',
-            'created'=>'Datum',
+            'id'=>'Datum',
         ),
     ));
-}?>
-
-	<?php if(!isset($books))
+}else if(!isset($books))
               echo 'Zurzeit konnten keine ver&ouml;ffentlichten B&uuml;cher gefunden werden';
 	else
 		foreach($books as $book) : 
