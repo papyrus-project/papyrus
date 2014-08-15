@@ -69,7 +69,8 @@ class BooksController extends Controller
                 $comments[] = $comment;
         }
         
-		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments));
+        $form = $this->renderPartial('newComment', array('model' => $commentForm, 'id'=>$id), true, true);
+		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments, 'form'=>$form));
 	}
 	
 	public function actionEdit($id){

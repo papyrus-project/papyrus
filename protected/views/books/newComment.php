@@ -32,7 +32,6 @@
                       ), 
                       array('id' => uniqid())); ?>
 	</div>
-    <div id="com"></div>
 
 <?php $this->endWidget(); ?>
 

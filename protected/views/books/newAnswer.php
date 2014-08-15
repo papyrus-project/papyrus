@@ -28,7 +28,7 @@
                       'Antwort posten',
                       array('books/postAnswer', 'id'=>$id, 'belongsTo'=>$belongsTo),
                       array(
-                          'update'=>'#com',
+                          'update'=>'#newAnswer'.$belongsTo,
                       ), 
                       array('id' => uniqid())); ?>
 	</div>

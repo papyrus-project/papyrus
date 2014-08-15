@@ -64,7 +64,10 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container">
-					<input placeholder="Search" />
+					<?= CHtml::beginForm($this->createUrl(''), 'get'); ?>
+		                <?= CHtml::activeSearchField(Books::model(),'title'); ?>
+		                <?= CHtml::submitButton('Suchen'); ?>
+                    <?= CHtml::endForm(); ?>
 					
 					<?php 
 						if (Yii::app()->user->isGuest):

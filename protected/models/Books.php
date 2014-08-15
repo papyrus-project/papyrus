@@ -76,7 +76,7 @@ class Books extends CActiveRecord
 			array('updated, title, description, words, booktype_id, language_id, age_restriction, cover_artist', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, age_restriction, extension, cover_artist, base_id, created, downloads, favorite_count, words, updated, views, booktype_id, language_id, author', 'safe', 'on'=>'search'),
+			array('id, title, description, booktype_id, language_id, author', 'safe', 'status', 'on'=>'search'),
 		);
 	} 
 	
@@ -140,6 +140,7 @@ class Books extends CActiveRecord
 			'booktype_id' => 'Booktype',
 			'language_id' => 'Language',
 			'author' => 'Author',
+            'status' => 'Status',
 		);
 	}
 
@@ -162,21 +163,22 @@ class Books extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('age_restriction',$this->age_restriction);
-		$criteria->compare('extension',$this->extension,true);
-		$criteria->compare('cover_artist',$this->cover_artist,true);
-		$criteria->compare('base_id',$this->base_id);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('downloads',$this->downloads);
-		$criteria->compare('favorite_count',$this->favorite_count);
-		$criteria->compare('words',$this->words);
-		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('views',$this->views);
+		$criteria->compare('title',$this->title,true,'OR');
+		$criteria->compare('description',$this->description,true,'OR');
+		//$criteria->compare('age_restriction',$this->age_restriction);
+		//$criteria->compare('extension',$this->extension,true);
+		//$criteria->compare('cover_artist',$this->cover_artist,true);
+		//$criteria->compare('base_id',$this->base_id);
+		//$criteria->compare('created',$this->created,true);
+		//$criteria->compare('downloads',$this->downloads);
+		//$criteria->compare('favorite_count',$this->favorite_count);
+		//$criteria->compare('words',$this->words);
+		//$criteria->compare('updated',$this->updated,true);
+		///$criteria->compare('views',$this->views);
 		$criteria->compare('booktype_id',$this->booktype_id);
 		$criteria->compare('language_id',$this->language_id);
 		$criteria->compare('author',$this->author,true);
+		$criteria->compare('status',$this->status,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -82,14 +82,15 @@
 
 <div id="newComment">
     <?php if(!Yii::app()->user->isGuest):
-    echo CHtml::ajaxLink(
-        'neuer Kommentar',
-        array('books/showNewCommentForm', 'id'=>$model->id),
-        array(
-            'update'=>'#newComment',
-        ), 
-        array('id' => uniqid())
-    );
+    //echo CHtml::ajaxLink(
+    //    'neuer Kommentar',
+    //    array('books/showNewCommentForm', 'id'=>$model->id),
+    //    array(
+    //        'update'=>'#newComment',
+    //    ), 
+    //    array('id' => uniqid())
+    //);
+              echo $form;
 endif; ?>
 </div>
 <div id='comments'>
@@ -133,18 +134,19 @@ endif; ?>
                                   ) . ' ';
                 ?>
                 </div>
-            <?php 
-                if(!Yii::app()->user->isGuest){
-                    echo CHtml::ajaxLink(
-                                          'Antwort schreiben',
-                                          array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
-                                          array(
-                                              'update'=>'#answers'.$comment->id,
-                                          ), 
-                                          array('id' => 'answer'.uniqid())
-                                      );
-                }
-            ?>
+                <div id="newAnswer<?= $comment->id ?>"></div>
+                <?php 
+                    if(!Yii::app()->user->isGuest){
+                        echo CHtml::ajaxLink(
+                                              'Antwort schreiben',
+                                              array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
+                                              array(
+                                                  'update'=>'#newAnswer'.$comment->id,
+                                              ), 
+                                              array('id' => 'answer'.uniqid())
+                                          );
+                    }
+                ?>
 	    </div>
     <?php endforeach; ?>
 </div>

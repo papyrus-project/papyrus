@@ -6,10 +6,20 @@ $this->pageTitle=Yii::app()->name;
 
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
-
 <?php 
-	if(!isset($books))
-		echo 'Zurzeit konnten keine ver&ouml;ffentlichten B&uuml;cher gefunden werden';
+if(isset($dataProvider)){
+    $this->widget('zii.widgets.CListView', array(
+        'dataProvider'=>$dataProvider,
+        'itemView'=>'application.views.books.bookPreview',   // refers to the partial view named '_post'
+        'sortableAttributes'=>array(
+            'title',
+            'created'=>'Datum',
+        ),
+    ));
+}?>
+
+	<?php if(!isset($books))
+              echo 'Zurzeit konnten keine ver&ouml;ffentlichten B&uuml;cher gefunden werden';
 	else
 		foreach($books as $book) : 
 ?>

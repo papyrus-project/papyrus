@@ -24,6 +24,6 @@ foreach($comments as $comment):?>
                                           array('id' => 'delete'.uniqid())
                                       );
               }
-                ?>
+?>
             </div></div>
     <?php endforeach; ?>
