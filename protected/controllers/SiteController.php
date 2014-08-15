@@ -140,8 +140,8 @@ class SiteController extends Controller
 		$this->render('impressum');
 	}
 	
-	public function actionDSA(){
-		$this->render('DSA');
+	public function actionDSE(){
+		$this->render('DSE');
 	}
 	
 	public function actionAgbs(){

@@ -1,0 +1,231 @@
+/*  css hard reset  */
+* {
+	margin: 0;
+	padding : 0;
+}
+html,
+body {
+    font-family: "Lato", Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: 400;
+    background-image: url("../img/lightpaperfibers.png");
+}
+ul, li {
+    list-style-type: none;
+}
+
+.nav-logo {
+    max-width: 35px;
+    padding: 5px;
+}
+
+/* header */
+header {
+    text-align: center;
+    color: #fff;
+    background-attachment: scroll;
+    background-image: url(../img/header-bg-2.jpg);
+    background-position: center center;
+    background-repeat: none;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+header .intro-text {
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+header .intro-text .intro-lead-in {
+    margin-bottom: 25px;
+    font-family: "Droid Serif", Arial, sans-serif;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 22px;
+}
+
+header .intro-text .intro-heading {
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    font-family: "Lato", Arial, sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 50px;
+    text-shadow: 1px 2px #355259;/*#2E332F;*/
+}
+
+header .intro-list li {
+    font-size: 18x;
+    padding: 1%;
+    text-shadow: 1px 1px #2E332F;
+}
+
+header .intro-teaser {
+    padding-top: 55px;
+    padding-bottom: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 2px #2E332F;
+}
+
+@media(min-width:768px) {
+    header .intro-text {
+        padding-top: 200px;
+        padding-bottom: 225px;
+    }
+
+    header .intro-text .intro-lead-in {
+        margin-bottom: 25px;
+        font-family: "Droid Serif", Arial, sans-serif;
+        font-size: 40px;
+        font-style: italic;
+        line-height: 40px;
+    }
+
+    header .intro-text .intro-heading {
+        margin-bottom: 50px;
+        text-transform: uppercase;
+        font-family: "Lato", Arial, sans-serif;
+        font-size: 75px;
+        font-weight: 700;
+        line-height: 75px;
+    }
+}
+
+section {
+    padding-top: 100px;
+}
+section hr {
+    text-align: center;
+    margin: 0 auto;
+    width: 90%;
+}
+section h2.section-heading {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 40px;
+}
+section h3.section-subheading {
+    margin-bottom: 75px;
+    text-transform: none;
+    font-family: "Droid Serif", Arial, sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+}
+section .services-pictograph {
+    width: 100px;
+    margin-top: 50px;
+}
+section .teaser-logo {
+    width: 200px;
+    padding-bottom: 75px;
+}
+section .text-quote {
+    margin-top: 25px; 
+    text-transform: none;
+    font-family: "Droid Serif", Arial, sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+}
+section .text-quote-author {
+    margin-top: 25px;
+    padding-left: 50%;
+}
+@media(min-width:768px) {
+    section .services-pictograph {
+        width: 100px;
+        margin: 0;
+    }
+}
+footer {
+    margin-top: 100px;
+    padding-top: 25px;
+    color: #fff;
+    background-color: #2E332F;
+}
+
+footer ul li:first-child {
+    padding-left: 0px;
+}
+footer ul li {
+    font-family: "Lato", 'serif';
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    float: left;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+footer p {
+    font-family: "Droid Serif", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: italic;
+    text-align: center;
+    padding-top: 50px;
+}
+/* button-b */
+.btn-b {
+    text-transform: uppercase;
+    font-family: "Lato", Arial, sans-serif;
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 2px solid #355259;
+    background-color: #55838E;
+}
+
+.btn-b:hover,
+.btn-b:focus,
+.btn-b:active,
+.btn-b.active,
+.open .dropdown-toggle.btn-primary {
+    color: #fff;
+    border-bottom: 2px solid #55838E;
+    background-color: #76B3C4;
+}
+
+.btn-b:active,
+.btn-b.active,
+.open .dropdown-toggle.btn-primary {
+    background-image: none;
+}
+
+/* button-g */
+.btn-g {
+    text-transform: uppercase;
+    font-family: "Lato", Arial, sans-serif;
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 2px solid #355944;
+    background-color: #558E6C;
+}
+
+.btn-g:hover,
+.btn-g:focus,
+.btn-g:active,
+.btn-g.active,
+.open .dropdown-toggle.btn-primary {
+    color: #fff;
+    border-bottom: 2px solid #558E6C;
+    background-color: #71BC8F;
+}
+
+.btn-g:active,
+.btn-g.active,
+.open .dropdown-toggle.btn-primary {
+    background-image: none;
+}
+
+/* miscellaneous */
+.badge-pn {
+    background-color: #71BC8F;
+}
+
+.thumbnail-centered {
+    text-align: center;
+}
+
+

@@ -1,17 +1,3 @@
-.header ul{
-	display: inline;
-	list-style: none;
-	float: right;
-	position: relative;
-}
-.header ul li{
-	display: inline;
-}
-
-.header ul li+li:before{
-	content: '| ' ;
-}
-/*****************/
 #hide {
     display:none;
 }

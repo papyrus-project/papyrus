@@ -1,93 +1,121 @@
-<?php /* @var $this Controller */ ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
-    <!-- Bootstrap -->
-    <link href="<?= Yii::app()->request->baseUrl; ?>/css/bootstrap/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="<?= Yii::app()->request->baseUrl; ?>/css/some.css" rel="stylesheet" media="screen">
-	<link rel="stylesheet" href="<?= Yii::app()->request->baseUrl; ?>/css/chosen/chosen.css">
-	<!-- blueprint CSS framework -->
-	
-	<!-- <link rel="stylesheet" type="text/css" href="<?= Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?= Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	
-	<link rel="stylesheet" type="text/css" href="<?= Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?= Yii::app()->request->baseUrl; ?>/css/form.css" />  -->
-	
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?= Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif] -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
-	<script src="<?=YII::app()->request->baseUrl?>/js/fb.js"></script>
-	<title><?= CHtml::encode($this->pageTitle); ?></title>
-</head>
+<!DOCTYPE html>
 
-<body>
-<div id="fb-root"></div>
-	<div id="page">
-		<div class="header">
-			<a class="brand" href="<?= Yii::app()->createAbsoluteUrl('') ?>"><?= CHtml::encode(Yii::app()->name); ?></a>
-			<ul>
-				<li><a href="<?= Yii::app()->createAbsoluteUrl('site/Impressum">Impressum')?></a></li>
-				<li><a href="<?= Yii::app()->createAbsoluteUrl('site/contact">Kontakt')?></a></li>
-				<li><a href="<?= Yii::app()->createAbsoluteUrl('site/AGBs">AGBs')?></a></li>
-				<li><a href="<?= Yii::app()->createAbsoluteUrl('site/DSA')?>">Datenschutzerklärung</a></li>
-			</ul>
-		</div><!-- header -->
-	
-		<div class="navbar">
-			<div class="navbar-inner">
-				<div class="container">
-					<form method="get" action="<?= YII::app()->createAbsoluteUrl('')?> ">
-                        <input type="text" name="q"/>
-                        <input type="submit" />
-					</form>
-					
-					<?php 
-						if (Yii::app()->user->isGuest):
-					?>
-						<a href="<?=Yii::app()->createAbsoluteUrl('users/signUp');?>">Register</a>
-						<a href="<?=Yii::app()->createAbsoluteUrl('users/login');?>">login</a>
-					<?php
-						else :
-					?>						
-						<a href="<?=Yii::app()->createAbsoluteUrl('books/upload');?>">upload</a>
-						<a href="<?=Yii::app()->createAbsoluteUrl('user/profile',array('id'=>'0'));?>"><?=Yii::app()->user->name?></a>
-						<a href="<?=Yii::app()->createAbsoluteUrl('site/logout');?>">logout</a>	
-						<?= Messages::model()->countByAttributes(array('receiver'=>Yii::app()->user->id,'read'=>0))?>		
-					<?php
-						endif;
-					?>
-				</div>
-			</div>
-		</div><!-- navbar -->
-		<?php /*
-		if(isset($this->breadcrumbs)):?>
-			<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-				'links'=>$this->breadcrumbs,
-			)); ?><!-- breadcrumbs -->
-		<?php endif */ ?>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	    <!-- Chosen -->
+		<link rel="stylesheet" href="<?= Yii::app()->request->baseUrl; ?>/css/chosen/chosen.css">
+	    <!-- Bootstrap -->
+	    <link href="<?= Yii::app()->request->baseUrl; ?>/frameworks/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	    <!-- Internal -->
+	    <link href="<?= Yii::app()->request->baseUrl; ?>/css/some.css" rel="stylesheet" media="screen">
+		<link rel="stylesheet" href="<?= Yii::app()->request->baseUrl; ?>/css/style_master.css">
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
 		
-		<div class='container'>
-			<?= $content; ?>
-		</div>
+		<script src="<?=Yii::app()->request->baseUrl?>/frameworks/jquery/jquery-2.1.0.min.js" type="text/javascript"></script>
+		<script src="<?=YII::app()->request->baseUrl?>/js/fb.js"></script>
+		<title><?= CHtml::encode($this->pageTitle); ?></title>
+	</head>
+<?php
+	$newMessages = Messages::model()->countByAttributes(array('receiver'=>Yii::app()->user->id,'read'=>0));
+?>
+<body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#toggle-navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand page-scroll" href="<?=YII::app()->createAbsoluteUrl('')?>"><?=YII::app()->name?></a>
+                </div>
+                
+                <div class="col-xs-12 col-sm-12 col-md-6 pull-left">
+                    <form method="get" action="<?=YII::app()->createAbsoluteUrl('')?>" class="navbar-form" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Bücher finden ..." name="q" id="srch-term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-g" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="toggle-navigation">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="hidden">
+                            <a href="#page-top"></a>
+                        </li>
+                        <?php if(YII::app()->user->isGuest): ?>
+                        <li>
+                            <a href="<?=YII::app()->createAbsoluteUrl('users/login')?>">Anmelden</a>
+                        </li>
+                        <li>
+                        	<button onclick="window.location.href='<?=YII::app()->createAbsoluteUrl('users/login')?>'" class="btn navbar-btn btn-b">Hochladen</button>
+                        </li>
+                    	<?php else: ?>
+                        <li>
+                            <a href="<?=YII::app()->createAbsoluteUrl('user/profile/0')?>"><span class="glyphicon glyphicon-user"></span> Profil</a>
+                        </li>
+                        <li>
+                            <a href="<?=YII::app()->createAbsoluteUrl('user/messages')?>"><span class="glyphicon glyphicon-envelope"></span> Postfach <?php if($newMessages>0):?><span class="badge badge-pn"><?= $newMessages ?></span><?php endif;?></a>
+                        </li>
+                        <li>
+                            <a href="<?=YII::app()->createAbsoluteUrl('site/logout')?>">Abmelden</a>
+                        </li>
+                        <li>
+                            <button class="btn navbar-btn btn-b" onclick="window.location.href='<?=YII::app()->createAbsoluteUrl('books/upload')?>'">Hochladen</button>
+                        </li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        
+	<section>
+		<?= $content; ?>
+	</section>
 	
-		<div id="footer">
-			<div class="container">
-				Copyright &copy; <?= date('Y'); ?> by Team Papyrus.<br/>
-				All Rights Reserved.<br/>
-				<?= Yii::powered(); ?>
-			</div>
-		</div><!-- footer -->
 	
-	</div><!-- page -->
+	<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="pull-left">
+                        <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum')?>">Impressum</a></li>
+                        <li><a href="<?=YII::app()->createAbsoluteUrl('site/contact')?>">Kontakt</a></li>
+                        <li><a href="<?=YII::app()->createAbsoluteUrl('site/agbs')?>">AGBs</a></li>
+                        <li><a href="<?=YII::app()->createAbsoluteUrl('site/dse')?>">Datenschutzerklärung</a></li>
+                    </ul>
+                </div> 
+                <div class="col-md-4">
+                    <ul class="pull-right">
+                        <li><a href="#"><img src="<?=YII::app()->request->baseUrl?>/img/social/github.png" alt="github" /></a></li>
+                        <li><a href="#"><img src="<?=YII::app()->request->baseUrl?>/img/social/facebook.png" alt="facebook" /></a></li>
+                        <li><a href="#"><img src="<?=YII::app()->request->baseUrl?>/img/social/google+.png" alt="google+" /></a></li>
+                        <li><a href="#"><img src="<?=YII::app()->request->baseUrl?>/img/social/twitter.png" alt="twitter" /></a></li>
+                    </ul>
+                </div> 
+            </div>
+            <div class="row">
+                <p>© <?=date('Y')?> Florian Jacobsen, Team "Bookwork"</p>
+            </div>
+        </div>
+    </footer>
 	
 	
   	
 
-	<script src="<?= Yii::app()->request->baseUrl; ?>/js/bootstrap/bootstrap.js" type="text/javascript"></script>
+	<script src="<?= Yii::app()->request->baseUrl; ?>/framework/bootstrapjs/bootstrap.min.js" type="text/javascript"></script>
 	<script src="<?= Yii::app()->request->baseUrl; ?>/js/chosen/chosen.jquery.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var config = {
