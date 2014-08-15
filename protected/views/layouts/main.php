@@ -20,35 +20,11 @@
 	<link rel="stylesheet" type="text/css" href="<?= Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif] -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+	<script src="<?=YII::app()->request->baseUrl?>/js/fb.js"></script>
 	<title><?= CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
-	   <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '684989361538190',
-          xfbml      : true,
-          version    : 'v2.0'
-        });
-      };
-
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-       
-       (function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-		  fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-    </script>
 <div id="fb-root"></div>
 	<div id="page">
 		<div class="header">
@@ -120,10 +96,10 @@
 		  '.chosen-select-no-single' : {disable_search_threshold:10},
 		  '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
 		  '.chosen-select-width'     : {width:"95%"}
-		    }
-		    for (var selector in config) {
-		      $(selector).chosen(config[selector]);
-		    }
+	    }
+	    for (var selector in config) {
+	      $(selector).chosen(config[selector]);
+	    }
 	</script>
 	<script src="<?= Yii::app()->request->baseUrl; ?>/js/papyrus.js" type="text/javascript"></script>
 </body>

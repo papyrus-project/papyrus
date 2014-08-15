@@ -103,7 +103,6 @@ class UserController extends Controller
 		if($model->save()){
 			$this->render('pmView',array('message'=>$model));
 		}
-		print_r($model->getErrors());
 	}
 	
 	public function actionViewMessages(){
