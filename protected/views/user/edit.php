@@ -26,6 +26,17 @@
 		<textarea name="description"><?php echo $model->description; ?></textarea>
 	</div>
 	<div class="row">
+		<label>wup wup</label>
+		<div class="rating">
+		    <input type="radio" name="rating" value="1" checked /><span></span>
+		    <input type="radio" name="rating" value="2" /><span></span>
+		    <input type="radio" name="rating" value="3" /><span></span>
+		    <input type="radio" name="rating" value="4" /><span></span>
+		    <input type="radio" name="rating" value="5" /><span></span>
+		</div>
+    </div>
+	</div>
+	<div class="row">
 		<button type="submit">save</button>
 	</div>
 </form>

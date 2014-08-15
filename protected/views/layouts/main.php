@@ -79,7 +79,8 @@
 					?>						
 						<a href="<?=Yii::app()->createAbsoluteUrl('books/upload');?>">upload</a>
 						<a href="<?=Yii::app()->createAbsoluteUrl('user/profile',array('id'=>'0'));?>"><?=Yii::app()->user->name?></a>
-						<a href="<?=Yii::app()->createAbsoluteUrl('site/logout');?>">logout</a>			
+						<a href="<?=Yii::app()->createAbsoluteUrl('site/logout');?>">logout</a>	
+						<?= Messages::model()->countByAttributes(array('receiver'=>Yii::app()->user->id,'read'=>0))?>		
 					<?php
 						endif;
 					?>

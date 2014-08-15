@@ -1,0 +1,51 @@
+2013-09-04
+   - twitter login button;
+2013-09-02
+   - show if users enabled facebook logIn (on: Manage Users, View all Users and View Private Profile pages)
+2013-08-29
+   - main update: add FACEBOOK login button
+   - other small updates...
+
+2013-07-19
+    - add the possibility to customize email sent by this application (new button in settings area)
+2013-06-03
+   - add a property that allows to update DATETIME statistical fields without the use of triggers;
+   - minor BUG fix: please in all tables where TIMESTAMP is defined as not null, ALTER table to make it default as NULL, and no ATTRIBUTES of EXTRA... (DATETIME fields are used just for statistical reasons)
+2013-05-31
+   - fix script src links (to point at the last sql version)
+   - focus on the user name in logIn page
+2013-05-21
+   - add password reset capability; A user can reset his/hers password base on user name (or email address), a captcha and a verification email with secret a code.
+2013-04-04
+    - fix "setting load" bug; (settings were not loaded form the database)
+    - add new column to the settings table:
+ALTER TABLE settings 
+   ADD setting_order INT NULL;
+
+2013-04-03
+   - Add password_change right: With this right user can change the password without knowing the old password.
+   - On install defaults operations/tasks/roles can now be updated, not only created! (This thing is useful if a new operation/task/role has been created.)
+
+2013-03-05
+   - Updating install controller to appropriate documentation.
+2013-02-08
+   - add BumActiveRecord in order to make demo possible :) 
+2013-02-07
+   - Enabled invitation based sign Up
+2013-02-06
+   - Add to the CronController the following actions:
+      actionDeleteUnusedInvitationEmails
+
+2013-02-01 
+   - Add a settings page. Here some of the BUM module settings can be accessed and modified. 
+   - Add CronController with the following actions:
+      actionDeleteUnactivateUsers
+      actionDeleteUnverifiedEmails
+   
+      -> this actions should delete unverified users, or unconfirmed emails; Attention, if a user is set as not active and it older that hoursVerificationLinkIsActive he/she will be deleted.
+
+2013-01-31 Add: Yii::app()->user->primaryEmail; in order to find out active user primary email.
+2013-01-31 
+   - If a user has not activate his/hers account it is possible to allow him/her to log in. Event controlled by logInIfNotVerified property. Active property added: Yii::app()->user->active type: boolean;
+   - A logged in user, that is not activated, can resent it's confirmation email. (menu entry)
+2013-01-29 Add the user status property. Now every user has a status property that, of course, controls his/hers status. (So now it is possible to block/band a user). Usage: Yii::app()->user->status;  if status < 0  then the account is blocked/banned... Yii::app()->user->statusText

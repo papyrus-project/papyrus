@@ -239,6 +239,28 @@ class BooksController extends Controller
 		readfile(YII::app()->basePath.'/../upload/pdf/'.$id.'.pdf');
 	}
     
+	public function actionFeed(){
+		$subs = Subscription::model()->findAllByAttributes(array('subscriber_id'=>YII::app()->user->id),array('select'=>'subscripted_id'));
+		foreach($subs as $sub){
+			$subsArray[] = $sub->subscripted_id;
+		}
+		$books = Books::model()->published()->findAllByAttributes(array('author'=>$subsArray),array('limit'=>2));
+		
+		$_SESSION['feedPage']=1;
+		$this->render('feed',array('books'=>$books));
+	}
+	
+	public function actionMoreFeed(){
+		$subs = Subscription::model()->findAllByAttributes(array('subscriber_id'=>YII::app()->user->id),array('select'=>'subscripted_id'));
+		foreach($subs as $sub){
+			$subsArray[] = $sub->subscripted_id;
+		}
+		$books = Books::model()->published()->findAllByAttributes(array('author'=>$subsArray),array('limit'=>2,'offset'=>2*$_SESSION['feedPage']++));
+		if(!$books)
+			throw new CHttpException(204,'Keine Buecher mehr vorhanden');
+		$this->renderPartial('moreFeed',array('books'=>$books));
+	}
+	
     public function actionShowNewCommentForm($id){
         $commentForm = new Comments();
         echo $this->renderPartial('newComment', array('model' => $commentForm, 'id'=>$id), true, true);

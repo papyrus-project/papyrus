@@ -29,21 +29,6 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		// $message = new YiiMailMessage;
-// 		 
-		// //userModel is passed to the view
-		// $message->setBody('test');
-		// $message->setSubject('test');
-// 		 
-		// $message->addTo('alexander.hamburg@web.de');
-		// $message->from = Yii::app()->params['adminEmail'];
-		// try {
-			 // $result=Yii::app()->mail->send($message); 
-		// } catch (Exception $e) 
-		// {
-			// print_r('error: '.$e);    
-		// }
-        
         $text = '';
         $model = new Books('search');
 		if(!empty($_GET['q'])) {
