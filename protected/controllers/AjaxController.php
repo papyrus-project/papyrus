@@ -38,17 +38,34 @@ class AjaxController extends Controller
 				print('favorise');
 			}
 		}
-		/*
-		$connection=Yii::app()->db; 
-		
-        $command=$connection->createCommand('
-			INSERT INTO alex.books_favorites
-			SET 
-				books_id = "' . $_POST['book'] . '",
-				users_id = "' . Yii::app()->user->id .'"
-			ON duplicate key update
-				books_id = "' . $book . '"
-			');
-        $rowCount=$command->execute();*/
+	}
+	
+	public function actionSubscribe(){
+		$sub=$_POST['subsripted'];
+		$user=Yii::app()->user->id;
+		if($sub == $user)
+			throw new CHttpException(401,'u no sub urself');
+		else if(YII::app()->user->isGuest)
+			throw new CHttpException(401,'Login required');
+		else{
+			$model = Subscription::model()->findByAttributes(array('subscriber_id'=>$user,'subscripted_id'=>$sub));
+			if(!$model){
+				$model = new Subscription();
+				$model->subscriber_id=$user;
+				$model->subscripted_id=$sub;
+				$model->save();
+				print('nicht mehr folgen');
+			} else{
+				$model->delete();
+				print('folgen');
+			}
+		}
+	}
+	
+	public function actionTest(){
+		$blub = Subscription::model()->findAllByAttributes(array('subscriber_id'=>array(1,6),),array('limit'=>2,'offset'=>2));
+		foreach ($blub as $key => $value) {
+			print_r($value->subscriber_id);
+		}
 	}
 }

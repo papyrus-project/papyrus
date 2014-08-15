@@ -3,7 +3,7 @@
 ?>
 <h1>files</h1>
 <div>Titel: <?= $model->title ?></div>
-<div>von: <?= $author ?></div>
+<div>von: <a href="<?= YII::app()->createAbsoluteUrl('user/profile/'.$model->author0->id) ?>"><?= $author ?></a></div>
 <div>Gattung: <?= $type ?></div>
 <div>Genre: <?= $genres ?></div>
 <div>Sprachen: <?= $lang ?></div>
@@ -21,7 +21,7 @@
 )); 
 
 ?>
-<div class="og:description">Beschreibung: <br /><?= $model->description ?></div>
+<div>Beschreibung: <br /><?= $model->description ?></div>
 <div class="fb-share-button" data-href="http://papyrus-project.noip.me/books/files/<?=$model->id?>" data-type="icon"></div>
 <br />Statistik<br />
 <div>Erstellt am: <?= YII::time($model->created) ?></div>
@@ -39,41 +39,44 @@
 	);?>
 <?php endif;?>
 <?php if($model->author != Yii::app()->user->id && !YII::app()->user->isGuest):?>
-		<?= CHtml::ajaxButton(
-			//gucken ob das buch bereits favorisiesrt wurde
-		    BooksFavorites::model()->findByAttributes(array('users_id'=>YII::app()->user->id,'books_id'=>$model->id))?'unfavorise':'favorise',
-		    array('ajax/favoriseBook'),
-		    array(
-		    	'type'=>'POST',
-		    	'data'=>array('book'=>$model->id),
-		    	'success'=>'js:function(data){
-					console.log("success");
-			        $(".bookFavButton").val(data);
-			    }',
-			),
-			array(
-			    'class'=>'btn bookFavButton',
-			)
-		);?>
+	<?= CHtml::ajaxButton(
+		//gucken ob das buch bereits favorisiesrt wurde
+	    BooksFavorites::model()->findByAttributes(array('users_id'=>YII::app()->user->id,'books_id'=>$model->id))?'unfavorise':'favorise',
+	    array('ajax/favoriseBook'),
+	    array(
+	    	'type'=>'POST',
+	    	'data'=>array('book'=>$model->id),
+	    	'success'=>'js:function(data){
+				console.log("success");
+		        $(".bookFavButton").val(data);
+		    }',
+		),
+		array(
+		    'class'=>'btn bookFavButton',
+		)
+	);?>
 <?php endif; ?>
 <?php if($model->author == Yii::app()->user->id): ?>
 	<a href="<?php $url=Yii::app()->createUrl('books/edit', array('id'=>$model->id)); echo ($url);?>">edit</a><br /><br />
 <?php endif; ?>
-
+<br />
 <?= CHtml::link(
 	'download pdf',
-	array('books/download/'.$_GET['id'].'.1')
+	array('books/download/'.$_GET['id'].'.1'),
+	array('class'=>'btn')
 	
 );?><br />
 <?= CHtml::link(
 	'download epub',
-	array('books/download/'.$_GET['id'].'.2')
+	array('books/download/'.$_GET['id'].'.2'),
+	array('class'=>'btn')
 	
 );?>
 <br />
 <?= CHtml::link(
 	'download mobi',
-	array('books/download/'.$_GET['id'].'.3')
+	array('books/download/'.$_GET['id'].'.3'),
+	array('class'=>'btn')
 	
 );?><br />
 

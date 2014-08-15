@@ -31,9 +31,13 @@ class UserController extends Controller
 			$this->redirect(array('bum/users/login'));
 		$model = UserData::model()->findByPk(Yii::app()->user->id);
 		if(!empty($_POST)){
-			$model->setAttributes($_POST);
+			$model->attributes = $_POST;
+			$model->name = CHtml::encode($_POST['name']);
+			$model->location = CHtml::encode($_POST['location']);
+			$model->homepage = CHtml::encode($_POST['homepage']);
+			$model->description = CHtml::encode($_POST['description']);
 			$model->save();
-			$this->redirect(array('user/profile','id'=>''));
+			$this->redirect(array('user/profile','id'=>YII::app()->user->id));
 		}
 		$date = explode('-', $model->birthday);
 		$this->render('edit',array(
@@ -73,6 +77,7 @@ class UserController extends Controller
 		}
 		$model=new Messages();
 		if(isset($_POST['Messages'])){
+			$model->setScenario('needCaptcha');
 			$model->sender = YII::app()->user->id;
 			$model->receiver = $id;
 			$model->subject = CHtml::encode(print_r($_POST['Messages']['subject'],true));
@@ -94,7 +99,11 @@ class UserController extends Controller
 			print_r('boese');
 			$this->redirect(YII::app()->createAbsoluteUrl('site/index'));
 		}
-		$this->render('pmView',array('message'=>$model));
+		$model->read = 1;
+		if($model->save()){
+			$this->render('pmView',array('message'=>$model));
+		}
+		print_r($model->getErrors());
 	}
 	
 	public function actionViewMessages(){
