@@ -8,11 +8,12 @@ $this->pageTitle=Yii::app()->name;
 
 <?php 
 if(isset($dataProvider)){
+    //yii::app()->language = 'de';
     $this->widget('zii.widgets.CListView', array(
         'dataProvider'=>$dataProvider,
         'itemView'=>'application.views.books.bookPreview',   // refers to the partial view named '_post'
         'sortableAttributes'=>array(
-            'title',
+            'title'=>'Titel',
             'id'=>'Datum',
         ),
     ));
@@ -36,6 +37,8 @@ if(isset($dataProvider)){
 				    'size' => 'thumb',
 				    'class' => '',
 				    'id' => '',
+                    'group' => 'cover',
+                    'defaultImage' => 'default.jpg',
 			)); 
 			} catch(exception $e){
 				$this->widget('ext.SAImageDisplayer', array(
@@ -44,6 +47,8 @@ if(isset($dataProvider)){
 				    'size' => 'thumb',
 				    'class' => '',
 				    'id' => '',
+                    'group' => 'cover',
+                    'defaultImage' => 'default.jpg',
 				));
 			}
 ?>

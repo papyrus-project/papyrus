@@ -43,6 +43,8 @@ B&uuml;cher<br />
 			    'size' => 'thumb',
 			    'class' => '',
 			    'id' => '',
+                'group' => 'cover',
+                'defaultImage' => 'default.jpg',
 		)); 
 ?>
 	</div>
