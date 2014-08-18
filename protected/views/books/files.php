@@ -11,13 +11,14 @@
 <div>Alter: <?= $model->age_restriction ?></div>
 <?php 
 //coverbild anzeigen groesse 200x150, seitenverhaeltnis bleibt erhalten
-
-	$this->widget('ext.SAImageDisplayer', array(
-	    'image' => $model->id.'.'.$model->extension,
-	    'title' => $model->title,
-	    'size' => 'thumb',
-	    'class' => '',
-	    'id' => '',
+    $this->widget('ext.SAImageDisplayer', array(
+        'image' => $model->id.'.'.$model->extension,
+        'title' => $model->title,
+        'size' => 'thumb',
+        'class' => '',
+        'id' => '',
+        'group' => 'cover',
+        'defaultImage' => 'default.jpg',
 )); 
 
 ?>
@@ -151,5 +152,5 @@ endif; ?>
     <?php endforeach; ?>
 </div>
 
-<div id="com">...</div>
+<div id="com"></div>
 <pre><?php //print_r($comments); ?></pre>

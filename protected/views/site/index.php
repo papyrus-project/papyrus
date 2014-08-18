@@ -20,7 +20,6 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
         </div>
     </div>
 </header>
-
 <!-- services section -->
 <section>
     <div class="container">

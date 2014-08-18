@@ -26,6 +26,8 @@
 			    'size' => 'thumb',
 			    'class' => '',
 			    'id' => '',
+                'group' => 'cover',
+                'defaultImage' => 'default.jpg',
 		)); 
 		} catch(exception $e){
 			// $this->widget('ext.SAImageDisplayer', array(
