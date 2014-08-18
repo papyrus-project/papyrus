@@ -88,7 +88,7 @@ class Books extends CActiveRecord
             ),
             'recently'=>array(
                 'order'=>'id DESC',
-                'limit'=>5,
+                'limit'=>4,
             ),
         );
     }

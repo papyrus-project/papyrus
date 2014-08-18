@@ -92,7 +92,7 @@ class UserController extends Controller
 		$this->render('sendPm',array('model'=>$model));
 	}
 	
-	public function actionViewMessage($id){
+	public function actionMessage($id){
 		$model = Messages::model()->findByPk($id);
 		if(YII::app()->user->id != $model->sender && YII::app()->user->id != $model->receiver){
 			YII::app()->clientScript->registerScript('javascript','alert("BITCH")');
@@ -105,7 +105,7 @@ class UserController extends Controller
 		}
 	}
 	
-	public function actionViewMessages(){
+	public function actionMessages(){
 		$model = Messages::model()->got()->with('sender0')->findAll();
 		$this->render('pmList',array('messages'=>$model));
 	}

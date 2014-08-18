@@ -25,10 +25,12 @@ class SiteController extends Controller
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
 	 */
-    public function actionIndex( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array())
+    public function actionIndex()
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+        $books = Books::model()->published()->recently()->with('bookgenres')->findAll();
+        $this->render('index', array('books' => $books));
     }
 	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array())
 	{
@@ -172,8 +174,8 @@ class SiteController extends Controller
 		$this->render('impressum');
 	}
 	
-	public function actionDSA(){
-		$this->render('DSA');
+	public function actionDSE(){
+		$this->render('DSE');
 	}
 	
 	public function actionAgbs(){
