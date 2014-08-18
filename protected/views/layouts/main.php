@@ -40,10 +40,10 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container">
-					<form method="get" action="<?= YII::app()->createAbsoluteUrl('')?> ">
-                        <input type="text" name="q"/>
-                        <input type="submit" />
-					</form>
+					<?php echo CHtml::beginForm(YII::app()->createAbsoluteUrl('site/bob'), 'get', array('id'=>'filter-form'))
+. CHtml::textField('q', (isset($_GET['q'])) ? $_GET['q'] : '', array('id'=>'q'))
+. CHtml::submitButton('Search', array('name'=>''))
+. CHtml::endForm();?>
 					
 					<?php 
 						if (Yii::app()->user->isGuest):
