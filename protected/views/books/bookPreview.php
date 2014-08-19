@@ -20,10 +20,13 @@
         <h2><a href="<?= Yii::app()->createUrl('books/files',array('id'=>$data->id)) ?>"><?= $data->title ?></a> <?php if($data->wip == 1) echo '<span class="label book-thumb-label">WIP</span>'?></h2>
         <p>
             <span class="label label-default"><?= Booktype::model()->findByPk($data->booktype_id)->type; ?></span>
-            <span class="label label-default">Drama</span>
-            <span class="label label-default">Ab 12 Jahren</span>
+            <?php $genre = $data->bookgenres;
+                  foreach($genre as $value){
+                      echo '<span class="label label-default">'.$value->genreName->genre.'</span> ';
+                  } ?>
+            <span class="label label-default"><?php if($data->age_restriction != 0){echo 'Ab '.$data->age_restriction.' Jahren';}else{echo 'Keine Altersangabe';} ?></span>
             <span class="label label-default"><?= Languanges::model()->findByPk($data->language_id)->language; ?></span>
-            <span class="label label-default"><?= $data->words ?> W?rter</span>
+            <span class="label label-default"><?= $data->words ?> W&oumlrter</span>
         </p>
                                 
         <p>
@@ -40,7 +43,7 @@
                                 
         <ul class="book-thumb-meta">
             <li class="text-meta"><span class="glyphicon glyphicon-eye-open"></span> <?= $data->views; ?></li>
-            <li class="text-meta"><span class="glyphicon glyphicon-bookmark"></span> 100.000</li>
+            <li class="text-meta"><span class="glyphicon glyphicon-bookmark"></span> <?= $data->favorite_count; ?></li>
             <li class="text-meta"><span class="glyphicon glyphicon-comment"></span> 100.000</li>
             <li class="text-meta"><span class="glyphicon glyphicon-save"></span> <?= $data->downloads; ?></li>
         </ul>
@@ -60,8 +63,10 @@
             <div class="dropdown">
                 <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-config" style="text-align:left;">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Bearbeiten</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Entfernen</a></li>
+                    <?php if($data->author == Yii::app()->user->id): ?>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Bearbeiten</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Entfernen</a></li>
+                    <?php endif; ?>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Verst??e Melden</a></li>
                 </ul>
             </div>
