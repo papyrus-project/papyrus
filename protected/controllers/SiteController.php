@@ -25,27 +25,61 @@ class SiteController extends Controller
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
 	 */
-	public function actionIndex()
+    public function actionIndex()
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-        $text = '';
-        $model = new Books('search');
-		if(!empty($_GET['q'])) {
-            $text = $_GET['q'];
-            $model->unsetAttributes();
-            $model->description = $text;   // any filtering value that you want to apply
-            $model->title = $text;
-            $model->status = 1;
-            $dataProvider = $model->search();
-            $this->render('index',array('dataProvider' => $dataProvider));
+        $books = Books::model()->published()->recently()->with('bookgenres')->findAll();
+        $this->render('index', array('books' => $books));
+    }
+	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array())
+	{
+		// renders the view file 'protected/views/site/index.php'
+		// using the default layout 'protected/views/layouts/main.php'
+        
+        $criteria = new CDbCriteria();
+        //$criteria->limit = 2;
+        if( count( $genre ) > 0 ) {
+            $genreCrit = new CDbCriteria();
+            
+            //$criteria->select = 'firstfield';
+            //$criteria->with = array('secondTable_relation'=>array('select'=>'secondfield'));
+            $genreCrit->with = array('bookgenres'=>array( 
+                        'on'=>'id=' .$genre[0], 
+                        'together'=>true,
+                        'joinType'=>'INNER JOIN',
+                        ));
+            //$genreCrit->addInCondition( 'bookgenre_id', $genreArray, 'OR' );
+            $criteria->mergeWith($genreCrit, 'AND');
         }
-        else
-        {
-            $model2 = Books::model();
-            $model = Books::model()->published()->recently()->with('bookgenres')->findAll();
-            $this->render('index',array('books' => $model));
+        if( count( $age ) > 0 ) {
+            $ageCrit = new CDbCriteria();
+            $ageCrit->addInCondition( 'age_restriction', $age, 'OR' );
+            $criteria->mergeWith($ageCrit, 'AND');
         }
+        if( count( $type ) > 0 ) {
+            $typeCrit = new CDbCriteria();
+            $typeCrit->addInCondition( 'booktype_id', $type, 'OR' );
+            $criteria->mergeWith($typeCrit, 'AND');
+        }
+        if( count( $lang ) > 0 ) {
+            $langCrit = new CDbCriteria();
+            $langCrit->addInCondition( 'language_id', $lang, 'OR' );
+            $criteria->mergeWith($langCrit, 'AND');
+        }
+        $criteria->addSearchCondition( 'status', 1, true, 'AND' );
+        if( strlen( $q ) > 0 ) {
+            $text = new CDbCriteria();
+            $text->addSearchCondition( 'title', $q, true, 'OR' );
+            $text->addSearchCondition( 'description', $q, true, 'OR' );
+            $criteria->mergeWith($text, 'AND');
+        }
+
+        $dataProvider = new CActiveDataProvider( 'Books', array( 'criteria' => $criteria, 'pagination'=>array('pageSize'=>2,) ) );
+        //echo "<pre>";
+        //print_r($dataProvider);
+        //echo "</pre>";
+        $this->render('bob',array('dataProvider' => $dataProvider));
 	}
 
 	/**

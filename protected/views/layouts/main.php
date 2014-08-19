@@ -37,12 +37,17 @@ if(!YII::app()->user->isGuest)
                     <a class="navbar-brand page-scroll" href="<?=YII::app()->createAbsoluteUrl('')?>"><?=YII::app()->name?></a>
                 </div>
                 
+
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="toggle-navigation">
                     
-                    <form role="search" method="get" action="<?=YII::app()->createAbsoluteUrl('')?>" class="navbar-form navbar-left">
-                        <input type="text" placeholder="Bücher finden ..." class="form-control" name="srch-term" id="srch-term">
-                    </form>
+                    <!-- <form role="search" method="get" action="<?=YII::app()->createAbsoluteUrl('')?>" class="navbar-form navbar-left"> -->
+                    <?= CHtml::beginForm(YII::app()->createAbsoluteUrl('site/bob'), 'get', array('id'=>'filter-form','class'=>'navbar-form navbar-left'))?>
+                        <?= CHtml::textField('q', (isset($_GET['q'])) ? $_GET['q'] : '', array('class'=>'form-control', 'placeholder'=>'Bücher finden ...', 'name'=>'q', 'id'=>'srch-term'))?>
+                           <!-- <input type="text" class="form-control" placeholder="Bücher finden ..." name="q" id="srch-term">-->
+
+                    <?= CHtml::endForm();?>
+                    <!-- </form> -->
                         <ul class="nav navbar-nav navbar-right">
                         <li class="hidden">
                             <a href="#page-top"></a>
