@@ -34,22 +34,13 @@ class SiteController extends Controller
     }
 	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array())
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
         
         $criteria = new CDbCriteria();
-        //$criteria->limit = 2;
         if( count( $genre ) > 0 ) {
             $genreCrit = new CDbCriteria();
-            
-            //$criteria->select = 'firstfield';
-            //$criteria->with = array('secondTable_relation'=>array('select'=>'secondfield'));
-            $genreCrit->with = array('bookgenres'=>array( 
-                        'on'=>'id=' .$genre[0], 
-                        'together'=>true,
-                        'joinType'=>'INNER JOIN',
-                        ));
-            //$genreCrit->addInCondition( 'bookgenre_id', $genreArray, 'OR' );
+            $genreCrit->together = true;
+            $genreCrit->with = array('bookgenres');
+            $genreCrit->addInCondition( 'bookgenres.bookgenre_id', $genre, 'OR' );
             $criteria->mergeWith($genreCrit, 'AND');
         }
         if( count( $age ) > 0 ) {
@@ -67,18 +58,15 @@ class SiteController extends Controller
             $langCrit->addInCondition( 'language_id', $lang, 'OR' );
             $criteria->mergeWith($langCrit, 'AND');
         }
-        $criteria->addSearchCondition( 'status', 1, true, 'AND' );
         if( strlen( $q ) > 0 ) {
             $text = new CDbCriteria();
             $text->addSearchCondition( 'title', $q, true, 'OR' );
             $text->addSearchCondition( 'description', $q, true, 'OR' );
             $criteria->mergeWith($text, 'AND');
         }
+        $criteria->addSearchCondition( 'status', 1, true, 'AND' );
 
-        $dataProvider = new CActiveDataProvider( 'Books', array( 'criteria' => $criteria, 'pagination'=>array('pageSize'=>2,) ) );
-        //echo "<pre>";
-        //print_r($dataProvider);
-        //echo "</pre>";
+        $dataProvider = new CActiveDataProvider( 'Books', array( 'criteria' => $criteria, 'pagination'=>array('pageSize'=>5,) ) );
         $this->render('bob',array('dataProvider' => $dataProvider));
 	}
 
