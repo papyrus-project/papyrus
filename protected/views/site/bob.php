@@ -2,7 +2,7 @@
 Yii::app()->clientScript->registerScript('search',
     "var ajaxUpdateTimeout;
     var ajaxRequest;
-    $('input#q').keyup(function(){
+    $('input#srch-term').keyup(function(){
         ajaxRequest = $(this).serialize();
         clearTimeout(ajaxUpdateTimeout);
         ajaxUpdateTimeout = setTimeout(function () {
@@ -18,16 +18,23 @@ Yii::app()->clientScript->registerScript('search',
 );
 Yii::app()->clientScript->registerScript('filter',
         "$('.filterItem').change(function(){
-    category = $('.filterItem').serialize();
+    category = $('.filterItem').map(function() { if(this.checked)return '&'+this.name+'='+this.value; }).get();//.serialize();
+    //category = category.toString().replace(',','');
+    var index;
+    var getParam = '';
+    for (index = 0; index < category.length; ++index) {
+        getParam = getParam + category[index];
+    }
     $.fn.yiiListView.update(
         'ajaxListView',
-        {data: category}
-    );
+        {data: getParam}
+    ); 
     //alert(category);
+    console.log(getParam);
 });"
 );
 ?>
-<!--<section id="user-profile">-->
+<section id="user-profile">
     <div class="container">
         <div class="row">
             <form>
@@ -94,7 +101,7 @@ Yii::app()->clientScript->registerScript('filter',
                           //yii::app()->language = 'de';
                           $this->widget('zii.widgets.CListView', array(
                               'dataProvider'=>$dataProvider,
-                              'itemView'=>'application.views.books.bookPreview',   // refers to the partial view named '_post'
+                              'itemView'=>'application.views.books._BookPreview',   // refers to the partial view named '_post'
                               'sortableAttributes'=>array(
                                   'title'=>'Titel',
                                   'id'=>'Datum',
@@ -105,4 +112,4 @@ Yii::app()->clientScript->registerScript('filter',
             </div>
         </div>
     </div>
-<!--</section>-->
+</section>
