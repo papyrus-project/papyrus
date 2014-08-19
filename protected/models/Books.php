@@ -74,9 +74,9 @@ class Books extends CActiveRecord
 			array('title, extension, cover_artist', 'length', 'max'=>255),
 			array('author', 'length', 'max'=>20),
 			array('updated, title, description, words, booktype_id, language_id, age_restriction, cover_artist', 'safe'),
+			array('id, title, description, booktype_id, language_id, author', 'safe',  'on'=>'search'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, booktype_id, language_id, author', 'safe', 'status', 'on'=>'search'),
 		);
 	} 
 	
@@ -114,6 +114,7 @@ class Books extends CActiveRecord
 			'language' => array(self::BELONGS_TO, 'Languanges', 'language_id'),
 			'bookgenres' => array(self::HAS_MANY, 'Bookgenre', 'books_id'),
 			'users' => array(self::MANY_MANY, 'Users', 'favorites(books_id, users_id)'),
+			'favorites' => array(self::HAS_MANY, 'BooksFavorites', 'books_id'),
 			'comments' => array(self::HAS_MANY, 'Comments', 'ref_id'),
 		);
 	}
