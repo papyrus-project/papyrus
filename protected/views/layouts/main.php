@@ -61,7 +61,7 @@ if(!YII::app()->user->isGuest)
                         </li>
                     	<?php else: ?>
                         <li>
-                            <a href="<?=YII::app()->createAbsoluteUrl('user/profile/0')?>"><span class="glyphicon glyphicon-user"></span> Profil</a>
+                            <a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.YII::app()->user->id)?>"><span class="glyphicon glyphicon-user"></span> Profil</a>
                         </li>
                         <li>
                             <a href="<?=YII::app()->createAbsoluteUrl('user/messages')?>"><span class="glyphicon glyphicon-envelope"></span> Postfach <?php if($newMessages>0):?><span class="badge badge-pn"><?= $newMessages ?></span><?php endif;?></a>
@@ -80,9 +80,9 @@ if(!YII::app()->user->isGuest)
             <!-- /.container-fluid -->
         </nav>
         
-	<section>
-		<?= $content; ?>
-	</section>
+
+	<?= $content; ?>
+
 	
 	
 	<footer>
