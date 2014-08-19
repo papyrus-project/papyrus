@@ -53,10 +53,22 @@ class UserController extends Controller
 			$books = Books::model()->owns($id)->recently()->with('bookgenres')->findAll();
 		else
 			$books = Books::model()->owns($id)->published()->recently()->with('bookgenres')->findAll();
+		$own = Books::model()->findAllByAttributes(array('author'=>$model->id));
+		$array = array();
+		foreach ($own as $key => $value) {
+			$array[] = $value->id;
+		}
+		$var_sum = Books::model()->findBySql('select SUM(`downloads`) as `downloads` from books where author=:id', array(':id'=>$model->id));
+		if(!$var_sum->downloads)
+			$var_sum->downloads = 0;
+		
 		$this->render('profile',array(
 			'model' => $model,
-			'sexes'=>array(1=>'male',2=>'female'),
+			'sexes'=>array(0=>'Keine Angabe',1=>'M&auml;nnlich',2=>'Weiblich'),
 			'books'=>$books,
+			'subscribtions'=>Subscription::model()->countByAttributes(array('subscripted_id'=>$model->id)),
+			'favorits'=>BooksFavorites::model()->countByAttributes(array('books_id'=>$array)),
+			'downloads'=>$var_sum->downloads,
 		));
 	}
 	
@@ -95,8 +107,6 @@ class UserController extends Controller
 	public function actionMessage($id){
 		$model = Messages::model()->findByPk($id);
 		if(YII::app()->user->id != $model->sender && YII::app()->user->id != $model->receiver){
-			YII::app()->clientScript->registerScript('javascript','alert("BITCH")');
-			print_r('boese');
 			$this->redirect(YII::app()->createAbsoluteUrl('site/index'));
 		}
 		$model->read = 1;

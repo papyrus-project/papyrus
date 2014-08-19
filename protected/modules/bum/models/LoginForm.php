@@ -86,7 +86,7 @@ class LoginForm extends CFormModel
 			Yii::app()->user->login($this->_identity,$duration);
             
             // update user last login time
-            Users::model()->updateByPk($this->_identity->id, array('date_of_last_access' => new CDbExpression('NOW()')));
+            Users::model()->updateByPk($this->_identity->id, array('date_of_last_access' => new CDbExpression('unix_timestamp()')));
             
 			return true;
 		}
@@ -111,7 +111,7 @@ class LoginForm extends CFormModel
 			Yii::app()->user->login($this->_identity,$duration);
             
             // update user last login time
-            Users::model()->updateByPk($this->_identity->id, array('date_of_last_access' => new CDbExpression('NOW()')));
+            Users::model()->updateByPk($this->_identity->id, array('date_of_last_access' => new CDbExpression('unix_timestamp()')));
             
 			return true;
 		}

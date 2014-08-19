@@ -19,10 +19,11 @@
 		<title><?= CHtml::encode($this->pageTitle); ?></title>
 	</head>
 <?php
+if(!YII::app()->user->isGuest)
 	$newMessages = Messages::model()->countByAttributes(array('receiver'=>Yii::app()->user->id,'read'=>0));
 ?>
 <body>
-        <!-- Navigation -->
+	 <!-- Navigation -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,20 +37,13 @@
                     <a class="navbar-brand page-scroll" href="<?=YII::app()->createAbsoluteUrl('')?>"><?=YII::app()->name?></a>
                 </div>
                 
-                <div class="col-xs-12 col-sm-12 col-md-6 pull-left">
-                    <form method="get" action="<?=YII::app()->createAbsoluteUrl('')?>" class="navbar-form" role="search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Bücher finden ..." name="q" id="srch-term">
-                            <div class="input-group-btn">
-                                <button class="btn btn-g" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="toggle-navigation">
-                    <ul class="nav navbar-nav navbar-right">
+                    
+                    <form role="search" method="get" action="<?=YII::app()->createAbsoluteUrl('')?>" class="navbar-form navbar-left">
+                        <input type="text" placeholder="Bücher finden ..." class="form-control" name="srch-term" id="srch-term">
+                    </form>
+                        <ul class="nav navbar-nav navbar-right">
                         <li class="hidden">
                             <a href="#page-top"></a>
                         </li>
@@ -115,7 +109,7 @@
 	
   	
 
-	<script src="<?= Yii::app()->request->baseUrl; ?>/framework/bootstrapjs/bootstrap.min.js" type="text/javascript"></script>
+	<script src="<?= Yii::app()->request->baseUrl; ?>/frameworks/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="<?= Yii::app()->request->baseUrl; ?>/js/chosen/chosen.jquery.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var config = {

@@ -14,9 +14,51 @@ ul, li {
     list-style-type: none;
 }
 
+a {
+    color: #355259;
+}
+a:hover,
+a:focus,
+a:active {
+    color: #55838E;
+}
+
+.content-pull {
+    border-top: 1px solid #E6E6E6;
+    padding-top: 15px;
+    text-align: center;
+}
+.content-pull a {
+    font-size: 12px;
+    color: #8E8E8E;
+}
+
+.content-pull a:hover,
+.content-pull a:focus,
+.content-pull a:active {
+    font-size: 12px;
+    color: #76B3C4;
+}
+
 .nav-logo {
     max-width: 35px;
     padding: 5px;
+}
+.meta-list-heading-big {
+    font-family: "Droid Serif", Arial, sans-serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 20px;
+}
+.meta-list-heading {
+    font-size: 14px;
+    font-weight: bold;
+}
+.meta-list-item {
+    font-size: 12px;
+}
+.text-size-12 {
+    font-size: 12px;
 }
 
 /* header */
@@ -141,6 +183,79 @@ section .text-quote-author {
         margin: 0;
     }
 }
+#user-profile {
+    /*background: #fff;*/
+}
+#user-profile ul {
+    padding: 0;
+    font-size: 12px;
+}
+#user-profile .text-meta {
+    color: #355944;
+}
+#user-profile .nav {
+    margin-bottom: 25px;
+}
+#user-profile .user-profile-edit {
+    padding-top: 25px;
+}
+#user-profile .user-profile-name {
+    font-size: 18px;
+    padding-top: 10px;
+}
+#user-profile .user-profile-alias {
+    font-size: 16px;
+    padding-bottom: 15px;
+}
+/* book thumbnail */
+.book-thumb {
+    padding-bottom: 25px;
+}
+.book-thumb h2 {
+    font-size: 16px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+.book-thumb h3 {
+    font-size: 14px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+.book-thumb-txt {
+    font-size: 10px;
+}
+.book-thumb .book-thumb-label {
+    background: #558E6C;
+    padding: -1px;
+}
+@media(min-width:768px) {
+    .book-thumb-txt {
+        font-size: 12px;    
+    }
+}
+.book-thumb-cover {
+      width: 100%;
+}
+@media(max-width:768px) {
+    .book-thumb-cover {
+        display: none;
+    }
+    .dropdown-meta {
+        display: none;
+    }
+}
+.book-thumb .book-thumb-meta li {
+    float: left;
+    padding-right: 10px;
+}
+.book-thumb .dropdown-meta {
+
+}
+/* upload section  */
+#upload-files form .form-group {
+    margin-top: 25px;
+}
+/* footer */
 footer {
     margin-top: 100px;
     padding-top: 25px;
@@ -226,6 +341,9 @@ footer p {
 
 .thumbnail-centered {
     text-align: center;
+    border: 0;
+    background: 0;
 }
-
-
+.error-log {
+    color: #8E5655;
+}

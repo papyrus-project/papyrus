@@ -16,7 +16,7 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
                 <li><span class="glyphicon glyphicon-ok-sign"></span> Lade deine Werke kostenlos entweder als Gesamtwerk oder kapitelweise hoch</li>
             </ul>
             <p class="intro-teaser">Jetzt kostenlos registrieren!</p>
-            <button class="btn btn-g">Benutzerkonto anlegen</button>
+            <button onclick="window.location.href='<?=YII::app()->createAbsoluteUrl('users/signup')?>'" class="btn btn-g">Benutzerkonto anlegen</button>
         </div>
     </div>
 </header>
@@ -69,13 +69,15 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
             <?php foreach($books as $book):?>
             <div class="col-xs-12 col-md-3">
                 <div class="thumbnail thumbnail-centered">
-                	<?php $this->widget('ext.SAImageDisplayer', array(
-					    'image' => $book->id.'.'.$book->extension,	
-					    'defaultImage'=> 'default.jpg',
-					    'title' => $book->title,
-					    'size' => 'thumb',
-					    'class' => '',
-					    'id' => '',
+                	<?php
+                		$this->widget('ext.SAImageDisplayer', array(
+						'image' => $book->id.'.'.$book->extension,	
+						'defaultImage'=> 'default.jpg',
+						'title' => $book->title,
+						'size' => 'thumb',
+						'group'=> 'cover',
+						'class' => '',
+						'id' => '',
 					));?>
                     <div class="caption">
                         <a href=""><?=$book->author0->name?></a>
