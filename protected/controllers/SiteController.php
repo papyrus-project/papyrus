@@ -34,7 +34,20 @@ class SiteController extends Controller
     }
 	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array(), $wip = '')
 	{
-        $_GET = '';
+        print_r($_POST);
+        if(isset($_POST['q']))
+            $q = $_POST['q'];
+        if(isset($_POST['type']))
+            $type = $_POST['type'];
+        if(isset($_POST['lang']))
+            $lang = $_POST['lang'];
+        if(isset($_POST['age']))
+            $age = $_POST['age'];
+        if(isset($_POST['genre']))
+            $genre = $_POST['genre'];
+        if(isset($_POST['wip']))
+            $wip = $_POST['wip'];
+        
         $criteria = new CDbCriteria();
         if( count( $genre ) > 0 ) {
             $genreCrit = new CDbCriteria();
@@ -52,6 +65,14 @@ class SiteController extends Controller
             $typeCrit = new CDbCriteria();
             $typeCrit->addInCondition( 'booktype_id', $type, 'OR' );
             $criteria->mergeWith($typeCrit, 'AND');
+        } 
+        else {
+            $typeCrit = new CDbCriteria();
+            $types = array();
+            foreach(Booktype::model()->findAll() as $type)
+                $types[] = $type->id;
+            $typeCrit->addInCondition( 'booktype_id', $types, 'OR' );
+            $criteria->mergeWith($typeCrit, 'AND');
         }
         if( count( $lang ) > 0 ) {
             $langCrit = new CDbCriteria();
@@ -59,7 +80,9 @@ class SiteController extends Controller
             $criteria->mergeWith($langCrit, 'AND');
         }
         if( $wip != '1' ) {
-            $criteria->addSearchCondition( 'wip', "0", true, 'AND' );
+            $wipCrit = new CDbCriteria();
+            $wipCrit->addSearchCondition( 'wip', "0", true, 'AND' );
+            $criteria->mergeWith($wipCrit, 'AND');
         }
         if( strlen( $q ) > 0 ) {
             $text = new CDbCriteria();
@@ -70,7 +93,18 @@ class SiteController extends Controller
         $criteria->addSearchCondition( 'status', 1, true, 'AND' );
 
         $dataProvider = new CActiveDataProvider( 'Books', array( 'criteria' => $criteria, 'pagination'=>array('pageSize'=>5,) ) );
+        
+        $q = '';
+        $type = array();
+        $lang = array();
+        $age = array();
+        $genre = array();
+        $wip = '';
+        
         $this->render('bob',array('dataProvider' => $dataProvider));
+        if(isset($_GET)) {
+            unset($_GET);
+        }
 	}
 
 	/**
