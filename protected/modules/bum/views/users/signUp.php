@@ -10,12 +10,7 @@
 /* @var $this UsersController */
 /* @var $model Users */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'SignUp',
-);
+$this->pageTitle=Yii::app()->name . ' - Registrieren';
 ?>
-
-<h1>Sign Up</h1>
 
 <?php echo $this->renderPartial('_signUp', array('model'=>$model,)); ?>

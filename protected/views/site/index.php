@@ -69,18 +69,20 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
             <?php foreach($books as $book):?>
             <div class="col-xs-12 col-md-3">
                 <div class="thumbnail thumbnail-centered">
-                	<?php
-                		$this->widget('ext.SAImageDisplayer', array(
-						'image' => $book->id.'.'.$book->extension,	
-						'defaultImage'=> 'default.jpg',
-						'title' => $book->title,
-						'size' => 'thumb',
-						'group'=> 'cover',
-						'class' => '',
-						'id' => '',
-					));?>
+                	<a href="<?= YII::app()->createAbsoluteUrl('books/files/'.$book->id)?>">
+	                	<?php
+	                		$this->widget('ext.SAImageDisplayer', array(
+							'image' => $book->id.'.'.$book->extension,	
+							'defaultImage'=> 'default.jpg',
+							'title' => $book->title,
+							'size' => 'thumb',
+							'group'=> 'cover',
+							'class' => '',
+							'id' => '',
+						));?>
+					</a>
                     <div class="caption">
-                        <a href=""><?=$book->author0->name?></a>
+                        <a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.$book->author)?>"><?=$book->author0->name?></a>
                         <h3><?=$book->title?></h3>
                         <p>
                             <span class="glyphicon glyphicon-star"></span>

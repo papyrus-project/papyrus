@@ -583,17 +583,18 @@ class UsersController extends BumController
                 $invitation->setIsNewRecord(false); // because in this case this in not a new record; should be treated as an existing record
 
                 $modelUsersData->id = 0; // to pass the validation; to see if there are other problems..
+                $modelUsersData->name = CHtml::encode($_POST['userdata']['name']);
+					
                 if($invitation->validate() && $modelUsersData->validate() && $model->save()){
 
-                    $modelUsersData->invitations_left=Yii::app()->getModule('bum')->invitationDefaultNumber;            
-                    $modelUsersData->id = $model->id;
+	                $modelUsersData->invitations_left=Yii::app()->getModule('bum')->invitationDefaultNumber;            
+	                $modelUsersData->id = $model->id;
 					$modelUsersData->birthday = $_POST['userdata']['day'].'.'.$_POST['userdata']['month'].'.'.$_POST['userdata']['year'];
-					$modelUsersData->name = CHtml::encode($_POST['userdata']['name']);
+					//$modelUsersData->name = CHtml::encode($_POST['userdata']['name']);
 					$modelUsersData->sex = $_POST['userdata']['sex'];
                     $invitation->id_user_invited = $model->id;
-
+					
                     $modelUsersData->activation_code = sha1(mt_rand(1, 99999).time().$model->email);
-
                     if($invitation->save(false) && $modelUsersData->save()){
 
                         // automatically insert this email into emails table!
@@ -611,13 +612,11 @@ class UsersController extends BumController
                             Yii::app()->user->setFlash('error', "A comfirmation email could not been send to the provided email address!");
                             $this->redirect(array('users/resendSignUpConfirmationEmail'));
                         }
-                    }
+					}
                 }
             }
-
             $model->invitations = $invitation;
-
-            $this->render('signUp',array(
+            $this->render('_signUp',array(
                 'model'=>$model,
             ));
         }else{
