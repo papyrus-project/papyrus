@@ -17,21 +17,29 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo ''//$form->labelEx($model,'text'); ?>
-		<?php echo $form->textArea($model,'text'); ?>
+	<p>
+		<?php echo $form->textArea($model,'text',array('class'=>'form-control','rows'=>5)); ?>
 		<?php echo $form->error($model,'text'); ?>
-	</div>
-
-	<div class="row buttons">
-				<?php echo CHtml::ajaxSubmitButton(
-                      'Kommentar posten',
-                      array('books/postComment', 'id'=>$id),
-                      array(
-                          'update'=>'#com',
-                      ), 
-                      array('id' => uniqid())); ?>
-	</div>
+	</p>
+	<p class="rating">
+        <span>Jetzt bewerten: </span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star-empty"></span>
+        <span class="glyphicon glyphicon-star-empty"></span>
+    
+		<?=CHtml::ajaxSubmitButton(
+	          'Abschicken',
+	          array('books/postComment', 'id'=>$id),
+	          array(
+	              'update'=>'#com',
+	          ), 
+	          array(
+	          	'id' => uniqid(),
+	          	'class'=>'btn btn-g pull-right'
+		  )); ?>
+    </p>
 
 <?php $this->endWidget(); ?>
 

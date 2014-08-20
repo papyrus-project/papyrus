@@ -6,9 +6,10 @@ function favorise($master){
 	})
 	  .done(function( msg ) {
 	    console.log( msg );
-	  });
+	});
 }
 
+$('#toggle-newComment').click(function(){$('#newComment').toggle(100);});
 
 //chosen initalisieren
 var config = {

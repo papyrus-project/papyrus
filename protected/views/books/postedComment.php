@@ -2,7 +2,7 @@
     <div class="comment-wrapper">
         <div class="row">
             <div class="col-xs-2 col-sm-2 col-md-2 hidden-xs">
-                <img class="commentary-portrait" src="/upload/cover/default.jpg" alt="user-portrait" />
+                <img class="commentary-portrait" src="../../upload/cover/thumb/default.jpg" alt="user-portrait" />
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 no-padding comment-frame">
                 <div class="row">
