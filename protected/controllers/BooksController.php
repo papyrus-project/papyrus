@@ -1,5 +1,4 @@
 <?php
-
 class BooksController extends Controller
 {
 	public function actions()
@@ -51,10 +50,6 @@ class BooksController extends Controller
         $views = $model->views + 1;
         Books::model()->updateByPk($id, array('views'=> $views));
 
-		//Meta daten fuer Facebookshare
-        Yii::app()->clientScript->registerMetaTag($model->description, 'og:description');
-        Yii::app()->clientScript->registerMetaTag($model->title, 'og:title');
-
         //comments
         $commentForm = new Comments();
         $commentForm->users_id = Yii::app()->user->id;
@@ -68,8 +63,12 @@ class BooksController extends Controller
             if($comment->belongsTo == 0)
                 $comments[] = $comment;
         }
-        
         $form = $this->renderPartial('newComment', array('model' => $commentForm, 'id'=>$id), true, true);
+
+		//Meta daten fuer Facebookshare
+        Yii::app()->clientScript->registerMetaTag($model->description, 'og:description');
+        Yii::app()->clientScript->registerMetaTag($model->title, 'og:title');
+        
 		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments, 'form'=>$form));
 	}
 	
@@ -232,7 +231,11 @@ class BooksController extends Controller
 			2=>'.epub',
 			3=>'.mobi',
 		);
+		if(!isset($ext[$format]))
+			$this->redirect(array('books/files','id'=>$id));
 		$model = Books::model()->findByPk($id);
+		if(!$model)
+			$this->redirect(YII::app()->createAbsoluteUrl(''));
 		$model->downloads++;
 		$model->save();
 		header('Content-Disposition: attachment; filename="'.CHtml::decode($model->title).$ext[$format]);

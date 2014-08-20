@@ -23,10 +23,17 @@ a:active {
     color: #55838E;
 }
 
+textarea {
+    resize: none;
+}
+
+}
 .content-pull {
     border-top: 1px solid #E6E6E6;
-    padding-top: 15px;
+    padding-top: 5px;
+    margin-top: 20px;
     text-align: center;
+    width: 90%;
 }
 .content-pull a {
     font-size: 12px;
@@ -161,9 +168,13 @@ section .services-pictograph {
     width: 100px;
     margin-top: 50px;
 }
+section .service-heading {
+    margin-top: 25px;
+}
 section .teaser-logo {
-    width: 200px;
-    padding-bottom: 75px;
+    width: 250px;
+    padding-bottom: 50px;
+    margin-top: 30px;
 }
 section .text-quote {
     margin-top: 25px; 
@@ -179,14 +190,15 @@ section .text-quote-author {
 }
 @media(min-width:768px) {
     section .services-pictograph {
-        width: 100px;
+        width: 160px;
         margin: 0;
     }
 }
 #user-profile {
     /*background: #fff;*/
 }
-#user-profile ul {
+#user-profile ul,
+#book-profile ul {
     padding: 0;
     font-size: 12px;
 }
@@ -201,11 +213,100 @@ section .text-quote-author {
 }
 #user-profile .user-profile-name {
     font-size: 18px;
-    padding-top: 10px;
 }
 #user-profile .user-profile-alias {
     font-size: 16px;
     padding-bottom: 15px;
+}
+
+#book-profile .text-meta {
+    font-size: 12px;
+}
+#book-profile .meta-ribbon {
+    
+}
+#book-profile .meta-ribbon img {
+    margin-right: 5px;
+}
+#book-profile button span {
+    margin-left: 15px;
+}
+#book-profile .book-badges-history,
+#book-profile .book-statistics {
+    margin-top: 20px;
+    padding: 0;
+}
+#book-profile .book-statistics .book-badge,
+#book-profile .book-badges-history .book-badge {
+    margin-right: 5px;
+}
+#book-profile .book-profile-meta-big {
+    font-size: 14px;
+}
+#book-profile .book-profile-meta-big li {
+    padding-bottom: 10px;
+}
+#book-profile .rating {
+    padding-top: 10px;
+    padding-bottom: 25px;
+}
+#book-profile h2 {
+    font-size: 20px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+#book-profile #book-profile-blurb-heading,
+#book-profile #book-profile-sub-heading {
+    padding-top: 20px; 
+    padding-bottom: 20px;
+}
+#book-profile #book-profile-sub-heading {
+    font-size: 16px;
+}
+#book-profile #book-series {
+    font-size: 14px;
+}
+#book-profile #book-profile-blurb {
+    font-size: 12px;
+}
+#book-profile h3 {
+    font-size: 18px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+#book-profile .commentary-portrait {
+    width: 90%;
+}
+#book-profile .comment-wrapper {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+#book-profile .comment-wrapper .comment-rating {
+    font-size: 14px;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+#book-profile .comment-commentary-wrapper {
+    margin-bottom: 10px;
+}
+#book-profile .comment-commentary-wrapper h3 {
+    font-size: 14px;
+}
+#book-profile .comment-wrapper .comment-frame,
+#book-profile .comment-commentary-wrapper .comment-frame {
+    background: #fff;
+    padding-left: 23px;
+    padding-right: 15px;
+    padding-top: 8px;
+    border-bottom: 2px solid #E6E6E6;
+    border-radius: 4px;
+}
+#book-profile .comment-text {
+    font-size: 12px;
+    padding-right: 5px;
+}
+#book-profile .comment-date {
+    font-size: 12px;
 }
 /* book thumbnail */
 .book-thumb {
@@ -226,7 +327,9 @@ section .text-quote-author {
 }
 .book-thumb .book-thumb-label {
     background: #558E6C;
-    padding: -1px;
+}
+#book-profile .book-thumb-label {
+    background: #558E6C;
 }
 @media(min-width:768px) {
     .book-thumb-txt {
@@ -234,7 +337,7 @@ section .text-quote-author {
     }
 }
 .book-thumb-cover {
-      width: 100%;
+    width: 100%;
 }
 @media(max-width:768px) {
     .book-thumb-cover {
@@ -252,8 +355,21 @@ section .text-quote-author {
 
 }
 /* upload section  */
+#upload-files form h3 {
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+#upload-files .help-block {
+    font-size: 12px;
+}
 #upload-files form .form-group {
     margin-top: 25px;
+}
+#upload-files form .form-send {
+    margin-top: 50px;
+}
+#upload-files .cover-preview {
+    padding: 0;
 }
 /* footer */
 footer {
@@ -346,4 +462,13 @@ footer p {
 }
 .error-log {
     color: #8E5655;
+}
+.no-padding {
+    padding: 0;
+}
+.text-align-right {
+    text-align: right;
+}
+.text-align-center {
+    text-align: center;
 }

@@ -77,7 +77,7 @@ if (!Yii::app()->getModule('bum')->demoMode) : ?>
 		
 		        <div class="form-group buttons">
 		            <?php echo CHtml::submitButton('Login',array('class'=>'btn btn-g')); ?>
-					<a class='btn btn-g' href="<?=YII::app()->createAbsoluteUrl('users/signUp')?>">Noch kein Mitglied?</a>
+					<a class='btn btn-b' href="<?=YII::app()->createAbsoluteUrl('users/signUp')?>">Noch kein Mitglied?</a>
 		        </div>
 		
 		    <?php $this->endWidget(); ?>

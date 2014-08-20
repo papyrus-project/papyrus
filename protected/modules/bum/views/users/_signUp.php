@@ -14,6 +14,7 @@
 
 <section>
 <div class="container">
+<div class='row col-md-6'>
 <h1>Sign Up</h1>
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'users-singUp-form',
@@ -53,10 +54,7 @@
             <?php echo $form->passwordField($model,'password_repeat',array('size'=>45,'maxlength'=>150,'class'=>'form-control')); ?>
             <?php echo $form->error($model,'password_repeat'); ?>
         </div>
-    </fieldset>    
-
-    <fieldset>
-        <legend>Email address is required in order to activate your account:</legend>
+        
         <div class="form-group">
             <?php echo $form->labelEx($model,'email'); ?>
             <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>60,'class'=>'form-control')); ?>
@@ -68,7 +66,7 @@
     	
     	<div class="form-group">
     		<label>Name</label>
-			<input class='form-control' type="text" value="<?=isset($_POST['userdata'])?$_POST['userdata']:''?>" name="userdata[name]"/>
+			<input class='form-control' type="text" value="<?=isset($_POST['userdata'])?$_POST['userdata']['name']:''?>" name="userdata[name]"/>
 		</div>
 		
 		<div class="form-group">
@@ -131,5 +129,6 @@
 	</div>
 
 <?php $this->endWidget(); ?>
+</div>
 </div>
 </section>

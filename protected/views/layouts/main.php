@@ -10,7 +10,7 @@
 	    <!-- Bootstrap -->
 	    <link href="<?= Yii::app()->request->baseUrl; ?>/frameworks/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	    <!-- Internal -->
-	    <link href="<?= Yii::app()->request->baseUrl; ?>/css/some.css" rel="stylesheet" media="screen">
+	    <!-- <link href="<?= Yii::app()->request->baseUrl; ?>/css/some.css" rel="stylesheet" media="screen"> -->
 		<link rel="stylesheet" href="<?= Yii::app()->request->baseUrl; ?>/css/style_master.css">
 		<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
 		

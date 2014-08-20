@@ -21,6 +21,10 @@
 						<p class="user-profile-edit">
 							<a href="<?= YII::app()->createAbsoluteUrl('user/edit') ?>"><span class="glyphicon glyphicon-cog"></span> Profil bearbeiten</a>
 						</p>
+					<?php else: ?>
+						<p class="user-profile-edit">
+							<a href="<?= YII::app()->createAbsoluteUrl('user/sendPm/'.$model->id) ?>"><span class="glyphicon glyphicon-envelope"></span> Nachricht senden</a>
+						</p>
 					<?php endif;?>
 					<p class="user-profile-name"><?= $model->name ?></p>
 					<p class="user-profile-alias text-muted"><?= $model->id0->user_name ?></p>

@@ -103,7 +103,6 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
 <!-- teaser section -->
 <!-- for testing purpose only! -->
 <section>
-    <hr>
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
