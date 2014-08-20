@@ -32,9 +32,9 @@ class SiteController extends Controller
         $books = Books::model()->published()->recently()->with('bookgenres')->findAll();
         $this->render('index', array('books' => $books));
     }
-	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array())
+	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array(), $wip = '')
 	{
-        
+        $_GET = '';
         $criteria = new CDbCriteria();
         if( count( $genre ) > 0 ) {
             $genreCrit = new CDbCriteria();
@@ -57,6 +57,9 @@ class SiteController extends Controller
             $langCrit = new CDbCriteria();
             $langCrit->addInCondition( 'language_id', $lang, 'OR' );
             $criteria->mergeWith($langCrit, 'AND');
+        }
+        if( $wip != '1' ) {
+            $criteria->addSearchCondition( 'wip', "0", true, 'AND' );
         }
         if( strlen( $q ) > 0 ) {
             $text = new CDbCriteria();
