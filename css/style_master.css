@@ -331,6 +331,9 @@ section .text-quote-author {
 #book-profile .book-thumb-label {
     background: #558E6C;
 }
+.book-profile-option{
+	padding-left: 5px;
+}
 @media(min-width:768px) {
     .book-thumb-txt {
         font-size: 12px;    
