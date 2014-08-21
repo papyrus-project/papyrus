@@ -18,20 +18,20 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'text'); ?>
-		<?php echo $form->textArea($model,'text'); ?>
+		<?php echo $form->textArea($model,'text',array('class'=>'form-control','rows'=>5)); ?>
 		<?php echo $form->error($model,'text'); ?>
 	</div>
 
 	<div class="row buttons">
 				<?php echo
                           CHtml::ajaxSubmitButton(
-                      'Submit request',
+                      'Speichern',
                       array('books/saveEdit', 'id'=>$model->id),
                       array(
                           'update'=>'#com',
                       ), 
-                      array('id' => uniqid())); 
+                      array('id' => uniqid(),
+	          	            'class'=>'btn btn-g pull-right')); 
                           ?>
 	</div>
     <div id="com"></div>

@@ -32,7 +32,7 @@ class SiteController extends Controller
         $books = Books::model()->published()->recently()->with('bookgenres')->findAll();
         $this->render('index', array('books' => $books));
     }
-	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array(), $wip = '')
+	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array(), $wip = '', $nsfw = '')
 	{
         print_r($_POST);
         if(isset($_POST['q']))
@@ -47,6 +47,8 @@ class SiteController extends Controller
             $genre = $_POST['genre'];
         if(isset($_POST['wip']))
             $wip = $_POST['wip'];
+        if(isset($_POST['nsfw']))
+            $nsfw = $_POST['nsfw'];
         
         $criteria = new CDbCriteria();
         if( count( $genre ) > 0 ) {
@@ -83,6 +85,11 @@ class SiteController extends Controller
             $wipCrit = new CDbCriteria();
             $wipCrit->addSearchCondition( 'wip', "0", true, 'AND' );
             $criteria->mergeWith($wipCrit, 'AND');
+        }
+        if( $nsfw != '1' ) {
+            $nsfwCrit = new CDbCriteria();
+            $nsfwCrit->addSearchCondition( 'nsfw', "0", true, 'AND' );
+            $criteria->mergeWith($nsfwCrit, 'AND');
         }
         if( strlen( $q ) > 0 ) {
             $text = new CDbCriteria();

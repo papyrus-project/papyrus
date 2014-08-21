@@ -46,8 +46,8 @@ Yii::app()->clientScript->registerScript('filter',
 
                     <ul>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="r18" value="1" name="mature">
-                            Mature Content*</li>
+                            <input type="checkbox" class="filterItem" id="nsfw" value="1" name="nsfw">
+                            Expliziter Inhalt*</li>
                         <li class="meta-list-item">
                             <input type="checkbox" class="filterItem" id="wip" value="1" name="wip">
                             WIP Inhalte</li>

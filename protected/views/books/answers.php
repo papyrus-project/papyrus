@@ -23,14 +23,7 @@ foreach($comments as $comment):?>
             <!-- meta dropdown menu -->
             <div class="col-xs-1 col-sm-1 col-md-1 dropdown-meta text-align-right">
                 <!-- dropdown menus -->
-                <p>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-share"></span></a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-share" style="text-align: left;">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Auf Facebook teilen</a></li>
-                        </ul>
-                    </div>
-                </p>
+                
                 <p>
                     <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span></a>
                 </p>

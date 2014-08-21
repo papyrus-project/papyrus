@@ -8,7 +8,7 @@
 						//coverbild anzeigen groesse 200x150, seitenverhaeltnis bleibt erhalten
 						
 							$this->widget('ext.SAImageDisplayer', array(
-								'image' => 'l',
+								'image' => $model->id . '.' . $model->extension,
 								'defaultImage' => 'default.jpg',
 								'title' => 'user',
 								'group' => 'user',
