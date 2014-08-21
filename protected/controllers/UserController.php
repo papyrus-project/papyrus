@@ -26,19 +26,52 @@ class UserController extends Controller
 		if(Yii::app()->user->isGuest)
 			$this->redirect(array('bum/users/login'));
 		$model = UserData::model()->findByPk(Yii::app()->user->id);
+        $p='qqqq';
 		if(!empty($_POST)){
 			$model->attributes = $_POST;
 			$model->name = CHtml::encode($_POST['name']);
 			$model->location = CHtml::encode($_POST['location']);
 			$model->homepage = CHtml::encode($_POST['homepage']);
 			$model->description = CHtml::encode($_POST['description']);
-			$model->save();
-			$this->redirect(array('user/profile','id'=>YII::app()->user->id));
-		}
+            
+            $uploadCover='';
+            if(isset($_POST['UserData']['extension'])){
+			    //Cover Datei
+			    $uploadCover = CUploadedFile::getInstance($model,'extension');
+                $p = $uploadCover;
+			    $covername = "{$uploadCover}";
+			    $coverInfo = pathinfo($covername);
+			    $model->extension = $coverInfo['extension'];
+			}
+            if($model->save()){
+			    //Ueberpruefen ob die Ordner schon vorhanden sind sonst neue erstellen
+			    if(!is_dir(Yii::app()->basePath.'/../upload/user/original/'))
+				    mkdir(Yii::app()->basePath.'/../upload/user/original/',0777,true);
+			
+			    //Dateien Speichern
+			    if($uploadCover){
+				    $uploadCover->saveAs(Yii::app()->basePath.'/../upload/user/original/'.$model->id.'.'.$model->extension);
+                    try{
+                        unlink(Yii::getPathOfAlias('webroot').'/upload/user/comment/'.$model->id.'.'.$model->extension);
+			        }
+                    catch(Exception $e)
+                    { }
+                    try{
+                        unlink(Yii::getPathOfAlias('webroot').'/upload/user/big/'.$model->id.'.'.$model->extension);
+			        }
+                    catch(Exception $e)
+                    { }
+		        }
+		        $this->redirect(array('user/profile','id'=>YII::app()->user->id));
+		    }
+        }
 		$date = explode('-', $model->birthday);
 		$this->render('edit',array(
 			'model'=>$model,
 			'birthday'=>$date));
+            echo '<pre>';
+        print_r($p);
+        echo '</pre>';
 	}
 	
 	public function actionProfile($id){

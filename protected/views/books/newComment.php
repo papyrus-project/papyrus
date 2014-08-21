@@ -36,7 +36,7 @@
 	              'update'=>'#com',
 	          ), 
 	          array(
-	          	'id' => uniqid(),
+	          	'id' => 'post'.uniqid(),
 	          	'class'=>'btn btn-g pull-right'
 		  )); ?>
     </p>

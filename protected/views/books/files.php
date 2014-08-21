@@ -20,6 +20,11 @@
 							));
 						?>
 						</p>
+					<?php if($model->author0->id == YII::app()->user->id):?>
+						<p class="user-profile-edit">
+							<a href="<?= YII::app()->createAbsoluteUrl('books/edit/'.$model->id) ?>"><span class="glyphicon glyphicon-cog"></span> Buch bearbeiten</a>
+						</p>
+                        <?php endif;?>
                     </div>
                 </div>
                 <div class="row">
@@ -116,6 +121,7 @@
                         </li>
                         <li class="text-muted">
                             <span class="label label-default"><?=$model->age_restriction?'Ab '.$model->age_restriction.' Jahren':'Keine Alters Beschrenkung'?></span>
+                            <?php if($model->nsfw == 1) :?><span class="label label-default">Expliziter Inhalt</span><?php endif;?>
                         </li>
                     </ul>
                 </div>
@@ -155,7 +161,18 @@
                     <div class="comment-wrapper">
                         <div class="row">
                             <div class="col-xs-2 col-sm-2 col-md-2 hidden-xs">
-                                <img class="commentary-portrait" src="../../upload/cover/thumb/default.jpg" alt="user-portrait" />
+                                 <!--<img class="commentary-portrait" src="../../upload/cover/thumb/default.jpg" alt="user-portrait" />-->
+                                <?php 
+						    $user = UserData::model()->findByPk($comment->users_id);
+					        $this->widget('ext.SAImageDisplayer', array(
+						        'image' => $user->id.'.'.$user->extension,
+						        'title' => $model->title,
+						        'size' => 'comment',
+						        'class' => 'commentary-portrait',
+						        'id' => '',
+						        'group' => 'user',
+							));
+						?>
                             </div>
                             <div class="col-xs-9 col-sm-9 col-md-9 no-padding comment-frame">
                                 <div class="row">
@@ -164,9 +181,9 @@
                         geschrieben am <?= Yii::time($comment->date); ?>
                                     </p>
                                 </div>
-                                <div class="row">
+                                <div id="text<?= $comment->id; ?>" class="row">
                                     <p class="comment-text">
-                        <?= $comment->text; ?>
+                                        <?= $comment->text; ?>
                                     </p>
                                 </div>
                                 <div class="row">
@@ -203,7 +220,7 @@
                                 'Bearbeiten',
                                 array('books/showEditCommentForm', 'id'=>$comment->id),
                                           array(
-                                              'update'=>'#'.$comment->id,
+                                              'update'=>'#text'.$comment->id,
                                           ), 
                                           array('id' => 'edit'.uniqid(), 'role'=>'menuitem', 'tabindex'=>'-1')
                             ); ?>
@@ -231,15 +248,17 @@
                 <!-- comment commentary -->
                 <div>
                 <div id="answers<?= $comment->id ?>">
-                    <?= CHtml::ajaxLink(
-                                      'Antworten anzeigen',
-                                      array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
-                                      array(
-                                          'update'=>'#answers'.$comment->id,
-                                      ), 
-                                      array('id' => 'show'.uniqid())
-                                  ) . ' ';
-                ?>
+                    <div class="col-xs-3 col-sm-3 col-md-3 hidden-xs text-align-right">
+                        <?= CHtml::ajaxLink(
+                                    '<span class="text-muted glyphicon glyphicon-chevron-down"></span>Antworten anzeigen',
+                                    array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
+                                    array(
+                                        'update'=>'#answers'.$comment->id,
+                                    ), 
+                                    array('id' => 'show'.uniqid())
+                                ) . ' ';
+                        ?>
+                    </div>
                 </div>
                 <div id="newAnswer<?= $comment->id ?>"></div>
                 <?php 

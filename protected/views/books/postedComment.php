@@ -2,7 +2,19 @@
     <div class="comment-wrapper">
         <div class="row">
             <div class="col-xs-2 col-sm-2 col-md-2 hidden-xs">
-                <img class="commentary-portrait" src="../../upload/cover/thumb/default.jpg" alt="user-portrait" />
+                <!--<img class="commentary-portrait" src="../../upload/cover/thumb/default.jpg" alt="user-portrait" />-->
+                <?php 
+                    $user = UserData::model()->findByPk($model->user_id);
+					$this->widget('ext.SAImageDisplayer', array(
+						'image' => $user->id.'.'.$user->extension,
+						'title' => $model->title,
+						'size' => 'comment',
+						'class' => 'commentary-portrait',
+						'id' => '',
+						'group' => 'user',
+						'defaultImage' => 'default.jpg',
+					));
+				?>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 no-padding comment-frame">
                 <div class="row">

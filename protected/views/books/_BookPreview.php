@@ -31,6 +31,7 @@
 					<span class="label label-default"><?=$genre->genreName->genre?></span>
 				<?php endforeach;?>
 				<span class="label label-default"><?= $data->age_restriction?'Ab 12 Jahren':'Ohne Alters begrenzung'?></span>
+                <?php if($data->nsfw == 1) :?><span class="label label-default">Expliziter Inhalt</span><?php endif;?>
 				<span class="label label-default"><?= $data->language->language?></span>
 				
 			</p>

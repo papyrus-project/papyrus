@@ -293,11 +293,9 @@ class BooksController extends Controller
         else {
             throw new CHttpException(500, 'Something went wrong');
         }
-        
         echo    '<script type="text/javascript">';
-        echo        'var element = document.getElementById("' . $model->id . '");';
-        echo        'element.innerHTML = "</br>' . $model->date . '</br>' . $model->text . '</br>";';
-        echo        'element.innerHTML = element.innerHTML  + "<a href=' . Yii::app()->createUrl('books/files', array('id'=>$id)) . '>edit</a> <a href='. Yii::app()->createUrl('books/files', array('id'=>$id)) . '>delete</a>";';
+        echo        'var element = document.getElementById("text' . $model->id . '");';
+        echo        'element.innerHTML = "<p class=\"comment-text\">' . $model->text . '</p>";';
         echo    '</script>';
     }
     
@@ -312,7 +310,7 @@ class BooksController extends Controller
             if($commentForm->validate()) {
                 if($commentForm->save()) {
                     //happy dance
-                    echo $this->renderPartial('postedComment', array('comment' => $commentForm), true, true);
+                    echo $this->renderPartial('postedAnswer', array('comment' => $commentForm), true, true);
                 } 
                 else {
                     throw new CHttpException(500, 'Something went wrong');
