@@ -9,6 +9,7 @@ function favorise($master){
 	});
 }
 
+            
 $('#toggle-newComment').click(function(){$('#newComment').toggle(100);});
 
 //chosen initalisieren

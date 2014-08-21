@@ -13,7 +13,12 @@ body {
 ul, li {
     list-style-type: none;
 }
-
+li.active {
+    
+}
+#messaging .panel{
+	margin-top: 30px;
+}
 a {
     color: #355259;
 }
@@ -27,7 +32,6 @@ textarea {
     resize: none;
 }
 
-}
 .content-pull {
     border-top: 1px solid #E6E6E6;
     padding-top: 5px;
@@ -274,6 +278,9 @@ section .text-quote-author {
     padding-bottom: 10px;
     margin: 0;
 }
+#book-profile .book-profile-option {
+    padding-left: 5px;
+}
 #book-profile .commentary-portrait {
     width: 90%;
 }
@@ -325,14 +332,24 @@ section .text-quote-author {
 .book-thumb-txt {
     font-size: 10px;
 }
+
+#book-profile .book-thumb-label,
 .book-thumb .book-thumb-label {
-    background: #558E6C;
+    background: #71BC8F;
+    border-bottom: 2px solid #558E6C;
 }
-#book-profile .book-thumb-label {
-    background: #558E6C;
+#messaging .msg .label-msg {
+    background: #76B3C4;
+    border-bottom: 2px solid #55838E;
+    margin-left: 0;
+    margin-right: 5px;
 }
-.book-profile-option{
-	padding-left: 5px;
+#messaging #msg-from {
+    margin-top: 5px;
+}
+.label-meta {
+    background: #76B3C4;
+    border-bottom: 2px solid #55838E;
 }
 @media(min-width:768px) {
     .book-thumb-txt {
@@ -373,6 +390,29 @@ section .text-quote-author {
 }
 #upload-files .cover-preview {
     padding: 0;
+}
+/* messaging */
+#messaging {
+}
+#messaging .messaging-heading {
+    font-size: 24px;
+    padding-top: 0;
+    padding-bottom: 25px;
+}
+#messaging #table-mailbox {
+    font-size: 14px;
+}
+#messaging #table-mailbox .glyphicon {
+    font-size: 16px;
+    line-height: 16px;
+}
+#messaging #table-mailbox .msg:hover {
+    background: #F5F5F5;
+    cursor: pointer;
+}
+#messaging .msg span,
+#messaging button .glyphicon {
+    margin-left: 15px;
 }
 /* footer */
 footer {
@@ -474,4 +514,10 @@ footer p {
 }
 .text-align-center {
     text-align: center;
+}
+.text-align-left {
+    text-align: left;
+}
+.padding-right-5 {
+    padding-right: 5px;
 }

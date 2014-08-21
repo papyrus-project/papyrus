@@ -195,16 +195,67 @@ class UserController extends Controller
 	public function actionMessage($id){
 		$model = Messages::model()->findByPk($id);
 		if(YII::app()->user->id != $model->sender && YII::app()->user->id != $model->receiver){
-			$this->redirect(YII::app()->createAbsoluteUrl('site/index'));
+			die();
 		}
 		$model->read = 1;
 		if($model->save()){
-			$this->render('pmView',array('message'=>$model));
+			$this->renderPartial('pmView',array('message'=>$model));
 		}
 	}
 	
 	public function actionMessages(){
-		$model = Messages::model()->got()->with('sender0')->findAll();
-		$this->render('pmList',array('messages'=>$model));
+		YII::app()->session['page']=1;
+		YII::app()->session['type']=1;
+		$model = Messages::model()->got()->with('sender0')->findAll(array('limit'=>'5'));
+		$countIn = Messages::model()->got()->with('sender0')->count();
+		$countOut = Messages::model()->send()->with('sender0')->count();
+		$messages='';
+		foreach($model as $message){
+			$messages.=$this->renderPartial('_pmList',array('message'=>$message,'got'=>true),true,true);
+		}
+		$this->render('pmList',array('messages'=>$messages,'countIn'=>$countIn,'countOut'=>$countOut));
+	}
+	
+	public function actionlistPmR($id){
+		YII::app()->session['page']=1;
+		YII::app()->session['type']=1;
+		$model = Messages::model()->with('sender0')->findAllByAttributes(array('receiver'=>$id),array('limit'=>'5'));
+		
+		foreach($model as $message){
+			$this->renderPartial('_pmList',array('message'=>$message,'got'=>true),false,true);
+		}
+	}
+	
+	public function actionlistPmS($id){
+		YII::app()->session['page']=1;
+		YII::app()->session['type']=2;
+		$model = Messages::model()->with('sender0')->findAllByAttributes(array('sender'=>$id),array('limit'=>'5'));
+		
+		foreach($model as $message){
+			$this->renderPartial('_pmList',array('message'=>$message,'got'=>false),false,true);
+		}
+	}
+	
+	public function actionlistPmM($id,$format){
+		$page = YII::app()->session['page'];
+		
+		if($format)
+			$page++;
+		else {
+			$page--;
+		}
+		/*
+		$countIn = Messages::model()->got()->with('sender0')->count();
+		$countOut = Messages::model()->send()->with('sender0')->count();*/
+		if(YII::app()->session['type']==1)
+			$type = 'receiver';
+		else 
+			$type = 'sender';
+		$model = Messages::model()->with('sender0')->findAllByAttributes(array($type=>$id),array('limit'=>'5','offset'=>($page-1)*5));
+		
+		foreach($model as $message){
+			$this->renderPartial('_pmList',array('message'=>$message,'got'=>YII::app()->session['type']));
+		}
+		YII::app()->session['page']=$page;
 	}
 }
