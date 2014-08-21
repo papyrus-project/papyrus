@@ -171,6 +171,7 @@
 						        'class' => 'commentary-portrait',
 						        'id' => '',
 						        'group' => 'user',
+						        'defaultImage' => 'default.jpg',
 							));
 						?>
                             </div>
