@@ -18,19 +18,22 @@ Yii::app()->clientScript->registerScript('search',
 );
 Yii::app()->clientScript->registerScript('filter',
         "$('.filterItem').change(function(){
-    category = $('.filterItem').map(function() { if(this.checked)return '&'+this.name+'='+this.value; }).get();//.serialize();
+    category = $('.filterItem').map(function() {
+        if(this.checked)
+            return '&'+this.name+'='+this.value; 
+    }).get();//.serialize();
+    
     //category = category.toString().replace(',','');
     var index;
     var getParam = '';
     for (index = 0; index < category.length; ++index) {
         getParam = getParam + category[index];
     }
+    console.log(getParam);
     $.fn.yiiListView.update(
         'ajaxListView',
         {data: getParam}
     ); 
-    //alert(category);
-    console.log(getParam);
 });"
 );
 ?>
@@ -55,7 +58,7 @@ Yii::app()->clientScript->registerScript('filter',
                     <ul>
                         <?php foreach(Genres::model()->findAll() as $genre): ?>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="genre<?= $genre->id ?>" value="<?= $genre->id ?>" name="genre">
+                            <input type="checkbox" class="filterItem" id="genre<?= $genre->id ?>" value="<?= $genre->id ?>" name="genre[]">
                             <?= $genre->genre ?></li>
                         <?php endforeach ?>
                     </ul>
@@ -63,26 +66,26 @@ Yii::app()->clientScript->registerScript('filter',
                     <ul>
                         <?php foreach(Booktype::model()->findAll() as $type): ?>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="type<?= $type->id ?>" value="<?= $type->id ?>" name="type">
+                            <input type="checkbox" class="filterItem" id="type<?= $type->id ?>" value="<?= $type->id ?>" name="type[]">
                             <?= $type->type ?></li>
                         <?php endforeach ?>
                     </ul>
                     <p class="meta-list-heading">Altersempfehlung</p>
                     <ul>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="age0" value="0" name="age">
+                            <input type="checkbox" class="filterItem" id="age0" value="0" name="age[]">
                             Keine</li>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="age6" value="6" name="age">
+                            <input type="checkbox" class="filterItem" id="age6" value="6" name="age[]">
                             Ab 6</li>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="age12" value="12" name="age">
+                            <input type="checkbox" class="filterItem" id="age12" value="12" name="age[]">
                             Ab 12</li>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="age16" value="16" name="age">
+                            <input type="checkbox" class="filterItem" id="age16" value="16" name="age[]">
                             Ab 16</li>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="age18" value="18" name="age">
+                            <input type="checkbox" class="filterItem" id="age18" value="18" name="age[]">
                             Ab 18+</li>
                     </ul>
                     <p class="meta-list-heading">Sprachen</p>
@@ -107,6 +110,7 @@ Yii::app()->clientScript->registerScript('filter',
                                   'id'=>'Datum',
                               ),
                               'id'=>'ajaxListView',
+                              'ajaxType'=>'post',
                           ));
                       } ?>
             </div>
