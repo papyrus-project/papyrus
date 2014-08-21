@@ -268,9 +268,9 @@
             
             <!-- options -->
             <div class="col-md-2 dropdown-meta text-align-right">
-                <p><a href="#"><span class="glyphicon glyphicon-bookmark"></span> Favorisieren</a></p>
-                <p><a href="#"><span class="glyphicon glyphicon-star"></span> Abonnieren</a></p>
-                <p><a href="#"><span class="glyphicon glyphicon-share"></span> Teilen</a></p>
+                <p><a href="#">Favorisieren <span class="book-profile-option glyphicon glyphicon-bookmark"></span></a></p>
+                <p><a href="#">Abonnieren <span class="book-profile-option glyphicon glyphicon-star"></span></a></p>
+                <p><a href="#">Teilen <span class="book-profile-option glyphicon glyphicon-share"></span></a></p>
             </div>    
         </div>
     </div>
