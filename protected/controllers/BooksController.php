@@ -85,6 +85,7 @@ class BooksController extends Controller
         {
             // Erfasst die gesendeten Formulardaten
             $model->attributes=$_POST['Books'];
+            $model->attributes=$_POST;
             // Validiert die Daten und kehrt zur vorherigen Seite zur��ck, 
             // wenn die Pr��fung erfolgreich war.
             $genres = '';
@@ -98,13 +99,20 @@ class BooksController extends Controller
                     $model->addBookGenres($genresStr, $id); //Add Interest
                 }
                 
+                if($_POST['optionsRadios'] == 'custom')
+                {
+                    
+                }
+                else
+                    $model->extension = $_POST['optionsRadios'];
+                
                 if($model->save()) {
                     //happy dance
                 } 
                 else {
                     throw new CHttpException(500, 'Something went wrong');
                 }
-                $this->redirect(Yii::app()->createUrl('books/files', array('id'=>$model->id)));
+                //$this->redirect(Yii::app()->createUrl('books/files', array('id'=>$model->id)));
             }
         }
 		$selectedGenres = array();
@@ -116,6 +124,9 @@ class BooksController extends Controller
 		$model->description = CHtml::decode($model->description);
 		
         $this->render('edit',array('model'=>$model,'selectedGenres' => $selectedGenres));
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
 	}
 	
 	public function actionUpload(){
