@@ -24,3 +24,8 @@ var config = {
 for (var selector in config) {
   $(selector).chosen(config[selector]);
 }
+
+
+  $(function () {
+    $('input.rating').rating();
+  });

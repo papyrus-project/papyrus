@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="row">
+<div class="row answerForm">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'comments-newAnswer-form',
@@ -30,7 +30,11 @@
 				'Antwort posten',
 				array('books/postAnswer', 'id'=>$id, 'belongsTo'=>$belongsTo),
 				array(
-					'update'=>'#newAnswer'.$belongsTo,
+                    'success'=>'js:function(data){
+                    	console.log("#newAnswers'.$belongsTo.'");
+                    	$("#newAnswer'.$belongsTo.'").children(".answerForm").detach();
+                    	$("#newAnswer'.$belongsTo.'").append(data);
+                	}'
 				), 
 				array(
 					'id' => uniqid(),

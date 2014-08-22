@@ -58,18 +58,17 @@ class BooksController extends Controller
         $commentForm->belongsTo = 0;
         
         $comments = array();
-        $commentList = Comments::model()->with('users')->findAllByAttributes(array('ref_id'=>$id));
+        $commentList = Comments::model()->with('users')->findAllByAttributes(array('ref_id'=>$id),array('order'=>'date desc'));
         foreach($commentList as $comment){
             if($comment->belongsTo == 0)
                 $comments[] = $comment;
         }
-        $form = $this->renderPartial('newComment', array('model' => $commentForm, 'id'=>$id), true, true);
 
 		//Meta daten fuer Facebookshare
         Yii::app()->clientScript->registerMetaTag($model->description, 'og:description');
         Yii::app()->clientScript->registerMetaTag($model->title, 'og:title');
         
-		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments, 'form'=>$form));
+		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments));
 	}
 	
 	public function actionEdit($id){
@@ -197,6 +196,7 @@ class BooksController extends Controller
             $commentForm->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
             $commentForm->date = Yii::time(time());
             $commentForm->ref_id = $id;
+            $commentForm->rating = $_POST['Comments']['rating'];
             $commentForm->belongsTo = 0;
             if($commentForm->validate()) {
                 if($commentForm->save()) {
@@ -321,7 +321,7 @@ class BooksController extends Controller
     
     public function actionNewComment($id){
         $model = new Comments();
-        $this->render('newComment',array('model'=>$model, 'id'=>$id));
+        $this->renderPartial('newComment',array('model'=>$model, 'id'=>$id),false,true);
 	}
     public function actionEditComment($id){
         $model = new Comments();

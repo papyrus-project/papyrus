@@ -21,19 +21,19 @@
 		<?php echo $form->textArea($model,'text',array('class'=>'form-control','rows'=>5)); ?>
 		<?php echo $form->error($model,'text'); ?>
 	</p>
-	<p class="rating">
-        <span>Jetzt bewerten: </span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star-empty"></span>
-        <span class="glyphicon glyphicon-star-empty"></span>
+	<p>
+		<?php echo $form->hiddenField($model,'rating',array('class'=>'rating','value'=>'3','data-start'=>1,'data-stop'=>6)); ?>
     
 		<?=CHtml::ajaxSubmitButton(
 	          'Abschicken',
 	          array('books/postComment', 'id'=>$id),
 	          array(
 	              'update'=>'#com',
+	              'success'=>'js:function(data){
+	              		$("#com").prepend(data);
+	              		$("#newComment").children().detach();
+						$("#com > div:first-child input").rating();
+	              }',
 	          ), 
 	          array(
 	          	'id' => 'post'.uniqid(),

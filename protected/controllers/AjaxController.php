@@ -32,10 +32,10 @@ class AjaxController extends Controller
 				$model->users_id=$user;
 				$model->books_id=$book;
 				$model->save();
-				print('unfavorise');
+				print('Entfavorisieren ');
 			} else{
 				$model->delete();
-				print('favorise');
+				print('Favorisieren ');
 			}
 		}
 	}
@@ -54,10 +54,10 @@ class AjaxController extends Controller
 				$model->subscriber_id=$user;
 				$model->subscripted_id=$sub;
 				$model->save();
-				print('nicht mehr folgen');
+				print CHtml::decode('Deabonnieren ');
 			} else{
 				$model->delete();
-				print('folgen');
+				echo ('Abonnieren ');
 			}
 		}
 	}

@@ -4,10 +4,10 @@
             <div class="col-xs-2 col-sm-2 col-md-2 hidden-xs">
                 <!--<img class="commentary-portrait" src="../../upload/cover/thumb/default.jpg" alt="user-portrait" />-->
                 <?php 
-                    $user = UserData::model()->findByPk($model->user_id);
+                    $user = UserData::model()->findByPk($comment->users_id);
 					$this->widget('ext.SAImageDisplayer', array(
 						'image' => $user->id.'.'.$user->extension,
-						'title' => $model->title,
+						'title' => $user->name,
 						'size' => 'comment',
 						'class' => 'commentary-portrait',
 						'id' => '',
@@ -30,12 +30,7 @@
                 </div>
                 <div class="row">
                     <p>
-                        <h4 class="comment-rating">Bewertung</h4>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
+	                	<input type="hidden" class="rating" value="<?=$comment->rating?>" readonly />
                     </p>
                 </div>
             </div>
@@ -87,5 +82,6 @@
             </div>
         </div>
     </div>
+	<script src="<?= Yii::app()->request->baseUrl; ?>/js/bootstrap-rating.js" type="text/javascript"></script>
 </div>
 

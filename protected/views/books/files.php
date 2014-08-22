@@ -127,14 +127,14 @@
                 </div>
                 
                 <!-- chapter -->
-                <div class="row">
+                <!-- <div class="row">
                     <h2 id="book-profile-sub-heading">Verfügbare Kapitel</h2>
                     <ul id="book-series">
                         <li class="text-muted"><span class="glyphicon glyphicon-tag"></span> Kapitel 1: <a href="#">Der Anfang</a></li>
                         <li class="text-muted"><span class="glyphicon glyphicon-tag"></span> Kapitel 2: <a href="#">Der Mittelteil</a></li>
                         <li class="text-muted"><span class="glyphicon glyphicon-tag"></span> Kapitel 3: <a href="#">Das Ende</a></li>
                     </ul>
-                </div>
+                </div> -->
                 
                 <div class="row">
                     <h2 id="book-profile-blurb-heading">Klappentext</h2>
@@ -147,14 +147,27 @@
                      <h2 id="H1">Kommentare <span class="badge"> <?=Comments::model()->countByAttributes(array('ref_id'=>$model->id))?></span></h2>
                 </div>
                 <div class="row">
-                	<p><button class="btn btn-b" id="toggle-newComment">Kommentar schreiben <span class="glyphicon glyphicon-pencil"></span></button></p>
+                	<p>
+                		<?=CHtml::ajaxLink(
+							'Kommentar schreiben <span class="glyphicon glyphicon-pencil"></span>',
+							array('books/newComment','id'=>$model->id),
+							array('success'=>'js:function(data){
+								$("#newComment").children().detach();
+								$("#newComment").append(data);
+								$("#newComment input.rating").rating();
+							}'
+							),
+							array('class'=>'btn btn-b')
+						)?>
+                	</p>
                 </div>
 			    <?php if(!Yii::app()->user->isGuest):?>
                 <div class="row" id="newComment">
-			    	<?=$form;?>
+			    	
 		    	</div>
 				<?php endif; ?>
                 
+				<div id="com"></div>
                 <?php foreach($comments as $comment):?>
                 <!-- comment example -->
                 <div id="<?= $comment->id; ?>" class="row">
@@ -177,9 +190,9 @@
                             </div>
                             <div class="col-xs-9 col-sm-9 col-md-9 no-padding comment-frame">
                                 <div class="row">
-                    <h3><?= $comment->getAuthor($comment->users_id); ?></h3>
+                    				<h3><?= $comment->getAuthor($comment->users_id); ?></h3>
                                     <p class="comment-date text-muted">
-                        geschrieben am <?= Yii::time($comment->date); ?>
+                        				geschrieben am <?= Yii::time($comment->date); ?>
                                     </p>
                                 </div>
                                 <div id="text<?= $comment->id; ?>" class="row">
@@ -190,11 +203,7 @@
                                 <div class="row">
                                     <p>
                                         <h4 class="comment-rating">Bewertung</h4> 
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
+	                					<input type="hidden" data-start="1" data-end="6" class="rating" value="<?=$comment->rating?>" readonly />
                                     </p>
                                 </div>
                             </div>
@@ -217,28 +226,28 @@
                                         <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-config" style="text-align:left;">
                                         <?php if($comment->users_id == Yii::app()->user->id) : ?>
-                            <li role="presentation"><?= CHtml::ajaxLink(
-                                'Bearbeiten',
-                                array('books/showEditCommentForm', 'id'=>$comment->id),
-                                          array(
-                                              'update'=>'#text'.$comment->id,
-                                          ), 
-                                          array('id' => 'edit'.uniqid(), 'role'=>'menuitem', 'tabindex'=>'-1')
-                            ); ?>
-
-                            </li>
-                            <li role="presentation">
-                                <?= CHtml::ajaxLink(
-                                'Entfernen',
-                                array('books/deleteComment', 'id'=>$comment->id),
-                                          array(
-                                              'update'=>'#com',
-                                          ), 
-                                          array('id' => 'delete'.uniqid(), 'role'=>'menuitem', 'tabindex'=>'-1')
-                                      );
-                                ?>
-                            </li>
-                            <?php endif; ?>
+				                            <li role="presentation"><?= CHtml::ajaxLink(
+				                                'Bearbeiten',
+				                                array('books/showEditCommentForm', 'id'=>$comment->id),
+				                                          array(
+				                                              'update'=>'#text'.$comment->id,
+				                                          ), 
+				                                          array('id' => 'edit'.uniqid(), 'role'=>'menuitem', 'tabindex'=>'-1')
+				                            ); ?>
+				
+				                            </li>
+				                            <li role="presentation">
+				                                <?= CHtml::ajaxLink(
+				                                'Entfernen',
+				                                array('books/deleteComment', 'id'=>$comment->id),
+				                                          array(
+				                                              'update'=>'#com',
+				                                          ), 
+				                                          array('id' => 'delete'.uniqid(), 'role'=>'menuitem', 'tabindex'=>'-1')
+				                                      );
+				                                ?>
+				                            </li>
+				                            <?php endif; ?>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Verstöße Melden</a></li>
                                         </ul>
                                     </div>
@@ -248,36 +257,38 @@
                     </div>
                 <!-- comment commentary -->
                 <div class="row">
-	                <div id="answers<?= $comment->id ?>">
-	                    <div class="col-xs-3 col-sm-3 col-md-3 hidden-xs text-align-right">
-	                        <?= CHtml::ajaxLink(
-	                                    '<span class="text-muted glyphicon glyphicon-chevron-down"></span>Antworten anzeigen',
-	                                    array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
-	                                    array(
-	                                        'update'=>'#answers'.$comment->id,
-	                                    ), 
-	                                    array('id' => 'show'.uniqid())
-	                                ) . ' ';
-	                        ?>
-	                    </div>
-	                </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 hidden-xs text-align-right">
+                        <?= CHtml::ajaxLink(
+                                    '<span class="text-muted glyphicon glyphicon-chevron-down"></span>Antworten anzeigen',
+                                    array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
+                                    array(
+                                        'update'=>'#answers'.$comment->id,
+                                    ), 
+                                    array('id' => 'show'.uniqid())
+                                ) . ' ';
+                        ?>
+                    </div>
+				</div>
+	                <div id="answers<?= $comment->id ?>"></div>
 	                <div id="newAnswer<?= $comment->id ?>"></div>
+	                
 	                <?php 
 	                    if(!Yii::app()->user->isGuest){
 	                        echo CHtml::ajaxLink(
-                              'Antwort schreiben',
-                              array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
-                              array(
-                                  'update'=>'#newAnswer'.$comment->id,
-                              ), 
-                              array('id' => 'answer'.uniqid())
-                          );
+                                  'Antwort schreiben',
+                                  array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
+                                  array(
+	                                    'success'=>'js:function(data){
+                    						$("#newAnswer'.$comment->id.'").children(".answerForm").detach();
+	                                    	$("#newAnswer'.$comment->id.'").append(data);
+										}'
+                                  ), 
+                                  array('id' => 'answer'.uniqid())
+                              );
 	                    }
 	                ?>
-				</div>
                 </div> 
     <?php endforeach; ?>
-<div id="com"></div>
 
                 <!-- content pull block -->
                 <div class="row">
@@ -289,8 +300,46 @@
             
             <!-- options -->
             <div class="col-md-2 dropdown-meta text-align-right">
-                <p><a href="#">Favorisieren <span class="book-profile-option glyphicon glyphicon-bookmark"></span></a></p>
-                <p><a href="#">Abonnieren <span class="book-profile-option glyphicon glyphicon-star"></span></a></p>
+            	<?php if($model->author != Yii::app()->user->id && !YII::app()->user->isGuest):?>
+ 					<p>
+					<?= CHtml::ajaxLink(
+						//gucken ob das buch bereits favorisiesrt wurde
+					    ($model->author==YII::app()->user->id?'Entfavorisieren ':'Favorisieren ').'<span class="book-profile-option glyphicon glyphicon-bookmark"></span>',
+					    array('ajax/favoriseBook'),
+					    array(
+					    	'type'=>'POST',
+					    	'data'=>array('book'=>$model->id),
+					    	'success'=>'js:function(data){
+								console.log("success");
+						        $("#bookFavButton").text(data);
+						        $("#bookFavButton").append(\'<span class="book-profile-option glyphicon glyphicon-bookmark"></span>\');
+						    }',
+						),
+						array(
+							'id'=>'bookFavButton'
+						)
+					);?>
+					</p>
+ 					<p>
+					<?= CHtml::ajaxLink(
+						//gucken ob das buch bereits favorisiesrt wurde
+					    (Subscription::model()->findByAttributes(array('subscriber_id'=>YII::app()->user->id,'subscripted_id'=>$model->author))?'Deabonnieren ':'Abonnieren ').'<span class="book-profile-option glyphicon glyphicon-star"></span>',
+					    array('ajax/Subscribe'),
+					    array(
+					    	'type'=>'POST',
+					    	'data'=>array('subsripted'=>$model->author),
+					    	'success'=>'js:function(data){
+								console.log("success");
+						        $("#SubButton").text(data);
+								$("#SubButton").append(\'<span class="book-profile-option glyphicon glyphicon-star"></span>\');
+						    }',
+						),
+						array(
+							'id'=>'SubButton'
+						)
+					);?>
+					</p>
+				<?php endif;?>
                 <p><a href="#">Teilen <span class="book-profile-option glyphicon glyphicon-share"></span></a></p>
             </div>    
         </div>

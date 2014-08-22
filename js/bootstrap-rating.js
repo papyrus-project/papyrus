@@ -95,8 +95,4 @@
     stop: OFFSET,
     step: 1
   };
-
-  $(function () {
-    $('input.rating').rating();
-  });
 }(jQuery));
