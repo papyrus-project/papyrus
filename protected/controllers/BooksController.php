@@ -26,7 +26,7 @@ class BooksController extends Controller
         if(!$model)
 			$this->redirect(Yii::app()->createAbsoluteUrl(''));
         
-        
+        $rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$id));
         
         //genres auslesen und als 1 string schreiben
         $genre = $model->bookgenres;
@@ -68,7 +68,7 @@ class BooksController extends Controller
         Yii::app()->clientScript->registerMetaTag($model->description, 'og:description');
         Yii::app()->clientScript->registerMetaTag($model->title, 'og:title');
         
-		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments));
+		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments,'rating'=>$rating));
 	}
 	
 	public function actionEdit($id){

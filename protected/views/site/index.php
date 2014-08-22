@@ -67,6 +67,8 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
                 <h3 class="section-subheading text-muted">Beliebte Werke unserer Hobbyautoren</h3>
             </div>
             <?php foreach($books as $book):?>
+			<?php $rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$book->id));?>
+            	
             <div class="col-xs-12 col-md-3">
                 <div class="thumbnail thumbnail-centered">
                 	<a href="<?= YII::app()->createAbsoluteUrl('books/files/'.$book->id)?>">
@@ -85,11 +87,7 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
                         <a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.$book->author)?>"><?=$book->author0->name?></a>
                         <h3><?=$book->title?></h3>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <input type="hidden" class="rating" data-start="1" data-end="6" value="<?= $rating->count?round($rating->rating/$rating->count):''?>" />
                         </p>
                         <button class="btn btn-g">Herunterladen</button>
                     </div>

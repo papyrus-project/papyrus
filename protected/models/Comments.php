@@ -22,6 +22,7 @@ class Comments extends CActiveRecord
     public $text;
     public $date;
     public $users;
+    public $count;
 	/**
 	 * @return string the associated database table name
 	 */

@@ -90,13 +90,9 @@
                     <h2><?=$model->title?> <?= $model->wip?'<span class="label book-thumb-label">WIP</span>':''?></h2>
                     <h3 class="text-muted">von <?=$model->author0->name?></h3>
 
-                    <p class="rating">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        (1000) Bewertungen
+                    <p>
+                        <input type="hidden" readonly class="rating" data-start="1" data-stop="6" value="<?=$rating->count?round($rating->rating/$rating->count):''?>" />
+                        (<?=$rating->count?>) Bewertungen
                     </p>
 
                     <ul class="col-xs-6 col-sm-6 col-md-6 book-profile-meta-big">

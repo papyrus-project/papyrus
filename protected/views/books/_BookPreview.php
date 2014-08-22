@@ -37,11 +37,7 @@
 			</p>
 			
 			<p>
-				<span class="glyphicon glyphicon-star"></span>
-				<span class="glyphicon glyphicon-star"></span>
-				<span class="glyphicon glyphicon-star"></span>
-				<span class="glyphicon glyphicon-star-empty"></span>
-				<span class="glyphicon glyphicon-star-empty"></span>
+				<input type="hidden" class="rating" data-start="1" data-stop="6" readonly value="<?= $rating->count?round($rating->rating/$rating->count):''?>" />
 			</p>
 			
 			<p class="book-thumb-txt">

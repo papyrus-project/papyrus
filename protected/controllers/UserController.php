@@ -97,12 +97,14 @@ class UserController extends Controller
 		YII::app()->session['page'] = 1;
 		$books = Books::model()->owns($id)->published()->with('bookgenres')->findAll(array('limit'=>$this->profile_pc,'order'=>'id desc'));
 		$booksRender = '';
-		foreach($books as $book)
-			$booksRender.=$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'showOptions'=>true),true,true);
-		
-		if(!$books){
-			throw new CHttpException(204,'Keine Buecher vorhanden');
+		foreach($books as $book){
+			$rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$book->id));
+			$booksRender.=$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'showOptions'=>true,'rating'=>$rating),true,true);
 		}
+		
+		/*if(!$books){
+			throw new CHttpException(204,'Keine Buecher vorhanden');
+		}*/
 		$this->renderPartial('_own',array('books'=>$booksRender,'userId'=>$id),false,true);
 	}
 
@@ -113,8 +115,10 @@ class UserController extends Controller
 		if(!$books){
 			throw new CHttpException(204,'Keine Buecher mehr vorhanden');
 		}
-		foreach($books as $book)
-			$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'userId'=>$_POST['id'],'showOptions'=>true));
+		foreach($books as $book){
+			$rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$book->id));
+			$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'userId'=>$_POST['id'],'showOptions'=>true,'rating'=>$rating));
+		}
 	}
 
 	public function action_Favorites($id){
@@ -128,8 +132,10 @@ class UserController extends Controller
 		}
 		$books = Books::model()->findAllByAttributes(array('id'=>$array));
 		$booksRender = '';
-		foreach($books as $book)
-			$booksRender.=$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'showOptions'=>true),true,true);
+		foreach($books as $book){
+			$rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$book->id));
+			$booksRender.=$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'showOptions'=>true,'rating'=>$rating),true,true);
+		}
 		$this->renderPartial('_favorites',array('books'=>$booksRender,'userId'=>$id),false,true);
 	}
 	
@@ -145,8 +151,10 @@ class UserController extends Controller
 		}
 		$books = Books::model()->findAllByAttributes(array('id'=>$array));
 		YII::app()->session['page'] = ++$page;
-		foreach($books as $book)
-			$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'userId'=>$_POST['id'],'showOptions'=>true));
+		foreach($books as $book){
+			$rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$book->id));
+			$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'userId'=>$_POST['id'],'showOptions'=>true,'rating'=>$rating));
+		}
 	}
 	
 	public function action_subs($id){
@@ -163,8 +171,10 @@ class UserController extends Controller
 			throw new CHttpException(204,'Keine Buecher vorhanden');
 		}
 		$booksRender = '';
-		foreach($books as $book)
-			$booksRender.=$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'showOptions'=>true),true,true);
+		foreach($books as $book){
+			$rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$book->id));
+			$booksRender.=$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'showOptions'=>true,'rating'=>$rating),true,true);
+		}
 		$this->renderPartial('_subs',array('books'=>$booksRender,'userId'=>$id),false,true);
 	}
 	
@@ -182,13 +192,10 @@ class UserController extends Controller
 			throw new CHttpException(204,'Keine Buecher vorhanden');
 		}
 		YII::app()->session['page'] = ++$page;
-		foreach($books as $book)
-			$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'userId'=>$_POST['id'],'showOptions'=>true));
-	}
-	
-	public function actionSubscriptions(){
-		
-		$this->render('Subscriptions');
+		foreach($books as $book){
+			$rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$book->id));
+        	$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'userId'=>$_POST['id'],'showOptions'=>true,'rating'=>$rating));
+		}
 	}
 
 	public function actionSendPm($id){
