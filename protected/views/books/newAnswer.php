@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
+<div class="row">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'comments-newAnswer-form',
@@ -16,24 +16,29 @@
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo ''//$form->labelEx($model,'text'); ?>
-		<?php echo $form->textArea($model,'text'); ?>
-		<?php echo $form->error($model,'text'); ?>
+	<div class="col-xs-3 col-sm-3 col-md-3 ">
 	</div>
-
-	<div class="row buttons">
-				<?php echo CHtml::ajaxSubmitButton(
-                      'Antwort posten',
-                      array('books/postAnswer', 'id'=>$id, 'belongsTo'=>$belongsTo),
-                      array(
-                          'update'=>'#newAnswer'.$belongsTo,
-                      ), 
-                      array('id' => uniqid())); ?>
+	<div class="col-xs-9 col-sm-9 col-md-9 no-padding comment-frame">
+		<div class="form-group">
+			<?php echo ''//$form->labelEx($model,'text'); ?>
+			<?php echo $form->textArea($model,'text',array('class'=>'form-control')); ?>
+			<?php echo $form->error($model,'text'); ?>
+		</div>
+	
+		<div class="form-group">
+			<?php echo CHtml::ajaxSubmitButton(
+				'Antwort posten',
+				array('books/postAnswer', 'id'=>$id, 'belongsTo'=>$belongsTo),
+				array(
+					'update'=>'#newAnswer'.$belongsTo,
+				), 
+				array(
+					'id' => uniqid(),
+				  	'class'=>'btn btn-g',
+				)); ?>
+		</div>
+	    <div id="com"></div>
 	</div>
-    <div id="com"></div>
-
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

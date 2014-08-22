@@ -32,11 +32,13 @@ class UserController extends Controller
 			$model->location = CHtml::encode($_POST['location']);
 			$model->homepage = CHtml::encode($_POST['homepage']);
 			$model->description = CHtml::encode($_POST['description']);
+			$model->invitations_left = CHtml::encode($_POST['invitations_left']);
             
-            $uploadCover='';
-            if(isset($_POST['UserData']['extension'])){
-			    //Cover Datei
-			    $uploadCover = CUploadedFile::getInstance($model,'extension');
+
+		    //Cover Datei
+		    $uploadCover = CUploadedFile::getInstance($model,'extension');
+            if($uploadCover){
+                $p = $uploadCover;
 			    $covername = "{$uploadCover}";
 			    $coverInfo = pathinfo($covername);
 			    $model->extension = $coverInfo['extension'];
@@ -49,12 +51,11 @@ class UserController extends Controller
 			    //Dateien Speichern
 			    if($uploadCover){
 				    $uploadCover->saveAs(Yii::app()->basePath.'/../upload/user/original/'.$model->id.'.'.$model->extension);
-                    if(file_exists(Yii::getPathOfAlias('webroot').'/upload/user/comment/'.$model->id.'.'.$model->extension)){
+
+                    if(is_file(Yii::getPathOfAlias('webroot').'/upload/user/comment/'.$model->id.'.'.$model->extension))
                         unlink(Yii::getPathOfAlias('webroot').'/upload/user/comment/'.$model->id.'.'.$model->extension);
-			        }
-                    if(file_exists(Yii::getPathOfAlias('webroot').'/upload/user/big/'.$model->id.'.'.$model->extension)){
+                    if(is_file(Yii::getPathOfAlias('webroot').'/upload/user/big/'.$model->id.'.'.$model->extension))
                         unlink(Yii::getPathOfAlias('webroot').'/upload/user/big/'.$model->id.'.'.$model->extension);
-			        }
 		        }
 		        $this->redirect(array('user/profile','id'=>YII::app()->user->id));
 		    }
