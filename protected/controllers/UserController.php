@@ -26,7 +26,6 @@ class UserController extends Controller
 		if(Yii::app()->user->isGuest)
 			$this->redirect(array('bum/users/login'));
 		$model = UserData::model()->findByPk(Yii::app()->user->id);
-        $p='qqqq';
 		if(!empty($_POST)){
 			$model->attributes = $_POST;
 			$model->name = CHtml::encode($_POST['name']);
@@ -38,7 +37,6 @@ class UserController extends Controller
             if(isset($_POST['UserData']['extension'])){
 			    //Cover Datei
 			    $uploadCover = CUploadedFile::getInstance($model,'extension');
-                $p = $uploadCover;
 			    $covername = "{$uploadCover}";
 			    $coverInfo = pathinfo($covername);
 			    $model->extension = $coverInfo['extension'];
@@ -51,27 +49,18 @@ class UserController extends Controller
 			    //Dateien Speichern
 			    if($uploadCover){
 				    $uploadCover->saveAs(Yii::app()->basePath.'/../upload/user/original/'.$model->id.'.'.$model->extension);
-                    try{
+                    if(file_exists(Yii::getPathOfAlias('webroot').'/upload/user/comment/'.$model->id.'.'.$model->extension)){
                         unlink(Yii::getPathOfAlias('webroot').'/upload/user/comment/'.$model->id.'.'.$model->extension);
 			        }
-                    catch(Exception $e)
-                    { }
-                    try{
+                    if(file_exists(Yii::getPathOfAlias('webroot').'/upload/user/big/'.$model->id.'.'.$model->extension)){
                         unlink(Yii::getPathOfAlias('webroot').'/upload/user/big/'.$model->id.'.'.$model->extension);
 			        }
-                    catch(Exception $e)
-                    { }
 		        }
 		        $this->redirect(array('user/profile','id'=>YII::app()->user->id));
 		    }
         }
-		$date = explode('.', $model->birthday);
 		$this->render('edit',array(
-			'model'=>$model,
-			'birthday'=>$date));
-            echo '<pre>';
-        print_r($p);
-        echo '</pre>';
+			'model'=>$model));
 	}
 	
 	public function actionProfile($id){
