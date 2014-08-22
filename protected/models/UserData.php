@@ -84,7 +84,7 @@ class UserData extends CActiveRecord
 			'name' => 'Name',
 			'birthday' => 'Birthday',
 			'location' => 'Location',
-			'sex' => 'Sex',
+			'sex' => 'Geschlecht',
 			'homepage' => 'Homepage',
 			'description' => 'Description',
 			'obs' => 'Obs',

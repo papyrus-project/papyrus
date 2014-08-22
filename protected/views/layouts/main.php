@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	    <!-- Chosen -->
 		<link rel="stylesheet" href="<?= Yii::app()->request->baseUrl; ?>/css/chosen/chosen.css">
+		<link rel="stylesheet" href="<?= Yii::app()->request->baseUrl; ?>/css/bootstrap-rating.css">
 	    <!-- Bootstrap -->
 	    <link href="<?= Yii::app()->request->baseUrl; ?>/frameworks/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	    <!-- Internal -->
@@ -116,6 +117,7 @@ if(!YII::app()->user->isGuest)
 
 	<script src="<?= Yii::app()->request->baseUrl; ?>/frameworks/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="<?= Yii::app()->request->baseUrl; ?>/js/chosen/chosen.jquery.js" type="text/javascript"></script>
+	<script src="<?= Yii::app()->request->baseUrl; ?>/js/bootstrap-rating.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var config = {
 		  '.chosen-select'           : {},

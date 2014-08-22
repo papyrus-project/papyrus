@@ -247,34 +247,34 @@
                         </div>
                     </div>
                 <!-- comment commentary -->
-                <div>
-                <div id="answers<?= $comment->id ?>">
-                    <div class="col-xs-3 col-sm-3 col-md-3 hidden-xs text-align-right">
-                        <?= CHtml::ajaxLink(
-                                    '<span class="text-muted glyphicon glyphicon-chevron-down"></span>Antworten anzeigen',
-                                    array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
-                                    array(
-                                        'update'=>'#answers'.$comment->id,
-                                    ), 
-                                    array('id' => 'show'.uniqid())
-                                ) . ' ';
-                        ?>
-                    </div>
-                </div>
-                <div id="newAnswer<?= $comment->id ?>"></div>
-                <?php 
-                    if(!Yii::app()->user->isGuest){
-                        echo CHtml::ajaxLink(
-                                              'Antwort schreiben',
-                                              array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
-                                              array(
-                                                  'update'=>'#newAnswer'.$comment->id,
-                                              ), 
-                                              array('id' => 'answer'.uniqid())
-                                          );
-                    }
-                ?>
-</div>
+                <div class="row">
+	                <div id="answers<?= $comment->id ?>">
+	                    <div class="col-xs-3 col-sm-3 col-md-3 hidden-xs text-align-right">
+	                        <?= CHtml::ajaxLink(
+	                                    '<span class="text-muted glyphicon glyphicon-chevron-down"></span>Antworten anzeigen',
+	                                    array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
+	                                    array(
+	                                        'update'=>'#answers'.$comment->id,
+	                                    ), 
+	                                    array('id' => 'show'.uniqid())
+	                                ) . ' ';
+	                        ?>
+	                    </div>
+	                </div>
+	                <div id="newAnswer<?= $comment->id ?>"></div>
+	                <?php 
+	                    if(!Yii::app()->user->isGuest){
+	                        echo CHtml::ajaxLink(
+                              'Antwort schreiben',
+                              array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
+                              array(
+                                  'update'=>'#newAnswer'.$comment->id,
+                              ), 
+                              array('id' => 'answer'.uniqid())
+                          );
+	                    }
+	                ?>
+				</div>
                 </div> 
     <?php endforeach; ?>
 <div id="com"></div>
