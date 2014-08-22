@@ -26,7 +26,6 @@ class UserController extends Controller
 		if(Yii::app()->user->isGuest)
 			$this->redirect(array('bum/users/login'));
 		$model = UserData::model()->findByPk(Yii::app()->user->id);
-        $p='qqqq';
 		if(!empty($_POST)){
 			$model->attributes = $_POST;
 			$model->name = CHtml::encode($_POST['name']);
@@ -35,6 +34,7 @@ class UserController extends Controller
 			$model->description = CHtml::encode($_POST['description']);
 			$model->invitations_left = CHtml::encode($_POST['invitations_left']);
             
+
 		    //Cover Datei
 		    $uploadCover = CUploadedFile::getInstance($model,'extension');
             if($uploadCover){
@@ -51,6 +51,7 @@ class UserController extends Controller
 			    //Dateien Speichern
 			    if($uploadCover){
 				    $uploadCover->saveAs(Yii::app()->basePath.'/../upload/user/original/'.$model->id.'.'.$model->extension);
+
                     if(is_file(Yii::getPathOfAlias('webroot').'/upload/user/comment/'.$model->id.'.'.$model->extension))
                         unlink(Yii::getPathOfAlias('webroot').'/upload/user/comment/'.$model->id.'.'.$model->extension);
                     if(is_file(Yii::getPathOfAlias('webroot').'/upload/user/big/'.$model->id.'.'.$model->extension))
@@ -59,13 +60,8 @@ class UserController extends Controller
 		        $this->redirect(array('user/profile','id'=>YII::app()->user->id));
 		    }
         }
-		$date = explode('.', $model->birthday);
 		$this->render('edit',array(
-			'model'=>$model,
-			'birthday'=>$date));
-            echo '<pre>';
-        print_r($p);
-        echo '</pre>';
+			'model'=>$model));
 	}
 	
 	public function actionProfile($id){
