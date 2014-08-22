@@ -83,11 +83,16 @@ class BooksController extends Controller
         if(isset($_POST['Books']))
         {
             // Erfasst die gesendeten Formulardaten
-            $model->attributes=$_POST['Books'];
+            //$model->attributes=$_POST['Books'];
+            $model->attributes=$_POST;
             // Validiert die Daten und kehrt zur vorherigen Seite zur��ck, 
             // wenn die Pr��fung erfolgreich war.
             $genres = '';
             if($model->validate()) {
+                $model->title=CHtml::encode($_POST['Books']['title']);
+                $model->description=CHtml::encode($_POST['Books']['description']);
+                $model->wip=$_POST['Books']['wip'];
+                $model->nsfw=$_POST['Books']['nsfw'];
                 //genres speichern
                 if(isset($_POST['genres'])) {
                     foreach($_POST['genres'] as $genre_id=>$checked){
@@ -96,9 +101,36 @@ class BooksController extends Controller
                     $genresStr = implode(",", $genres) . ';';
                     $model->addBookGenres($genresStr, $id); //Add Interest
                 }
-                
+                $uploadCover = '';
+                if($_POST['optionsRadios'] == 'custom')
+                {
+                    //Cover Datei
+                    $uploadCover = CUploadedFile::getInstance($model,'extension');
+                    if($uploadCover){
+                        $covername = "{$uploadCover}";
+                        $coverInfo = pathinfo($covername);
+                        $model->extension = $coverInfo['extension'];
+                    }
+                }
+                else
+                    $model->extension = $_POST['optionsRadios'].'.jpg';
+                //$p = $uploadCover;
                 if($model->save()) {
                     //happy dance
+                    if($_POST['optionsRadios'] == 'custom')
+                    {
+                        //Ueberpruefen ob die Ordner schon vorhanden sind sonst neue erstellen
+                        if(!is_dir(Yii::app()->basePath.'/../upload/cover/original/'))
+                            mkdir(Yii::app()->basePath.'/../upload/cover/original/',0777,true);
+                        
+                        //Dateien Speichern
+                        if($uploadCover){
+                            $uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/original/'.$model->id.'.'.$model->extension);
+
+                            if(is_file(Yii::getPathOfAlias('webroot').'/upload/cover/thumb/'.$model->id.'.'.$model->extension))
+                                unlink(Yii::getPathOfAlias('webroot').'/upload/cover/thumb/'.$model->id.'.'.$model->extension);
+                        }
+                    }
                 } 
                 else {
                     throw new CHttpException(500, 'Something went wrong');
@@ -113,7 +145,6 @@ class BooksController extends Controller
 		
 		$model->title = CHtml::decode($model->title);
 		$model->description = CHtml::decode($model->description);
-		
         $this->render('edit',array('model'=>$model,'selectedGenres' => $selectedGenres));
 	}
 	
