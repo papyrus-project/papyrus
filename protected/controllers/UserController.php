@@ -65,7 +65,7 @@ class UserController extends Controller
 		        $this->redirect(array('user/profile','id'=>YII::app()->user->id));
 		    }
         }
-		$date = explode('-', $model->birthday);
+		$date = explode('.', $model->birthday);
 		$this->render('edit',array(
 			'model'=>$model,
 			'birthday'=>$date));
@@ -239,9 +239,9 @@ class UserController extends Controller
 	public function actionMessages(){
 		YII::app()->session['page']=1;
 		YII::app()->session['type']=1;
-		$model = Messages::model()->got()->with('sender0')->findAll(array('limit'=>'5'));
-		$countIn = Messages::model()->got()->with('sender0')->count();
-		$countOut = Messages::model()->send()->with('sender0')->count();
+		$model = Messages::model()->got()->findAll(array('limit'=>'5'));
+		$countIn = Messages::model()->got()->count();
+		$countOut = Messages::model()->send()->count();
 		$messages='';
 		foreach($model as $message){
 			$messages.=$this->renderPartial('_pmList',array('message'=>$message,'got'=>true),true,true);
@@ -252,7 +252,7 @@ class UserController extends Controller
 	public function actionlistPmR($id){
 		YII::app()->session['page']=1;
 		YII::app()->session['type']=1;
-		$model = Messages::model()->with('sender0')->findAllByAttributes(array('receiver'=>$id),array('limit'=>'5'));
+		$model = Messages::model()->findAllByAttributes(array('receiver'=>YII::app()->user->id),array('limit'=>'5'));
 		
 		foreach($model as $message){
 			$this->renderPartial('_pmList',array('message'=>$message,'got'=>true),false,true);
@@ -262,7 +262,7 @@ class UserController extends Controller
 	public function actionlistPmS($id){
 		YII::app()->session['page']=1;
 		YII::app()->session['type']=2;
-		$model = Messages::model()->with('sender0')->findAllByAttributes(array('sender'=>$id),array('limit'=>'5'));
+		$model = Messages::model()->findAllByAttributes(array('sender'=>YII::app()->user->id),array('limit'=>'5'));
 		
 		foreach($model as $message){
 			$this->renderPartial('_pmList',array('message'=>$message,'got'=>false),false,true);
@@ -277,6 +277,10 @@ class UserController extends Controller
 		else {
 			$page--;
 		}
+		print($page);
+		if($page<1){
+			throw new CHttpException(204,'');
+		}
 		/*
 		$countIn = Messages::model()->got()->with('sender0')->count();
 		$countOut = Messages::model()->send()->with('sender0')->count();*/
@@ -284,8 +288,10 @@ class UserController extends Controller
 			$type = 'receiver';
 		else 
 			$type = 'sender';
-		$model = Messages::model()->with('sender0')->findAllByAttributes(array($type=>$id),array('limit'=>'5','offset'=>($page-1)*5));
-		
+		$model = Messages::model()->with('sender0')->findAllByAttributes(array($type=>YII::app()->user->id),array('limit'=>'5','offset'=>($page-1)*5));
+		if(!$model){
+			throw new CHttpException(204,'');
+		}
 		foreach($model as $message){
 			$this->renderPartial('_pmList',array('message'=>$message,'got'=>YII::app()->session['type']));
 		}

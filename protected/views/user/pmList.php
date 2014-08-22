@@ -31,6 +31,14 @@
 											$("#messageTable").children().detach();
 											$("#messageTable").append(data);
 											page = 1;
+											count = $("#messageTable").children().size();
+											if(count == 1)
+												append = "<div>"+1+"-"+count+"</div>";
+											else {
+												append = "<div>"+0+"</div>";
+											}
+											$("#messageCounter").children().detach();
+											$("#messageCounter").append(append);
 										}'
 									),
 									array(
@@ -50,6 +58,14 @@
 											$("#messageTable").children().detach();
 											$("#messageTable").append(data);
 											page = 1;
+											count = $("#messageTable").children().size();
+											if(count == 1)
+												append = "<div>"+1+"-"+count+"</div>";
+											else {
+												append = "<div>"+0+"</div>";
+											}
+											$("#messageCounter").children().detach();
+											$("#messageCounter").append(append);
 										}',
 									),
 									array(
@@ -83,14 +99,16 @@
             	YII::app()->createAbsoluteUrl('user/listPmM/'.YII::app()->user->id.'/0'),
             	array(
 					'update'=>'#messageTable',
-					'success'=>'js:function(data,header,code){
-						--page;
-						$("#messageTable").children().detach();
-						$("#messageTable").append(data);
-						$("#messageCounter").children().detach();
-						$("#messageCounter").append("<div>"+
-							((page-1)*5+1)+"-"+((page-1)*5+$("#messageTable").children().size())+
-							"</div>");
+					'success'=>'js:function(data,status,header){
+						if(header.status==200){
+							--page;
+							$("#messageTable").children().detach();
+							$("#messageTable").append(data);
+							$("#messageCounter").children().detach();
+							$("#messageCounter").append("<div>"+
+								((page-1)*5+1)+"-"+((page-1)*5+$("#messageTable").children().size())+
+								"</div>");
+						}
 					}'
 				),
 				array(
@@ -104,14 +122,16 @@
             	YII::app()->createAbsoluteUrl('user/listPmM/'.YII::app()->user->id.'/1'),
             	array(
 					'update'=>'#messageTable',
-					'success'=>'js:function(data,header,code){
-						++page;
-						$("#messageTable").children().detach();
-						$("#messageTable").append(data);
-						$("#messageCounter").children().detach();
-						$("#messageCounter").append("<div>"+
-							((page-1)*5+1)+"-"+((page-1)*5+$("#messageTable").children().size())+
-							"</div>");
+					'success'=>'js:function(data,status,header){
+						if(header.status==200){
+							++page;
+							$("#messageTable").children().detach();
+							$("#messageTable").append(data);
+							$("#messageCounter").children().detach();
+							$("#messageCounter").append("<div>"+
+								((page-1)*5+1)+"-"+((page-1)*5+$("#messageTable").children().size())+
+								"</div>");
+						}
 					}'
 				),
 				array(
