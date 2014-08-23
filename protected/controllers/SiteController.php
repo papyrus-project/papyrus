@@ -34,7 +34,6 @@ class SiteController extends Controller
     }
 	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array(), $wip = '', $nsfw = '')
 	{
-        print_r($_POST);
         if(isset($_POST['q']))
             $q = $_POST['q'];
         if(isset($_POST['type']))

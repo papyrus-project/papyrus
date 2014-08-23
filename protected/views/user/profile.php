@@ -54,6 +54,7 @@
 						<li class="text-meta"><?= $model->location?$model->location:'Keine Angabe'?></li>
 						<li class="text-meta"><a class="link-domain" href="#"><?= $model->homepage ?></a></li>
 					</ul>
+					<p class="text-meta"><?= $model->description ?></p>
 				</div>
 				
 				<div class="col-md-9">

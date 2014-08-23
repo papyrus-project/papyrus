@@ -16,7 +16,7 @@
 			</a>
 		</div>
 		<div class="col-md-9">
-			<h3 class="text-muted"><?= $data->author0->name?></h3>
+			<a href="<?= Yii::app()->createAbsoluteUrl('user/profile/'.$data->author0->id)?>"><h3 class="text-muted"><?= $data->author0->name?></h3></a>
 			<h2><a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$data->id)?>"><?=$data->title?></a> 
 				<?php if($data->wip):?>
 					<span class="label book-thumb-label">WIP</span>
@@ -30,13 +30,14 @@
 				<?php foreach($data->genres as $genre):?>
 					<span class="label label-default"><?=$genre->genreName->genre?></span>
 				<?php endforeach;?>
-				<span class="label label-default"><?= $data->age_restriction?'Ab 12 Jahren':'Ohne Alters begrenzung'?></span>
+				<span class="label label-default"><?= $data->age_restriction?'Ab '.$data->age_restriction.' Jahren':'Ohne Alters begrenzung'?></span>
                 <?php if($data->nsfw == 1) :?><span class="label label-default">Expliziter Inhalt</span><?php endif;?>
 				<span class="label label-default"><?= $data->language->language?></span>
 				
 			</p>
 			
 			<p>
+            <?php $rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$data->id));?>
 				<input type="hidden" class="rating" data-start="1" data-stop="6" readonly value="<?= $rating->count?round($rating->rating/$rating->count):''?>" />
 			</p>
 			

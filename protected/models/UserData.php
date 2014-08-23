@@ -44,7 +44,7 @@ class UserData extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, location, sex, homepage', 'required'),
+			array('id, sex', 'required'),
 			array('sex, invitations_left', 'numerical', 'integerOnly'=>true),
 			array('id', 'length', 'max'=>20),
 			array('name, location, homepage', 'length', 'max'=>255),

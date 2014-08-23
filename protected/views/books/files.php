@@ -88,7 +88,7 @@
             <div class="col-md-7 no-padding">
                 <div class="row">
                     <h2><?=$model->title?> <?= $model->wip?'<span class="label book-thumb-label">WIP</span>':''?></h2>
-                    <h3 class="text-muted">von <?=$model->author0->name?></h3>
+                    <a href="<?= Yii::app()->createAbsoluteUrl('user/profile/'.$model->author0->id)?>"><h3 class="text-muted">von <?=$model->author0->name?></h3></a>
 
                     <p>
                         <input type="hidden" readonly class="rating" data-start="1" data-stop="6" value="<?=$rating->count?round($rating->rating/$rating->count):''?>" />
@@ -298,9 +298,10 @@
             <div class="col-md-2 dropdown-meta text-align-right">
             	<?php if($model->author != Yii::app()->user->id && !YII::app()->user->isGuest):?>
  					<p>
+					<?php if($model->author!=YII::app()->user->id) : ?>
 					<?= CHtml::ajaxLink(
 						//gucken ob das buch bereits favorisiesrt wurde
-					    ($model->author==YII::app()->user->id?'Entfavorisieren ':'Favorisieren ').'<span class="book-profile-option glyphicon glyphicon-bookmark"></span>',
+                        (BooksFavorites::model()->findByAttributes(array('users_id'=>YII::app()->user->id,'books_id'=>$model->id))?'Entfavorisieren ':'Favorisieren ').'<span class="book-profile-option glyphicon glyphicon-bookmark"></span>',
 					    array('ajax/favoriseBook'),
 					    array(
 					    	'type'=>'POST',
@@ -314,7 +315,7 @@
 						array(
 							'id'=>'bookFavButton'
 						)
-					);?>
+					); endif; ?>
 					</p>
  					<p>
 					<?= CHtml::ajaxLink(
