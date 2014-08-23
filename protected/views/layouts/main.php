@@ -42,13 +42,32 @@ if(!YII::app()->user->isGuest)
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="toggle-navigation">
                     
-                    <!-- <form role="search" method="get" action="<?=YII::app()->createAbsoluteUrl('')?>" class="navbar-form navbar-left"> -->
-                    <?= CHtml::beginForm(YII::app()->createAbsoluteUrl('site/bob'), 'get', array('id'=>'filter-form','class'=>'navbar-form navbar-left'))?>
-                        <?= CHtml::textField('q', (isset($_GET['q'])) ? $_GET['q'] : '', array('class'=>'form-control', 'placeholder'=>'Bücher finden ...', 'name'=>'q', 'id'=>'srch-term'))?>
-                           <!-- <input type="text" class="form-control" placeholder="Bücher finden ..." name="q" id="srch-term">-->
-
-                    <?= CHtml::endForm();?>
-                    <!-- </form> -->
+                    <div class="col-sm-3 col-md-5 pull-left">
+                        <!-- <form role="search" method="get" action="<?=YII::app()->createAbsoluteUrl('')?>" class="navbar-form navbar-left"> -->
+                            <?= CHtml::beginForm(YII::app()->createAbsoluteUrl('site/bob'), 'get', array('id'=>'filter-form','class'=>'navbar-form navbar-left'))?>
+                            <div class="input-group">
+                                <?= CHtml::textField('q', (isset($_GET['q'])) ? $_GET['q'] : '', array('class'=>'form-control', 'placeholder'=>'Bücher finden ...', 'name'=>'q', 'id'=>'srch-term'))?>
+                            
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                    
+                            <!--<div class="col-sm-3 col-md-5 pull-left">
+                                    <form class="navbar-form" role="search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Bücher finden ..." name="srch-term" id="srch-term">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>-->
+                    
+                        <?= CHtml::endForm();?>
+                        <!-- </form> -->
+                        </div>
+                    </div>
+                        
                         <ul class="nav navbar-nav navbar-right">
                         <li class="hidden">
                             <a href="#page-top"></a>
