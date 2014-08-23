@@ -194,7 +194,7 @@ section .text-quote-author {
 }
 @media(min-width:768px) {
     section .services-pictograph {
-        width: 160px;
+        width: 180px;
         margin: 0;
     }
 }
