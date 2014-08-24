@@ -114,6 +114,8 @@ class BooksController extends Controller
                 }
                 else
                     $model->extension = $_POST['optionsRadios'].'.jpg';
+                    
+                $oldExt = $model->extension;
                 //$p = $uploadCover;
                 if($model->save()) {
                     //happy dance
@@ -125,6 +127,8 @@ class BooksController extends Controller
                         
                         //Dateien Speichern
                         if($uploadCover){
+                            if(is_file(Yii::getPathOfAlias('webroot').'/upload/cover/original/'.$model->id.'.'.$oldExt))
+                                unlink(Yii::getPathOfAlias('webroot').'/upload/cover/original/'.$model->id.'.'.$oldExt);
                             $uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/original/'.$model->id.'.'.$model->extension);
 
                             if(is_file(Yii::getPathOfAlias('webroot').'/upload/cover/thumb/'.$model->id.'.'.$model->extension))

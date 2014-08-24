@@ -37,6 +37,7 @@ class UserController extends Controller
 
 		    //Cover Datei
 		    $uploadCover = CUploadedFile::getInstance($model,'extension');
+            $oldExt = $model->extension;
             if($uploadCover){
                 $p = $uploadCover;
 			    $covername = "{$uploadCover}";
@@ -50,6 +51,8 @@ class UserController extends Controller
 			
 			    //Dateien Speichern
 			    if($uploadCover){
+                    if(is_file(Yii::getPathOfAlias('webroot').'/upload/user/original/'.$model->id.'.'.$oldExt))
+                        unlink(Yii::getPathOfAlias('webroot').'/upload/user/original/'.$model->id.'.'.$oldExt);
 				    $uploadCover->saveAs(Yii::app()->basePath.'/../upload/user/original/'.$model->id.'.'.$model->extension);
 
                     if(is_file(Yii::getPathOfAlias('webroot').'/upload/user/comment/'.$model->id.'.'.$model->extension))

@@ -29,6 +29,9 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+        if(!YII::app()->user->isGuest)
+		    $this->redirect(Yii::app()->createUrl('site/bob'));
+        
         $books = Books::model()->published()->recently()->with('bookgenres')->findAll();
         $this->render('index', array('books' => $books));
     }
@@ -97,6 +100,7 @@ class SiteController extends Controller
             $criteria->mergeWith($text, 'AND');
         }
         $criteria->addSearchCondition( 'status', 1, true, 'AND' );
+        $criteria->addSearchCondition( 'base_id', "0", true, 'AND' );
 
         $dataProvider = new CActiveDataProvider( 'Books', array( 'criteria' => $criteria, 'pagination'=>array('pageSize'=>5,) ) );
         
