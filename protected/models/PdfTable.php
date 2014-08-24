@@ -23,4 +23,26 @@ class PdfTable extends CActiveRecord{
 		);
 	}
 	
+	public function attributeLabels()
+	{
+		return array(
+			'id' => 'ID',
+			'title' => 'Title',
+			'description' => 'Klappentext',
+			'age_restriction' => 'Age Restriction',
+			'extension' => 'File extension',
+			'cover_artist' => 'Cover Artist',
+			'base_id' => 'Base',
+			'created' => 'Created',
+			'downloads' => 'Downloads',
+			'favorite_count' => 'Favorite Count',
+			'words' => 'Words',
+			'updated' => 'Updated',
+			'views' => 'Views',
+			'booktype_id' => 'Booktype',
+			'language_id' => 'Language',
+			'author' => 'Author',
+            'status' => 'Status',
+		);
+	}
 }

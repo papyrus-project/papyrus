@@ -84,7 +84,7 @@ class Books extends CActiveRecord
     {
         return array(
             'published'=>array(
-                'condition'=>'status=1',
+                'condition'=>'status=1 AND base_id=0',
             ),
             'recently'=>array(
                 'order'=>'id DESC',
@@ -115,6 +115,8 @@ class Books extends CActiveRecord
 			'bookgenres' => array(self::HAS_MANY, 'Bookgenre', 'books_id'),
 			'users' => array(self::MANY_MANY, 'Users', 'favorites(books_id, users_id)'),
 			'favorites' => array(self::HAS_MANY, 'BooksFavorites', 'books_id'),
+			'chapters' => array(self::HAS_MANY, 'Books', 'base_id'),
+			'parentBook' => array(self::BELONGS_TO, 'Books', 'base_id'),
 			'comments' => array(self::HAS_MANY, 'Comments', 'ref_id'),
 		);
 	}

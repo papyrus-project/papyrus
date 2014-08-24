@@ -151,15 +151,29 @@ class BooksController extends Controller
 	public function actionUpload(){
 		$model = new PdfTable();
 		if(isset($_POST['PdfTable'])){
-			
-            
+			//print(nl2br(print_r($_POST)));
+            //die();
 			//Cover Datei
-			$uploadCover = CUploadedFile::getInstance($model,'extension');
+			$uploadCover = '';
+            if($_POST['optionsRadios'] == 'custom')
+            {
+                //Cover Datei
+                $uploadCover = CUploadedFile::getInstance($model,'extension');
+                if($uploadCover){
+                    $covername = "{$uploadCover}";
+                    $coverInfo = pathinfo($covername);
+                    $model->extension = $coverInfo['extension'];
+                }
+            }
+            else
+                $model->extension = $_POST['optionsRadios'].'.jpg';
+			//$uploadCover = CUploadedFile::getInstance($model,'extension');
+			
 			if($_POST['uploadType']=='multi'){
 				$uploadFiles = CUploadedFile::getInstances($model,'file_path');
 				$newBookId = $this->uploadFile($uploadFiles[0],$uploadCover);
-				unset($uploadFiles[0]);
-				foreach ($uploadFiles as $uploadFile) {
+				foreach ($uploadFiles as $value=>$uploadFile) {
+					$_POST['PdfTable']['title'] = $_POST['PdfTable']['name'][$value]?$_POST['PdfTable']['name'][$value]:'Kapitel '.($value+1);
 					$this->uploadFile($uploadFile,$uploadCover,$newBookId);
 				}
 			} else {
@@ -188,14 +202,19 @@ class BooksController extends Controller
 		if(!$uploadFile){
 			throw new CException('Kein Buch');
 		}
-
-		if($uploadCover){
-			$covername = "{$uploadCover}";
-			$coverInfo = pathinfo($covername);
-			$model->extension = $coverInfo['extension'];
-		} else {
-			$model->extension = '';				
-		}
+		if($_POST['optionsRadios'] == 'custom')
+        {
+            //Cover Datei
+            $uploadCover = CUploadedFile::getInstance($model,'extension');
+            if($uploadCover){
+                $covername = "{$uploadCover}";
+                $coverInfo = pathinfo($covername);
+                $model->extension = $coverInfo['extension'];
+            }
+        }
+        else
+            $model->extension = $_POST['optionsRadios'].'.jpg';
+		
 		
 		if($model->save()){
 			//Ueberpruefen ob die Ordner schon vorhanden sind sonst neue erstellen
@@ -207,9 +226,12 @@ class BooksController extends Controller
 			//Dateien Speichern
 			if($uploadFile){
 				$uploadFile->saveAs(Yii::app()->basePath.'/../upload/pdf/'.$model->id.'.pdf');
+				if(!is_file(Yii::app()->basePath.'/../upload/pdf/'.$model->id.'.pdf')){
+					rename(Yii::app()->basePath.'/../upload/pdf/'.$model->base_id.'.pdf',Yii::app()->basePath.'/../upload/pdf/'.$model->id.'.pdf');
+				}
 			}
 			if($uploadCover){
-				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/'.$model->id.'.'.$model->extension);
+				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/original/'.$model->id.'.'.$model->extension);
 			}
 			return $model->id;
 		}
@@ -269,8 +291,23 @@ class BooksController extends Controller
 			$this->redirect(YII::app()->createAbsoluteUrl(''));
 		$model->downloads++;
 		$model->save();
-		header('Content-Disposition: attachment; filename="'.CHtml::decode($model->title).$ext[$format]);
-		readfile(YII::app()->basePath.'/../upload/pdf/'.$id.'.pdf');
+		if($model->chapters){
+			$zipname = CHtml::decode($model->title).'.zip';
+			$zip = new ZipArchive;
+			$zip->open($zipname, ZipArchive::CREATE);
+			foreach ($model->chapters as $file) {
+			  $zip->addFile(YII::app()->basePath.'/../upload/pdf/'.$file->id.$ext[$format],$file->title.$ext[$format]);
+			}
+			$zip->close();
+			header('Content-Type: application/zip');
+			header('Content-disposition: attachment; filename='.$zipname);
+			header('Content-Length: ' . filesize($zipname));
+			readfile($zipname);
+			unlink($zipname);
+		} else {
+			header('Content-Disposition: attachment; filename="'.CHtml::decode($model->title).$ext[$format]);
+			readfile(YII::app()->basePath.'/../upload/pdf/'.$id.$ext[$format]);
+		}
 	}
     
 	public function actionFeed(){

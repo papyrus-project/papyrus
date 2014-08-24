@@ -123,15 +123,25 @@
                 </div>
                 
                 <!-- chapter -->
-                <!-- <div class="row">
+                <?php if($model->chapters):?>
+                <div class="row">
                     <h2 id="book-profile-sub-heading">Verfügbare Kapitel</h2>
                     <ul id="book-series">
-                        <li class="text-muted"><span class="glyphicon glyphicon-tag"></span> Kapitel 1: <a href="#">Der Anfang</a></li>
-                        <li class="text-muted"><span class="glyphicon glyphicon-tag"></span> Kapitel 2: <a href="#">Der Mittelteil</a></li>
-                        <li class="text-muted"><span class="glyphicon glyphicon-tag"></span> Kapitel 3: <a href="#">Das Ende</a></li>
+                    	<?php foreach($model->chapters as $value => $chapter): ?>
+	                        <li class="text-muted"><span class="glyphicon glyphicon-tag"></span> Kapitel <?=$value+1?>: <a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$chapter->id)?>"><?=$chapter->title?></a></li>
+                        <?php endforeach;?>
                     </ul>
-                </div> -->
+                </div>
+                <?php endif;?>
                 
+                <?php if($model->parentBook):?>
+            	<div class="row">
+                    <h2 id="book-profile-sub-heading">Aus dem Buch</h2>
+                    <ul id="book-series">
+            			<li class="text-muted"><span class="glyphicon glyphicon-tag"></span><a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$model->base_id)?>"><?=$model->parentBook->title?></a></li>
+        			</ul>
+            	</div>
+            	<?php endif;?>
                 <div class="row">
                     <h2 id="book-profile-blurb-heading">Klappentext</h2>
                     <p id="book-profile-blurb">
@@ -337,7 +347,7 @@
 					);?>
 					</p>
 				<?php endif;?>
-                <p><a href="#">Teilen <span class="book-profile-option glyphicon glyphicon-share"></span></a></p>
+                <p><div class="fb-share-button" data-href="<?=YII::app()->createAbsoluteUrl('books/files/'.$model->id)?>"></div></p>
             </div>    
         </div>
     </div>

@@ -110,7 +110,7 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
         </div>
         <div class="row text-center">
             <div class="col-md-12">
-                <img class="teaser-logo" src="img/logo.png" alt="bookwork logo"/>
+                <img class="teaser-logo" src="img/bookwork_logo.png" alt="bookwork logo"/>
                 <hr>
                 <p class="text-muted text-quote">"Es gibt einen Ort im Universum, an dem sich alle großen künstlerischen Ideen bündeln, sich aneinander reiben und neue erzeugen..."</p>
                 <p class="text-muted text-quote-author"> - Walter Moers, "die Stadt der Träumenden Bücher"</p>

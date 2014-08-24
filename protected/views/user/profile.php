@@ -61,7 +61,7 @@
 					<ul class="nav nav-tabs" role="tablist">
 						<li class="active">
 							<?= CHtml::ajaxlink(
-								'Meine Werke <span class="badge">'.Books::model()->countByAttributes(array('author'=>$model->id,'status'=>1)).'</span>',
+								'Meine Werke <span class="badge">'.Books::model()->countByAttributes(array('author'=>$model->id,'status'=>1,'base_id'=>0)).'</span>',
 								array('user/_own/'.$model->id),
 								array(
 									'success'=>'js:function(data, status, header){
