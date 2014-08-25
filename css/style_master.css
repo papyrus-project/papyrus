@@ -16,9 +16,6 @@ ul, li {
 li.active {
     
 }
-#messaging .panel{
-	margin-top: 30px;
-}
 a {
     color: #355259;
 }
@@ -32,6 +29,9 @@ textarea {
     resize: none;
 }
 
+.brand-bookwork {
+    width: 35px;
+}
 .content-pull {
     border-top: 1px solid #E6E6E6;
     padding-top: 5px;
@@ -57,9 +57,9 @@ textarea {
 }
 .meta-list-heading-big {
     font-family: "Droid Serif", Arial, sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-style: italic;
-    line-height: 20px;
+    line-height: 16px;
 }
 .meta-list-heading {
     font-size: 14px;
@@ -213,7 +213,7 @@ section .text-quote-author {
     margin-bottom: 25px;
 }
 #user-profile .user-profile-edit {
-    padding-top: 25px;
+    margin-bottom: 25px;
 }
 #user-profile .user-profile-name {
     font-size: 18px;
@@ -259,7 +259,7 @@ section .text-quote-author {
     padding-bottom: 10px;
     margin: 0;
 }
-#book-profile #book-profile-blurb-heading,
+#book-profile .book-profile-blurb-heading,
 #book-profile #book-profile-sub-heading {
     padding-top: 20px; 
     padding-bottom: 20px;
@@ -278,8 +278,15 @@ section .text-quote-author {
     padding-bottom: 10px;
     margin: 0;
 }
+
+#book-profile h4 {
+    font-size: 16px;
+    padding-bottom: 10px;
+    margin: 0;
+}
 #book-profile .book-profile-option {
-    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 14px;
 }
 #book-profile .commentary-portrait {
     width: 90%;
@@ -338,6 +345,11 @@ section .text-quote-author {
     background: #71BC8F;
     border-bottom: 2px solid #558E6C;
 }
+#book-profile .book-thumb-gore,
+.book-thumb .book-thumb-gore {
+    background: #8E5655;
+    border-bottom: 2px solid #593535;
+}
 #messaging .msg .label-msg {
     background: #76B3C4;
     border-bottom: 2px solid #55838E;
@@ -347,6 +359,10 @@ section .text-quote-author {
 #messaging #msg-from {
     margin-top: 5px;
 }
+#messaging .panel {
+    margin-top: 30px;
+}
+
 .label-meta {
     background: #76B3C4;
     border-bottom: 2px solid #55838E;
@@ -520,4 +536,35 @@ footer p {
 }
 .padding-right-5 {
     padding-right: 5px;
+}
+
+.rating-symbol {
+    cursor: pointer;
+}
+
+.rating>div>.rating-symbol {
+    font-size: 20px;
+    line-height: 20px;
+    top:5px;
+}
+.rating>div>.rating-symbol+.rating-symbol{
+	margin-left:5px;
+}
+.rating-div{
+	display: inline;
+}
+.rating>span{
+	font-size: 14px;
+}
+
+iframe a{
+	font-size:30px;
+}
+.form .rating-div{
+    margin-left:5px;
+}
+.form .rating-div>div{
+    font-size: 18px;
+    line-height: 20px;
+    top:5px;
 }

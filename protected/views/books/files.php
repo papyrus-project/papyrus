@@ -10,7 +10,7 @@
 						<?php 
 							//coverbild anzeigen groesse 200x150, seitenverhaeltnis bleibt erhalten
 						    $this->widget('ext.SAImageDisplayer', array(
-						        'image' => $model->id.'.'.$model->extension,
+						        'image' => (strlen($model->extension)<=5?$model->id.'.':'').$model->extension,
 						        'title' => $model->title,
 						        'size' => 'big',
 						        'class' => '',
@@ -31,7 +31,7 @@
                     <p>
                     	<div class="dropdown">
 						  <button class="btn btn-g dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-						    Download
+						    Herunterlanden
 						    <span class="glyphicon glyphicon-download"></span>
 						  </button>
 						  <ul class="dropdown-menu download" role="menu" aria-labelledby="dropdownMenu1">
@@ -87,12 +87,18 @@
             <!-- profile -->
             <div class="col-md-7 no-padding">
                 <div class="row">
-                    <h2><?=$model->title?> <?= $model->wip?'<span class="label book-thumb-label">WIP</span>':''?></h2>
-                    <a href="<?= Yii::app()->createAbsoluteUrl('user/profile/'.$model->author0->id)?>"><h3 class="text-muted">von <?=$model->author0->name?></h3></a>
+                    <h2>
+                    	<?=$model->title?> 
+                    	<?= $model->wip?' <span class="label book-thumb-label">WIP</span>':''?>
+                    	<?php if($model->nsfw == 1) :?>
+                    		<span class="label book-thumb-gore">Expliziter Inhalt</span>
+                		<?php endif;?>
+                    </h2>
+                    <a href="<?= Yii::app()->createAbsoluteUrl('user/profile/'.$model->author0->id)?>"><h4 class="text-muted">von <?=$model->author0->name?></h4></a>
 
-                    <p>
+                    <p class="rating">
                         <input type="hidden" readonly class="rating" data-start="1" data-stop="6" value="<?=$rating->count?round($rating->rating/$rating->count):''?>" />
-                        (<?=$rating->count?>) Bewertungen
+                        <span>(<?=$rating->count?>) Bewertungen</span>
                     </p>
 
                     <ul class="col-xs-6 col-sm-6 col-md-6 book-profile-meta-big">
@@ -117,7 +123,6 @@
                         </li>
                         <li class="text-muted">
                             <span class="label label-meta"><?=$model->age_restriction?'Ab '.$model->age_restriction.' Jahren':'Keine Alters Beschrenkung'?></span>
-                            <?php if($model->nsfw == 1) :?><span class="label label-meta">Expliziter Inhalt</span><?php endif;?>
                         </li>
                     </ul>
                 </div>
@@ -143,30 +148,36 @@
             	</div>
             	<?php endif;?>
                 <div class="row">
-                    <h2 id="book-profile-blurb-heading">Klappentext</h2>
+                    <h2 class="book-profile-blurb-heading">Klappentext</h2>
                     <p id="book-profile-blurb">
                         <?=$model->description?>
                     </p>
                 </div>
                 
                 <div class="row">                            
-                     <h2 id="H1">Kommentare <span class="badge"> <?=Comments::model()->countByAttributes(array('ref_id'=>$model->id))?></span></h2>
+                     <h2 class="book-profile-blurb-heading">Bewertungen <span class="badge"> <?=Comments::model()->countByAttributes(array('ref_id'=>$model->id,'belongsTo'=>0))?></span></h2>
                 </div>
-                <div class="row">
-                	<p>
-                		<?=CHtml::ajaxLink(
-							'Kommentar schreiben <span class="glyphicon glyphicon-pencil"></span>',
-							array('books/newComment','id'=>$model->id),
-							array('success'=>'js:function(data){
-								$("#newComment").children().detach();
-								$("#newComment").append(data);
-								$("#newComment input.rating").rating();
-							}'
-							),
-							array('class'=>'btn btn-b')
-						)?>
-                	</p>
-                </div>
+                <?php if(!YII::app()->user->isGuest&&$model->author!=YII::app()->user->id&&!Comments::model()->findByAttributes(array('ref_id'=>$model->id,'belongsTo'=>0,'users_id'=>YII::app()->user->id))):?>
+	                <div class="row">
+	                	<p>
+	                		<?=CHtml::ajaxLink(
+								'Bewertung schreiben <span class="glyphicon glyphicon-pencil"></span>',
+								array('books/newComment','id'=>$model->id),
+								array('success'=>'js:function(data){
+									$("#newComment").children().detach();
+									$("#newComment").append(data);
+									$("#newComment input.rating").rating();
+									$("#writeComment").detach();
+								}'
+								),
+								array(
+									'id'=>'writeComment',
+									'class'=>'btn btn-b'
+								)
+							)?>
+	                	</p>
+	                </div>
+                <?php endif; ?>
 			    <?php if(!Yii::app()->user->isGuest):?>
                 <div class="row" id="newComment">
 			    	
@@ -264,18 +275,23 @@
                 <!-- comment commentary -->
                 <div class="row">
                     <div class="col-xs-3 col-sm-3 col-md-3 hidden-xs text-align-right">
-                        <?= CHtml::ajaxLink(
-                                    '<span class="text-muted glyphicon glyphicon-chevron-down"></span>Antworten anzeigen',
+                        	<?= CHtml::ajaxLink(
+                                    'Antworten anzeigen <span class="text-muted glyphicon glyphicon-chevron-down"></span>',
                                     array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
                                     array(
                                         'update'=>'#answers'.$comment->id,
+                                        'success'=>'js:function(data){
+                                        	$("#answers'.$comment->id.'").children().detach();
+                                        	$("#answers'.$comment->id.'").append(data);
+											$("#show'.$comment->id.'").detach();
+                                        }'
                                     ), 
-                                    array('id' => 'show'.uniqid())
+                                    array('id' => 'show'.$comment->id)
                                 ) . ' ';
-                        ?>
+                        	?>
                     </div>
 				</div>
-	                <div id="answers<?= $comment->id ?>"></div>
+                	<div id="answers<?= $comment->id ?>"></div>
 	                <div id="newAnswer<?= $comment->id ?>"></div>
 	                
 	                <?php 
@@ -296,12 +312,6 @@
                 </div> 
     <?php endforeach; ?>
 
-                <!-- content pull block -->
-                <div class="row">
-                    <p class="content-pull col-xs-12 col-sm-12 col-md-12">
-                        <a href="#">Weitere Kommentare laden <span class="glyphicon glyphicon-chevron-down"></span></a>
-                    </p>
-                </div>
             </div>
             
             <!-- options -->
@@ -322,7 +332,8 @@
 						    }',
 						),
 						array(
-							'id'=>'bookFavButton'
+							'id'=>'bookFavButton',
+							'class'=>'book-profile-option'
 						)
 					); endif; ?>
 					</p>
@@ -340,12 +351,15 @@
 						    }',
 						),
 						array(
-							'id'=>'SubButton'
+							'id'=>'SubButton',
+							'class'=>'book-profile-option'
 						)
 					);?>
 					</p>
 				<?php endif;?>
-                <p><a class="pluginShareButtonLink" href="/sharer.php?app_id=684989361538190&amp;sdk=joey&amp;u=http%3A%2F%2Fpapyrus-project.noip.me%2Fbooks%2Ffiles%2F<?=$model->id?>&amp;display=popup&amp;ref=plugin" target="_blank" id="u_0_1"><span style="padding-left: 19px;" class="uiIconText"><img class="img" src="https://fbstatic-a.akamaihd.net/rsrc.php/v2/yQ/r/7GFXgco-uzw.png" alt="" style="top: 0px;" width="14" height="14">Share</span></a></p>
+                
+                	<div class="fb-share-button" data-href="<?=YII::app()->createAbsoluteUrl('books/files/'.$model->id)?>"></div>
+            	
             </div>    
         </div>
     </div>

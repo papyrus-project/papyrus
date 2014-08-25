@@ -22,8 +22,8 @@
 		<?php echo $form->error($model,'text'); ?>
 	</p>
 	<p>
+    	<label>Bewertung:</label>
 		<?php echo $form->hiddenField($model,'rating',array('class'=>'rating','value'=>'3','data-start'=>1,'data-stop'=>6)); ?>
-    
 		<?=CHtml::ajaxSubmitButton(
 	          'Abschicken',
 	          array('books/postComment', 'id'=>$id),

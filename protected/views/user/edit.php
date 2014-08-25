@@ -57,10 +57,6 @@
 	            </div>
 
 	            <div class="form-group">
-		            <label>wup wup</label>
-		            <input type="hidden" name="invitations_left" class="rating" data-start="1" data-stop="6">
-                </div>
-	            <div class="form-group">
 		            <button class="btn btn-g" type="submit">Speichern</button>
 	            </div>
             </form>

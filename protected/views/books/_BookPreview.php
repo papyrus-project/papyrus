@@ -5,7 +5,7 @@
 			<a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$data->id)?>">
 		    <?php
         		$this->widget('ext.SAImageDisplayer', array(
-				'image' => $data->id.'.'.$data->extension,	
+				'image' => (strlen($data->extension)<=5?$data->id.'.':'').$data->extension,	
 				'defaultImage'=> 'default.jpg',
 				'title' => $data->title,
 				'size' => 'thumb',
@@ -19,8 +19,11 @@
 			<a href="<?= Yii::app()->createAbsoluteUrl('user/profile/'.$data->author0->id)?>"><h3 class="text-muted"><?= $data->author0->name?></h3></a>
 			<h2><a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$data->id)?>"><?=$data->title?></a> 
 				<?php if($data->wip):?>
-					<span class="label book-thumb-meta">WIP</span>
+					<span class="label book-thumb-label">WIP</span>
 				<?php endif;?>
+                <?php if($data->nsfw == 1) :?>
+                	<span class="label book-thumb-gore">Expliziter Inhalt</span>
+            	<?php endif;?>
 				<?php if($data->status == 0):?>
 					<span class="label book-thumb-meta" style="background:#8e5655">In Bearbeitung</span>
 				<?php endif;?>
@@ -31,7 +34,6 @@
 					<span class="label label-meta"><?=$genre->genreName->genre?></span>
 				<?php endforeach;?>
 				<span class="label label-meta"><?= $data->age_restriction?'Ab '.$data->age_restriction.' Jahren':'Ohne Alters begrenzung'?></span>
-                <?php if($data->nsfw == 1) :?><span class="label label-default">Expliziter Inhalt</span><?php endif;?>
 				<span class="label label-meta"><?= $data->language->language?></span>
 				
 			</p>

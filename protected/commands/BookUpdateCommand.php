@@ -7,7 +7,7 @@ class BookUpdateCommand extends CConsoleCommand{
 			WHERE status = "0"');
 		$reader = $command->query();
 		foreach ($reader as $row) {
-			/*
+			
 			print($row['id'].PHP_EOL);
 			$command = 'ebook-convert /var/www/upload/pdf/'.$row['id'].'.pdf /var/www/upload/pdf/'.$row['id'].'.mobi';
 			print_r($command.PHP_EOL);
@@ -22,7 +22,7 @@ class BookUpdateCommand extends CConsoleCommand{
 					status = "1"
 				WHERE id = "'.$row['id'].'"');
 			$command->execute();
-			*/
+			
 			//exec('calibredb add --with-library=/var/www/lib /var/www/upload/26.pdf --authors='.$row['author'].' --title='.$row['title'].' --tags=6');
 			
 			/*

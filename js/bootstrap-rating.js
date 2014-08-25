@@ -57,7 +57,7 @@
       };
 
       // Build the rating control.
-      var $rating = $('<div></div>').insertBefore($input);
+      var $rating = $('<div class="rating-div"></div>').insertBefore($input);
       var length = Math.max(Math.ceil((opts.stop - opts.start) / opts.step), 0);
       for (var i = 0; i < length; i++) {
         $rating.append('<div class="rating-symbol ' + opts.empty + '"></div>');

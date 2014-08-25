@@ -32,7 +32,6 @@
     endif;
     
     ?><fieldset>
-        <legend>Username and password:</legend>
         <div class="form-group">
             <?php echo $form->labelEx($model,'user_name'); ?>
             <?php if($model->isNewRecord): ?>
