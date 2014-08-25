@@ -72,6 +72,8 @@ class BooksController extends Controller
 	}
 	
 	public function actionEdit($id){
+        Yii::import('application.Components.*');
+        require_once('ImageEdit.php');
         //zur startseite, wenn id fehlt
         if(!$id)
 			$this->redirect(Yii::app()->createAbsoluteUrl(''));
@@ -102,6 +104,7 @@ class BooksController extends Controller
                     $model->addBookGenres($genresStr, $id); //Add Interest
                 }
                 $uploadCover = '';
+                $oldExt = $model->extension;
                 if($_POST['optionsRadios'] == 'custom')
                 {
                     //Cover Datei
@@ -115,7 +118,6 @@ class BooksController extends Controller
                 else
                     $model->extension = $_POST['optionsRadios'].'.jpg';
                     
-                $oldExt = $model->extension;
                 //$p = $uploadCover;
                 if($model->save()) {
                     //happy dance
@@ -131,8 +133,12 @@ class BooksController extends Controller
                                 unlink(Yii::getPathOfAlias('webroot').'/upload/cover/original/'.$model->id.'.'.$oldExt);
                             $uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/original/'.$model->id.'.'.$model->extension);
 
-                            if(is_file(Yii::getPathOfAlias('webroot').'/upload/cover/thumb/'.$model->id.'.'.$model->extension))
-                                unlink(Yii::getPathOfAlias('webroot').'/upload/cover/thumb/'.$model->id.'.'.$model->extension);
+                            ImageEdit::resize(0.75, Yii::app()->basePath.'/../upload/cover/original/'.$model->id.'.'.$model->extension);
+                            
+                            if(is_file(Yii::getPathOfAlias('webroot').'/upload/cover/thumb/'.$model->id.'.'.$oldExt))
+                                unlink(Yii::getPathOfAlias('webroot').'/upload/cover/thumb/'.$model->id.'.'.$oldExt);
+                            if(is_file(Yii::getPathOfAlias('webroot').'/upload/cover/big/'.$model->id.'.'.$oldExt))
+                                unlink(Yii::getPathOfAlias('webroot').'/upload/cover/big/'.$model->id.'.'.$oldExt);
                         }
                     }
                 } 
