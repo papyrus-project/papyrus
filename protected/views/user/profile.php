@@ -65,10 +65,10 @@
 								array('user/_own/'.$model->id),
 								array(
 									'success'=>'js:function(data, status, header){
+										$(".nav-tabs").children("li").removeClass("active");
+										$("#tab-own").parent("li").addClass("active");
+					            		$("#profile-content").children().detach();
 						            	if(header.status == 200)
-											$(".nav-tabs").children("li").removeClass("active");
-											$("#tab-own").parent("li").addClass("active");
-						            		$("#profile-content").children().detach();
 						            		$("#profile-content").append(data);
 									}'
 								), 
@@ -82,10 +82,10 @@
 								array('user/_favorites/'.$model->id),
 								array(
 									'success'=>'js:function(data, status, header){
+										$(".nav-tabs").children("li").removeClass("active");
+										$("#tab-favorites").parent("li").addClass("active");
+					            		$("#profile-content").children().detach();
 						            	if(header.status == 200)
-											$(".nav-tabs").children("li").removeClass("active");
-											$("#tab-favorites").parent("li").addClass("active");
-						            		$("#profile-content").children().detach();
 						            		$("#profile-content").append(data);										
 									}'
 								), 
@@ -98,10 +98,10 @@
 								array('user/_subs/'.$model->id),
 								array(
 									'success'=>'js:function(data, status, header){
+										$(".nav-tabs").children("li").removeClass("active");
+										$("#tab-subs").parent("li").addClass("active");
+					            		$("#profile-content").children().detach();
 						            	if(header.status == 200)
-											$(".nav-tabs").children("li").removeClass("active");
-											$("#tab-subs").parent("li").addClass("active");
-						            		$("#profile-content").children().detach();
 						            		$("#profile-content").append(data);										
 									}'
 								), 
@@ -111,10 +111,9 @@
 						<?php endif;?>
 					</ul>
 					<div id='profile-content'>
-						<?php include(YII::app()->createAbsoluteUrl('user/_own/'.$model->id))?>
+						<?=$booksRender?>
 					</div>
 				</div>
 			</div>
 		</div>
-		
 	</section>

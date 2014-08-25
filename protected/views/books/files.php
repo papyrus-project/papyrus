@@ -103,21 +103,21 @@
                     </ul>
                     <ul class="col-xs-6 col-sm-6 col-md-6 book-profile-meta-big">
                         <li class="text-muted">
-                            <span class="label label-default"><?=$model->booktype->type?></span>
+                            <span class="label label-meta"><?=$model->booktype->type?></span>
                         </li>
                          <?php if($model->Genres):?>
                         <li class="text-muted">
                         	<?php foreach($model->Genres as $genre):?>
-                            <span class="label label-default"><?=$genre->genreName->genre?></span>
+                            <span class="label label-meta"><?=$genre->genreName->genre?></span>
                             <?php endforeach;?>
                         </li>
                         <?php endif ?>
                         <li class="text-muted">
-                            <span class="label label-default"><?=$model->language->language?></span>
+                            <span class="label label-meta"><?=$model->language->language?></span>
                         </li>
                         <li class="text-muted">
-                            <span class="label label-default"><?=$model->age_restriction?'Ab '.$model->age_restriction.' Jahren':'Keine Alters Beschrenkung'?></span>
-                            <?php if($model->nsfw == 1) :?><span class="label label-default">Expliziter Inhalt</span><?php endif;?>
+                            <span class="label label-meta"><?=$model->age_restriction?'Ab '.$model->age_restriction.' Jahren':'Keine Alters Beschrenkung'?></span>
+                            <?php if($model->nsfw == 1) :?><span class="label label-meta">Expliziter Inhalt</span><?php endif;?>
                         </li>
                     </ul>
                 </div>
@@ -311,15 +311,14 @@
 					<?php if($model->author!=YII::app()->user->id) : ?>
 					<?= CHtml::ajaxLink(
 						//gucken ob das buch bereits favorisiesrt wurde
-                        (BooksFavorites::model()->findByAttributes(array('users_id'=>YII::app()->user->id,'books_id'=>$model->id))?'Entfavorisieren ':'Favorisieren ').'<span class="book-profile-option glyphicon glyphicon-bookmark"></span>',
+                        '<span class="book-profile-option glyphicon glyphicon-bookmark"></span>'.(BooksFavorites::model()->findByAttributes(array('users_id'=>YII::app()->user->id,'books_id'=>$model->id))?'Entfavorisieren ':'Favorisieren '),
 					    array('ajax/favoriseBook'),
 					    array(
 					    	'type'=>'POST',
 					    	'data'=>array('book'=>$model->id),
 					    	'success'=>'js:function(data){
-								console.log("success");
 						        $("#bookFavButton").text(data);
-						        $("#bookFavButton").append(\'<span class="book-profile-option glyphicon glyphicon-bookmark"></span>\');
+						        $("#bookFavButton").prepend(\'<span class="book-profile-option glyphicon glyphicon-bookmark"></span>\');
 						    }',
 						),
 						array(
@@ -330,15 +329,14 @@
  					<p>
 					<?= CHtml::ajaxLink(
 						//gucken ob das buch bereits favorisiesrt wurde
-					    (Subscription::model()->findByAttributes(array('subscriber_id'=>YII::app()->user->id,'subscripted_id'=>$model->author))?'Deabonnieren ':'Abonnieren ').'<span class="book-profile-option glyphicon glyphicon-star"></span>',
+					    '<span class="book-profile-option glyphicon glyphicon-star"></span>'.(Subscription::model()->findByAttributes(array('subscriber_id'=>YII::app()->user->id,'subscripted_id'=>$model->author))?'Deabonnieren ':'Abonnieren '),
 					    array('ajax/Subscribe'),
 					    array(
 					    	'type'=>'POST',
 					    	'data'=>array('subsripted'=>$model->author),
 					    	'success'=>'js:function(data){
-								console.log("success");
 						        $("#SubButton").text(data);
-								$("#SubButton").append(\'<span class="book-profile-option glyphicon glyphicon-star"></span>\');
+								$("#SubButton").prepend(\'<span class="book-profile-option glyphicon glyphicon-star"></span>\');
 						    }',
 						),
 						array(
@@ -347,7 +345,7 @@
 					);?>
 					</p>
 				<?php endif;?>
-                <p><div class="fb-share-button" data-href="<?=YII::app()->createAbsoluteUrl('books/files/'.$model->id)?>"></div></p>
+                <p><a class="pluginShareButtonLink" href="/sharer.php?app_id=684989361538190&amp;sdk=joey&amp;u=http%3A%2F%2Fpapyrus-project.noip.me%2Fbooks%2Ffiles%2F<?=$model->id?>&amp;display=popup&amp;ref=plugin" target="_blank" id="u_0_1"><span style="padding-left: 19px;" class="uiIconText"><img class="img" src="https://fbstatic-a.akamaihd.net/rsrc.php/v2/yQ/r/7GFXgco-uzw.png" alt="" style="top: 0px;" width="14" height="14">Share</span></a></p>
             </div>    
         </div>
     </div>

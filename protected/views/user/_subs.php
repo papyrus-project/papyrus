@@ -4,7 +4,7 @@
 <!-- content pull block -->
 <p class="content-pull">
     <?= CHtml::ajaxLink(
-        'moa Books <span class="glyphicon glyphicon-chevron-down"></span>',
+        'Mehr B&uuml;cher <span class="glyphicon glyphicon-chevron-down"></span>',
         array('user/_moreSubs'),
         array(
         	'data'=>array(

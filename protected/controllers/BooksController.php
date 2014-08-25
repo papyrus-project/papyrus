@@ -224,8 +224,8 @@ class BooksController extends Controller
 			//Ueberpruefen ob die Ordner schon vorhanden sind sonst neue erstellen
 			if(!is_dir(Yii::app()->basePath.'/../upload/pdf/'))
 				mkdir(Yii::app()->basePath.'/../upload/pdf/',0777,true);
-			if(!is_dir(Yii::app()->basePath.'/../upload/cover/'))
-				mkdir(Yii::app()->basePath.'/../upload/cover/',0777,true);
+			if(!is_dir(Yii::app()->basePath.'/../upload/cover/original/'))
+				mkdir(Yii::app()->basePath.'/../upload/cover/original/',0777,true);
 			
 			//Dateien Speichern
 			if($uploadFile){

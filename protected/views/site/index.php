@@ -87,7 +87,7 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
                         <a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.$book->author)?>"><?=$book->author0->name?></a>
                         <h3><?=$book->title?></h3>
                         <p>
-                            <input type="hidden" class="rating" data-start="1" data-end="6" value="<?= $rating->count?round($rating->rating/$rating->count):''?>" />
+                            <input type="hidden" readonly class="rating" data-start="1" data-end="6" value="<?= $rating->count?round($rating->rating/$rating->count):''?>" />
                         </p>
                         <button class="btn btn-g">Herunterladen</button>
                     </div>

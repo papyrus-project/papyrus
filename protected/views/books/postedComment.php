@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <p>
-	                	<input type="hidden" class="rating" value="<?=$comment->rating?>" readonly />
+	                	<input type="hidden" class="rating" data-start="1" data-end="6" value="<?=$comment->rating?>" readonly />
                     </p>
                 </div>
             </div>

@@ -87,7 +87,13 @@ class UserController extends Controller
 		if(!$var_sum->downloads)
 			$var_sum->downloads = 0;
 		
-		
+		YII::app()->session['page'] = 1;
+		$books = Books::model()->owns($id)->published()->with('bookgenres')->findAll(array('limit'=>$this->profile_pc,'order'=>'id desc'));
+		$booksRender = '';
+		foreach($books as $book){
+			$rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$book->id));
+			$booksRender.=$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'showOptions'=>true,'rating'=>$rating),true,true);
+		}
 		
 		$this->render('profile',array(
 			'model' => $model,
@@ -95,6 +101,7 @@ class UserController extends Controller
 			'subscribtions'=>Subscription::model()->countByAttributes(array('subscripted_id'=>$model->id)),
 			'favorits'=>BooksFavorites::model()->countByAttributes(array('books_id'=>$array)),
 			'downloads'=>$var_sum->downloads,
+			'booksRender'=>$booksRender,
 		));
 	}
 
@@ -232,7 +239,8 @@ class UserController extends Controller
 		if(YII::app()->user->id != $model->sender && YII::app()->user->id != $model->receiver){
 			die();
 		}
-		$model->read = 1;
+		if(YII::app()->user->id==$model->receiver)
+			$model->read = 1;
 		if($model->save()){
 			$this->renderPartial('pmView',array('message'=>$model));
 		}
