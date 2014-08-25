@@ -12,7 +12,7 @@
 						    $this->widget('ext.SAImageDisplayer', array(
 						        'image' => $model->id.'.'.$model->extension,
 						        'title' => $model->title,
-						        'size' => 'thumb',
+						        'size' => 'big',
 						        'class' => '',
 						        'id' => '',
 						        'group' => 'cover',
