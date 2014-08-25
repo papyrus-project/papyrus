@@ -19,20 +19,20 @@
 			<a href="<?= Yii::app()->createAbsoluteUrl('user/profile/'.$data->author0->id)?>"><h3 class="text-muted"><?= $data->author0->name?></h3></a>
 			<h2><a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$data->id)?>"><?=$data->title?></a> 
 				<?php if($data->wip):?>
-					<span class="label book-thumb-label">WIP</span>
+					<span class="label book-thumb-meta">WIP</span>
 				<?php endif;?>
 				<?php if($data->status == 0):?>
-					<span class="label book-thumb-label" style="background:#8e5655">In Bearbeitung</span>
+					<span class="label book-thumb-meta" style="background:#8e5655">In Bearbeitung</span>
 				<?php endif;?>
 			</h2>
 			<p>
-				<span class="label label-default"><?=$data->booktype->type?></span>
+				<span class="label label-meta"><?=$data->booktype->type?></span>
 				<?php foreach($data->genres as $genre):?>
-					<span class="label label-default"><?=$genre->genreName->genre?></span>
+					<span class="label label-meta"><?=$genre->genreName->genre?></span>
 				<?php endforeach;?>
-				<span class="label label-default"><?= $data->age_restriction?'Ab '.$data->age_restriction.' Jahren':'Ohne Alters begrenzung'?></span>
+				<span class="label label-meta"><?= $data->age_restriction?'Ab '.$data->age_restriction.' Jahren':'Ohne Alters begrenzung'?></span>
                 <?php if($data->nsfw == 1) :?><span class="label label-default">Expliziter Inhalt</span><?php endif;?>
-				<span class="label label-default"><?= $data->language->language?></span>
+				<span class="label label-meta"><?= $data->language->language?></span>
 				
 			</p>
 			
