@@ -561,24 +561,30 @@ footer p {
 iframe a{
 	font-size:30px;
 }
-.form .rating-div{
+.form .rating-div {
     margin-left:5px;
 }
-.form .rating-div>div{
+.form .rating-div > div {
     font-size: 18px;
     line-height: 20px;
     top:5px;
 }
-.comment-links{
+.comment-links {
 	font-size:12px;
 	margin-bottom: 10px; 
 }
-.btn-edit{
+.btn-edit {
 	margin-top: 10px;
 }
-.form-edit{
+.form-edit {
 	margin-right: 7px;
 }
-.btn-new-answer{
+.btn-new-answer {
 	margin-bottom:25px;
+}
+
+#LoginForm_username_em_,
+#LoginForm_password_em_, {
+    font-size:12px;
+    color: #E6E6E6;
 }
