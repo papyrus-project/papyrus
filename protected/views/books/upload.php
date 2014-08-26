@@ -45,7 +45,7 @@ $form = $this->beginWidget(
 			
 		    <div class="form-group">
 				<?= CHtml::activeLabel($model,'Empfohlene Altersfreigabe'); ?>
-				<?= CHtml::dropDownList('PdfTable[age_restriction]','',array(0=>'Keine Altersfreigabe',6=>'Ab 6',12=>'Ab 12',16=>'Ab 16',18=>'Ab 18',)); ?>
+				<?= CHtml::dropDownList('PdfTable[age_restriction]','',array(0=>'Keine Angabe',6=>'Ab 6',12=>'Ab 12',16=>'Ab 16',18=>'Ab 18',)); ?>
 			</div>
 			
 			<div class="form-group">
