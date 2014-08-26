@@ -137,8 +137,8 @@ $form = $this->beginWidget(
 				<?php echo CHtml::SubmitButton('Hochladen und Veröffentlichen',array('class'=>'btn btn-g'));?>
 			</div>
 			
-			<div class="form-group">
-				<input type="checkbox" name="agb" required /> Hiermit stimme ich der 
+			<div class="form-group" id="acceptAGBGroup">
+				<input type="checkbox" name="agb" required /> <span id="acceptAGB">Hiermit stimme ich der</span> 
 				<a href="<?= Yii::app()->createAbsoluteUrl('site/agbs') ?>">AGB</a> zu
 			</div>
 			
