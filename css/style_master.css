@@ -232,7 +232,7 @@ section .text-quote-author {
 #book-profile .meta-ribbon img {
     margin-right: 5px;
 }
-#book-profile button span,
+button>span,
 #book-profile a span {
     margin-left: 15px;
 }
@@ -457,7 +457,33 @@ footer p {
     font-weight: italic;
     text-align: center;
     padding-top: 50px;
+    
+}/* button-r */
+.btn-r {
+    text-transform: uppercase;
+    font-family: "Lato", Arial, sans-serif;
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 2px solid #593535;
+    background-color: #8E5655;
 }
+
+.btn-r:hover,
+.btn-r:focus,
+.btn-r:active,
+.btn-r.active,
+.open .dropdown-toggle.btn-primary {
+    color: #fff;
+    border-bottom: 2px solid #8E5655;
+    background-color: #BC7171;
+}
+
+.btn-r:active,
+.btn-r.active,
+.open .dropdown-toggle.btn-primary {
+    background-image: none;
+}
+
 /* button-b */
 .btn-b {
     text-transform: uppercase;
