@@ -15,13 +15,13 @@
 <section>
 <div class="container">
 <div class='row col-md-6'>
-<h1>Sign Up</h1>
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'users-singUp-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+	<h1>Benutzerkonto anlegen</h1>
+	<?php $form=$this->beginWidget('CActiveForm', array(
+		'id'=>'users-singUp-form',
+		'enableAjaxValidation'=>false,
+	)); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note text-muted">Felder mit einem <span class="required">*</span> sind Pflichtfelder.</p>
 
 	<?php 
     // if site is not invitation based, then do not display invitation code errors... :)
@@ -94,9 +94,6 @@
 				<option <?= isset($_POST['userdata'])&&$_POST['userdata']['sex']==3?'selected':''?> value='3'>Weiblich</option>
 			</select>
 		</div>
-    </fieldset>
-    <fieldset>
-        <legend>Are you human?</legend>
         <?php if(CCaptcha::checkRequirements()): ?>
         <div class="form-group">
             <?php echo $form->labelEx($model,'verifyCode'); ?>
@@ -104,8 +101,8 @@
             <?php $this->widget('CCaptcha'); ?>
             <?php echo $form->textField($model,'verifyCode',array('type'=>'text')); ?>
             </div>
-            <div class="hint">Please enter the letters as they are shown in the image above.
-            <br/>Letters are not case-sensitive.</div>
+            <div class="hint text-muted">Bitte gib die oben stehenden Buchstaben ein.
+            <br/>Gross-/Kleinschreibung wird nicht ber&uuml;cksichtigt.</div>
             <?php echo $form->error($model,'verifyCode'); ?>
         </div>
         <?php endif; ?>
@@ -124,7 +121,7 @@
     endif; ?>
     
 	<div class="form-group buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array('class'=>'btn btn-g')); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Benutzerkonto anlegen' : 'Save',array('class'=>'btn btn-g')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
