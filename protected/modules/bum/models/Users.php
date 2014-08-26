@@ -222,8 +222,8 @@ class Users extends BumActiveRecord
                 return array(
                     'user_name' => 'User Name',
                     'password_old'=>'Old Password',
-                    'password'=>'New Password',
-                    'password_repeat'=>'Repeat Password',
+                    'password'=>'Passwort',
+                    'password_repeat'=>'Passwort wiederholen',
                     'name' => 'Name',
                     'surname' => 'Surname',
                     'active' => 'Active',
@@ -233,9 +233,10 @@ class Users extends BumActiveRecord
             case 'signUp':
                 return array(
                     'id' => 'ID',
-                    'user_name' => 'User Name',
-                    'password_repeat'=>'Repeat Password',
-                    'verifyCode' => 'Verification Code',
+                    'user_name' => 'Benutzername',
+                    'password'=>'Passwort',
+                    'password_repeat'=>'Passwort wiederholen',
+                    'verifyCode' => 'Verifizierung',
                     'email'=>'Email',
                 );
                 break;
@@ -243,8 +244,8 @@ class Users extends BumActiveRecord
                 return array(
                     'id' => 'ID',
                     'user_name' => 'User Name',
-                    'password'=>'Password',
-                    'password_repeat'=>'Repeat Password',
+                    'password'=>'Passwort',
+                    'password_repeat'=>'Passwort wiederholen',
                     'salt' => 'Salt',
                     'name' => 'Name',
                     'surname' => 'Surname',

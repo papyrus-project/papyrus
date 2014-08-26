@@ -48,7 +48,7 @@ if (!Yii::app()->getModule('bum')->demoMode) : ?>
 	<div class="container">
         <div class="row col-md-6">
 			<h1>Login</h1>
-		    <div class="form">
+		    <div class="form login-form">
 		    <?php $form=$this->beginWidget('CActiveForm', array(
 		        'id'=>'login-form',
 		        'enableClientValidation'=>true,
