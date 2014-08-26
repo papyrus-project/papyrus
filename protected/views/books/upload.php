@@ -139,7 +139,7 @@ $form = $this->beginWidget(
 			
 			<div class="form-group" id="acceptAGBGroup">
 				<input type="checkbox" name="agb" required /> <span id="acceptAGB">Hiermit stimme ich der</span> 
-				<a href="<?= Yii::app()->createAbsoluteUrl('site/agbs') ?>">AGB</a> zu
+				<a href="<?= Yii::app()->createAbsoluteUrl('site/agbs') ?>" target="agb">AGB</a> zu
 			</div>
 			
 			<script> 
