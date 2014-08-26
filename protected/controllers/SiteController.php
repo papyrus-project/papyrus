@@ -55,39 +55,44 @@ class SiteController extends Controller
         $criteria = new CDbCriteria();
         if( count( $genre ) > 0 ) {
             $genreCrit = new CDbCriteria();
-            $genreCrit->together = true;
+            //$genreCrit->together = true;
             $genreCrit->with = array('bookgenres');
-            $genreCrit->addInCondition( 'bookgenres.bookgenre_id', $genre, 'OR' );
+            
+            foreach($genre as $value)
+                if($value >=0)
+                    $genreCrit->addSearchCondition( 'bookgenres.bookgenre_id', $value, true, 'OR' );
             $criteria->mergeWith($genreCrit, 'AND');
         }
         if( count( $age ) > 0 ) {
             $ageCrit = new CDbCriteria();
-            $ageCrit->addInCondition( 'age_restriction', $age, 'OR' );
+            foreach($age as $value)
+                if($value >=0)
+                    $ageCrit->addSearchCondition( 'age_restriction', $value, true, 'OR' );
             $criteria->mergeWith($ageCrit, 'AND');
         }
         if( count( $type ) > 0 ) {
             $typeCrit = new CDbCriteria();
-            $typeCrit->addInCondition( 'booktype_id', $type, 'OR' );
-            $criteria->mergeWith($typeCrit, 'AND');
-        } 
-        else {
-            $typeCrit = new CDbCriteria();
-            $types = array();
-            foreach(Booktype::model()->findAll() as $type)
-                $types[] = $type->id;
-            $typeCrit->addInCondition( 'booktype_id', $types, 'OR' );
+            
+            foreach($type as $value)
+                if($value >=0)
+                    $typeCrit->addSearchCondition( 'booktype_id', $value, true, 'OR' );
             $criteria->mergeWith($typeCrit, 'AND');
         }
         if( count( $lang ) > 0 ) {
             $langCrit = new CDbCriteria();
-            $langCrit->addInCondition( 'language_id', $lang, 'OR' );
+            
+            foreach($type as $value)
+                if($value >=0)
+                    $langCrit->addSearchCondition( 'language_id', $value, true, 'OR' );
             $criteria->mergeWith($langCrit, 'AND');
         }
+        
         if( $wip != '1' ) {
             $wipCrit = new CDbCriteria();
             $wipCrit->addSearchCondition( 'wip', "0", true, 'AND' );
             $criteria->mergeWith($wipCrit, 'AND');
         }
+        
         if( $nsfw != '1' ) {
             $nsfwCrit = new CDbCriteria();
             $nsfwCrit->addSearchCondition( 'nsfw', "0", true, 'AND' );

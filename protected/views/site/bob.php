@@ -21,6 +21,9 @@ Yii::app()->clientScript->registerScript('filter',
     category = $('.filterItem').map(function() {
         if(this.checked)
             return '&'+this.name+'='+this.value; 
+        else
+            return '&'+this.name+'=-1'; 
+        
     }).get();//.serialize();
     
     //category = category.toString().replace(',','');
@@ -92,7 +95,7 @@ Yii::app()->clientScript->registerScript('filter',
                     <ul>
                         <?php foreach(Languanges::model()->findAll() as $language): ?>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="language<?= $language->id ?>" value="<?= $language->id ?>" name="lang">
+                            <input type="checkbox" class="filterItem" id="language<?= $language->id ?>" value="<?= $language->id ?>" name="lang[]">
                             <?= $language->language ?></li>
                         <?php endforeach ?>
                     </ul>
@@ -110,11 +113,11 @@ Yii::app()->clientScript->registerScript('filter',
                                   'id'=>'Datum',
                               ),
                               'id'=>'ajaxListView',
-                              'ajaxType'=>'post',
+                              //'ajaxType'=>'post',
                               'pagerCssClass' => 'pagination',
-                              'pager'=> array('cssFile'=>Yii::app()->request->baseUrl.'/css/pager.css'),
-                              'summaryCssClass' => 'row',
-                              'sorterCssClass' => 'row',
+                              'pager'=> array('cssFile'=>Yii::app()->request->baseUrl.'/css/pager.css', 'header'=>''),
+                              'summaryCssClass' => 'col-md-6 pull-left',
+                              'sorterCssClass' => 'col-md-6 pull-right',
                               'itemsCssClass' => 'row',
                               //'loadingCssClass' => 'row',
                               //'pager' => array('nextPageCssClass'=>'btn-b'),

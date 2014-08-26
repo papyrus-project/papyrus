@@ -204,7 +204,7 @@ abstract class CBaseListView extends CWidget
 	{
 		if(($count=$this->dataProvider->getItemCount())<=0)
 			return;
-
+        echo '<div class="row">';
 		echo '<div class="'.$this->summaryCssClass.'">';
 		if($this->enablePagination)
 		{

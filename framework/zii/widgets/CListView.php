@@ -321,5 +321,8 @@ class CListView extends CBaseListView
 		echo "</ul>";
 		echo $this->sorterFooter;
 		echo CHtml::closeTag('div');
+		echo CHtml::closeTag('div');
 	}
 }
+
+

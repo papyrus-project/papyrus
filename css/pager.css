@@ -4,6 +4,7 @@
   font-size: 13px;
   line-height: 18px;
   color: #333333;
+  width: 500px;
 }
 .pagination ul {
   display: inline-block;
@@ -52,6 +53,7 @@
   -webkit-border-radius: 3px 0 0 3px;
   -moz-border-radius: 3px 0 0 3px;
   border-radius: 3px 0 0 3px;
+  border-left: 1px solid red;
 }
 .pagination li:last-child a {
   -webkit-border-radius: 0 3px 3px 0;
