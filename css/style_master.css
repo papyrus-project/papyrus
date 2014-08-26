@@ -598,6 +598,13 @@ iframe a{
 #login-form btn btn-b {
     margin-left: 5px;
 }
+#login-form btn btn-g {
+    margin-top: 15px;
+}
+#login-form .form-group label {
+    margin-left: 5px;
+    font-size: 14px;
+}
 #uploadABook {
     margin-top: 30px;
     margin-bottom: 15px;
