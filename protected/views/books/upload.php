@@ -14,7 +14,7 @@ $form = $this->beginWidget(
     <div class="container">
         <div class="row col-md-6">
 		<!--<?= CHtml::fileField('PdfTable[blubb]','',array('class'=>'TestKlasse')); ?>-->
-		<h2>Jetzt veröffentlichen</h2>
+		<h2 id="publishNow">Jetzt veröffentlichen</h2>
 			<label class="radio-inline">
 				<input type="radio" name="uploadType" id="inlineRadio1" class="uploadType" checked value="single"> Gesamtwerk veröffentlichen
 			</label>
@@ -22,8 +22,7 @@ $form = $this->beginWidget(
 				<input type="radio" name="uploadType" id="inlineRadio1"  class="uploadType" value="multi"> Kapitelweise veröffentlichen
 			</label>
             
-            <h2></h2>
-            <h3>Ein Buch hochladen</h3>
+            <h3 id="uploadABook">Ein Buch hochladen</h3>
 			<div class="form-group">
 				<?php echo $form->labelEx($model,'Pdf Datei/en');?>
 				<div class="uploadPdf">

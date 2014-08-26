@@ -28,7 +28,8 @@
 					<?php endif;?>
 					<p class="user-profile-name"><?= $model->name ?></p>
 					<p class="user-profile-alias text-muted"><?= $model->id0->user_name ?></p>
-					<ul class="col-xs-6 col-sm-6 col-md-6">
+					<p class="user-profile-description"><?= nl2br($model->description) ?></p>					<ul class="col-xs-6 col-sm-6 col-md-6">
+
 						<li class="text-muted">Letzte Aktivität</li>
 						<li class="text-muted">Mitlied Seit</li>
 						<br>
@@ -49,12 +50,11 @@
 						<li class="text-meta"><?= $favorits?></li>
 						<li class="text-meta"><?= $downloads?></li>
 						<br>
-						<li class="text-meta"><?= $sexes[$model->sex]?></li>
+						<li class="text-meta"><?= isset($sexes[$model->sex])?$sexes[$model->sex]:'error'?></li>
 						<li class="text-meta"><?= $model->birthday?$model->birthday:'Keine Angabe' ?></li>
 						<li class="text-meta"><?= $model->location?$model->location:'Keine Angabe'?></li>
-						<li class="text-meta"><a class="link-domain" href="#"><?= $model->homepage ?></a></li>
+						<li class="text-meta"><?= $model->homepage ?></li>
 					</ul>
-					<p class="text-meta"><?= $model->description ?></p>
 				</div>
 				
 				<div class="col-md-9">

@@ -34,7 +34,6 @@ class UserController extends Controller
 			$model->location = CHtml::encode($_POST['location']);
 			$model->homepage = CHtml::encode($_POST['homepage']);
 			$model->description = CHtml::encode($_POST['description']);
-			$model->invitations_left = CHtml::encode($_POST['invitations_left']);
             
 
 		    //Cover Datei
@@ -99,7 +98,7 @@ class UserController extends Controller
 		
 		$this->render('profile',array(
 			'model' => $model,
-			'sexes'=>array(0=>'Keine Angabe',1=>'M&auml;nnlich',2=>'Weiblich'),
+			'sexes'=>array(1=>'Keine Angabe',2=>'M&auml;nnlich',3=>'Weiblich'),
 			'subscribtions'=>Subscription::model()->countByAttributes(array('subscripted_id'=>$model->id)),
 			'favorits'=>BooksFavorites::model()->countByAttributes(array('books_id'=>$array)),
 			'downloads'=>$var_sum->downloads,

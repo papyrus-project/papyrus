@@ -1,6 +1,6 @@
 
 	<!-- book thumb -->
-	<div class="row book-thumb">
+	<div class="row book-thumb" id="book-thumb-<?=$data->id?>">
 		<div class="col-md-2">
 			<a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$data->id)?>">
 		    <?php
@@ -58,14 +58,6 @@
 		<!-- dropdown menus -->
 		<div class="col-md-1 dropdown-meta" style="text-align:right;">
 			<p>
-				<div class="dropdown">
-					<a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-share"></span></a>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-share" style="text-align:right;">
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Auf Facebook teilen</a></li>
-					</ul>
-				</div>
-			</p>
-			<p>
 				<?php if(isset($showOptions)&&$showOptions==true):?>
 				<div class="dropdown">
 					<a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
@@ -79,5 +71,5 @@
 				</div>
 				<?php endif; ?>
 			</p>
-		</div>    
+		</div>
 	</div><!-- /.book-thumb -->
