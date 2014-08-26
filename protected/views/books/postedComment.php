@@ -18,7 +18,7 @@
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 no-padding comment-frame">
                 <div class="row">
-                    <h3><?= $comment->getAuthor($comment->users_id); ?></h3>
+                    <h3><a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.$comment->users_id)?>"><?= $comment->getAuthor($comment->users_id); ?></a></h3>
                     <p class="comment-date text-muted">
                         geschrieben am <?= Yii::time(time()); ?>
                     </p>
@@ -37,17 +37,6 @@
             <!-- meta dropdown menu -->
             <div class="col-xs-1 col-sm-1 col-md-1 dropdown-meta text-align-right">
                 <!-- dropdown menus -->
-                <p>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-share"></span></a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-share" style="text-align: left;">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Auf Facebook teilen</a></li>
-                        </ul>
-                    </div>
-                </p>
-                <p>
-                    <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span></a>
-                </p>
                 <p>
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
@@ -75,7 +64,7 @@
                                 ?>
                             </li>
                             <?php endif; ?>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Verst??e Melden</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="mailto:info@bookworks.noip.me">Verst&ouml;&szlig;e Melden</a></li>
                         </ul>
                     </div>
                 </p>

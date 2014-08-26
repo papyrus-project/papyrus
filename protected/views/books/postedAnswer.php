@@ -1,4 +1,4 @@
-<div id="<?= $comment->id; ?>" class="row">
+<div id="<?= $comment->id; ?>">
     <div class="comment-commentary-wrapper">
         <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3 hidden-xs text-align-right">
@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-8 col-sm-8 col-md-8 no-padding comment-frame">
                 <div class="row">
-                    <h3><?= $comment->getAuthor($comment->users_id); ?></h3>
+                    <h3><a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.$comment->users_id)?>"><?= $comment->getAuthor($comment->users_id); ?></a></h3>
                     <p class="comment-date text-muted">
                         geschrieben am <?= Yii::time(time()); ?>
                     </p>

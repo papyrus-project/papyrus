@@ -232,7 +232,8 @@ section .text-quote-author {
 #book-profile .meta-ribbon img {
     margin-right: 5px;
 }
-#book-profile button span {
+#book-profile button span,
+#book-profile a span {
     margin-left: 15px;
 }
 #book-profile .book-badges-history,
@@ -567,4 +568,17 @@ iframe a{
     font-size: 18px;
     line-height: 20px;
     top:5px;
+}
+.comment-links{
+	font-size:12px;
+	margin-bottom: 10px; 
+}
+.btn-edit{
+	margin-top: 10px;
+}
+.form-edit{
+	margin-right: 7px;
+}
+.btn-new-answer{
+	margin-bottom:25px;
 }

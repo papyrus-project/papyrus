@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
+<div class="form form-edit">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'comments-editComment-form',
@@ -17,22 +17,22 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="">
 		<?php echo $form->textArea($model,'text',array('class'=>'form-control','rows'=>5)); ?>
 		<?php echo $form->error($model,'text'); ?>
 	</div>
 
-	<div class="row buttons">
-				<?php echo
-                          CHtml::ajaxSubmitButton(
-                      'Speichern',
-                      array('books/saveEdit', 'id'=>$model->id),
-                      array(
-                          'update'=>'#com',
-                      ), 
-                      array('id' => uniqid(),
-	          	            'class'=>'btn btn-g pull-right')); 
-                          ?>
+	<div class="buttons">
+		<?php echo
+          CHtml::ajaxSubmitButton(
+              'Speichern',
+              array('books/saveEdit', 'id'=>$model->id),
+              array(
+                  'update'=>'#com',
+              ), 
+              array('id' => uniqid(),
+  	            'class'=>'btn btn-g pull-right btn-edit')); 
+              ?>
 	</div>
     <div id="com"></div>
 

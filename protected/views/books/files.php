@@ -114,7 +114,7 @@
                          <?php if($model->Genres):?>
                         <li class="text-muted">
                         	<?php foreach($model->Genres as $genre):?>
-                            <span class="label label-meta"><?=$genre->genreName->genre?></span>
+                            	<span class="label label-meta"><?=$genre->genreName->genre?></span>
                             <?php endforeach;?>
                         </li>
                         <?php endif ?>
@@ -150,7 +150,7 @@
                 <div class="row">
                     <h2 class="book-profile-blurb-heading">Klappentext</h2>
                     <p id="book-profile-blurb">
-                        <?=$model->description?>
+                        <?=nl2br($model->description)?>
                     </p>
                 </div>
                 
@@ -193,21 +193,21 @@
                             <div class="col-xs-2 col-sm-2 col-md-2 hidden-xs">
                                  <!--<img class="commentary-portrait" src="../../upload/cover/thumb/default.jpg" alt="user-portrait" />-->
                                 <?php 
-						    $user = UserData::model()->findByPk($comment->users_id);
-					        $this->widget('ext.SAImageDisplayer', array(
-						        'image' => $user->id.'.'.$user->extension,
-						        'title' => $model->title,
-						        'size' => 'comment',
-						        'class' => 'commentary-portrait',
-						        'id' => '',
-						        'group' => 'user',
-						        'defaultImage' => 'default.jpg',
-							));
-						?>
+								    $user = UserData::model()->findByPk($comment->users_id);
+							        $this->widget('ext.SAImageDisplayer', array(
+								        'image' => $user->id.'.'.$user->extension,
+								        'title' => $model->title,
+								        'size' => 'comment',
+								        'class' => 'commentary-portrait',
+								        'id' => '',
+								        'group' => 'user',
+								        'defaultImage' => 'default.jpg',
+									));
+								?>
                             </div>
                             <div class="col-xs-9 col-sm-9 col-md-9 no-padding comment-frame">
                                 <div class="row">
-                    				<h3><?= $comment->getAuthor($comment->users_id); ?></h3>
+                    				<h3><a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.$comment->users_id)?>"><?= $comment->getAuthor($comment->users_id); ?></a></h3>
                                     <p class="comment-date text-muted">
                         				geschrieben am <?= Yii::time($comment->date); ?>
                                     </p>
@@ -227,17 +227,11 @@
                             <!-- meta dropdown menu -->
                             <div class="col-xs-1 col-sm-1 col-md-1 dropdown-meta text-align-right">
                                 <!-- dropdown menus -->
-                                <p>
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-share"></span></a>
-                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-share" style="text-align:left;">
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Auf Facebook teilen</a></li>
-                                        </ul>
-                                    </div>
-                                </p>
-                                <p>
-                                    <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-envelope"></span></a>
-                                </p>                                
+                                <?php if($comment->users_id != YII::app()->user->id):?>
+	                                <p>
+	                                    <a href="<?=YII::app()->createAbsoluteUrl('user/sendPm/'.$comment->users_id)?>" ><span class="glyphicon glyphicon-envelope"></span></a>
+	                                </p>
+                                <?php endif;?>
                                 <p>
                                     <div class="dropdown">
                                         <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
@@ -265,7 +259,7 @@
 				                                ?>
 				                            </li>
 				                            <?php endif; ?>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Verstöße Melden</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="mailto:info@bookworks.noip.me">Verst&ouml;&szlig;e Melden</a></li>
                                         </ul>
                                     </div>
                                 </p>
@@ -274,41 +268,47 @@
                     </div>
                 <!-- comment commentary -->
                 <div class="row">
-                    <div class="col-xs-3 col-sm-3 col-md-3 hidden-xs text-align-right">
-                        	<?= CHtml::ajaxLink(
-                                    'Antworten anzeigen <span class="text-muted glyphicon glyphicon-chevron-down"></span>',
-                                    array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
-                                    array(
-                                        'update'=>'#answers'.$comment->id,
-                                        'success'=>'js:function(data){
-                                        	$("#answers'.$comment->id.'").children().detach();
-                                        	$("#answers'.$comment->id.'").append(data);
-											$("#show'.$comment->id.'").detach();
-                                        }'
-                                    ), 
-                                    array('id' => 'show'.$comment->id)
-                                ) . ' ';
-                        	?>
+                	<div class="col-xs-2 col-sm-2 col-md-2 hidden-xs"></div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 no-padding comment-links">
+                    	<?= CHtml::ajaxLink(
+                                'Antworten anzeigen <span class="text-muted glyphicon glyphicon-chevron-down"></span>',
+                                array('books/showAnswers', 'id'=>$comment->ref_id, 'belongsTo'=>$comment->id),
+                                array(
+                                    'update'=>'#answers'.$comment->id,
+                                    'success'=>'js:function(data){
+                                    	$("#answers'.$comment->id.'").children().detach();
+                                    	$("#answers'.$comment->id.'").append(data);
+										$("#show'.$comment->id.'").detach();
+                                    }'
+                                ), 
+                                array('id' => 'show'.$comment->id)
+                            ) . ' ';
+                    	?>
+                        	
+		                <?php 
+		                    if(!Yii::app()->user->isGuest){
+		                        echo CHtml::ajaxLink(
+	                                  'Antwort schreiben',
+	                                  array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
+	                                  array(
+		                                    'success'=>'js:function(data){
+	                    						$("#newAnswerForm'.$comment->id.'").children(".answerForm").detach();
+		                                    	$("#newAnswerForm'.$comment->id.'").append(data);
+											}'
+									), 
+									array(
+										'id' => 'answer'.uniqid(),
+										'class'=>'pull-right'
+									)
+	                              );
+		                    }
+		                ?>
                     </div>
 				</div>
-                	<div id="answers<?= $comment->id ?>"></div>
-	                <div id="newAnswer<?= $comment->id ?>"></div>
+				<div id="newAnswerForm<?= $comment->id ?>"></div>
+            	<div id="answers<?= $comment->id ?>"></div>
+                <div id="newAnswer<?= $comment->id ?>"></div>
 	                
-	                <?php 
-	                    if(!Yii::app()->user->isGuest){
-	                        echo CHtml::ajaxLink(
-                                  'Antwort schreiben',
-                                  array('books/showNewAnswerForm','id'=>$model->id, 'belongsTo'=>$comment->id),
-                                  array(
-	                                    'success'=>'js:function(data){
-                    						$("#newAnswer'.$comment->id.'").children(".answerForm").detach();
-	                                    	$("#newAnswer'.$comment->id.'").append(data);
-										}'
-                                  ), 
-                                  array('id' => 'answer'.uniqid())
-                              );
-	                    }
-	                ?>
                 </div> 
     <?php endforeach; ?>
 

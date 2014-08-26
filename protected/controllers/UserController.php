@@ -236,6 +236,13 @@ class UserController extends Controller
 		$this->render('sendPm',array('model'=>$model));
 	}
 	
+	public function actionPmDel($id){
+		$model = Messages::model()->findByPk($id);
+		if($model->receiver != YII::app()->user->id)
+			throw new CHttpException(402,'');
+		$model->delete();
+	}
+	
 	public function actionMessage($id){
 		$model = Messages::model()->findByPk($id);
 		if(YII::app()->user->id != $model->sender && YII::app()->user->id != $model->receiver){

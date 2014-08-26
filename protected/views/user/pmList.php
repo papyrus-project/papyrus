@@ -9,6 +9,15 @@
 	    	$('#message').append(data);
 	    })
 	};
+	function clickMessageDel () {
+	    var id = $(this).attr('value');
+	    $.ajax({
+	    	url:"<?=YII::app()->createAbsoluteUrl('user/pmDel')?>/"+id
+	    }).done(function(data){
+	    	$('#message-'+id).children().detach();
+	    })
+	    return false;
+	};
 </script>
 <section id="messaging">
     <div class="container">
@@ -32,10 +41,10 @@
 											$("#messageTable").append(data);
 											page = 1;
 											count = $("#messageTable").children().size();
-											if(count == 1)
-												append = "<div>"+1+"-"+count+"</div>";
+											if(count >= 1)
+												append = "<div>Nachrichten "+1+" - "+count+"</div>";
 											else {
-												append = "<div>"+0+"</div>";
+												append = "<div>Keine Nachrichten vorhanden</div>";
 											}
 											$("#messageCounter").children().detach();
 											$("#messageCounter").append(append);
@@ -59,10 +68,10 @@
 											$("#messageTable").append(data);
 											page = 1;
 											count = $("#messageTable").children().size();
-											if(count == 1)
-												append = "<div>"+1+"-"+count+"</div>";
+											if(count >= 1)
+												append = "<div>Nachrichten "+1+" - "+count+"</div>";
 											else {
-												append = "<div>"+0+"</div>";
+												append = "<div>Keine Nachrichten vorhanden</div>";
 											}
 											$("#messageCounter").children().detach();
 											$("#messageCounter").append(append);
@@ -105,8 +114,8 @@
 							$("#messageTable").children().detach();
 							$("#messageTable").append(data);
 							$("#messageCounter").children().detach();
-							$("#messageCounter").append("<div>"+
-								((page-1)*5+1)+"-"+((page-1)*5+$("#messageTable").children().size())+
+							$("#messageCounter").append("<div>Nachrichten "+
+								((page-1)*5+1)+" - "+((page-1)*5+$("#messageTable").children().size())+
 								"</div>");
 						}
 					}'
@@ -128,8 +137,8 @@
 							$("#messageTable").children().detach();
 							$("#messageTable").append(data);
 							$("#messageCounter").children().detach();
-							$("#messageCounter").append("<div>"+
-								((page-1)*5+1)+"-"+((page-1)*5+$("#messageTable").children().size())+
+							$("#messageCounter").append("<div>Nachrichten "+
+								((page-1)*5+1)+" - "+((page-1)*5+$("#messageTable").children().size())+
 								"</div>");
 						}
 					}'
@@ -139,7 +148,7 @@
 				)
 
 			)?>
-            <div id="messageCounter" class="text-align-center"><div>1-<?=$countIn>5?'5':$countIn?></div></div>
+            <div id="messageCounter" class="text-align-center"><div><?= !$countIn?'Keine Nachrichten vorhanden':'Nachrichten 1 - '.($countIn>5?'5':$countIn);?></div></div>
             <!-- message (reload with AJAX)-->
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div id="message" class="row">

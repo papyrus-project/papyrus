@@ -74,7 +74,7 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
                 	<a href="<?= YII::app()->createAbsoluteUrl('books/files/'.$book->id)?>">
 	                	<?php
 	                		$this->widget('ext.SAImageDisplayer', array(
-							'image' => $book->id.'.'.$book->extension,	
+							'image' => (strlen($book->extension)<=5?$model->id.'.':'').$book->extension,
 							'defaultImage'=> 'default.jpg',
 							'title' => $book->title,
 							'size' => 'thumb',

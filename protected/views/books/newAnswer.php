@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="row answerForm">
+<div class="answerForm row">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'comments-newAnswer-form',
@@ -16,7 +16,7 @@
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
-	<div class="col-xs-3 col-sm-3 col-md-3 ">
+	<div class="col-xs-2 col-sm-2 col-md-2 ">
 	</div>
 	<div class="col-xs-9 col-sm-9 col-md-9 no-padding comment-frame">
 		<div class="form-group">
@@ -27,22 +27,23 @@
 	
 		<div class="form-group">
 			<?php echo CHtml::ajaxSubmitButton(
-				'Antwort posten',
+				'Antwort senden',
 				array('books/postAnswer', 'id'=>$id, 'belongsTo'=>$belongsTo),
 				array(
                     'success'=>'js:function(data){
                     	console.log("#newAnswers'.$belongsTo.'");
-                    	$("#newAnswer'.$belongsTo.'").children(".answerForm").detach();
+                    	$("#newAnswerForm'.$belongsTo.'").children(".answerForm").detach();
                     	$("#newAnswer'.$belongsTo.'").append(data);
                 	}'
 				), 
 				array(
 					'id' => uniqid(),
-				  	'class'=>'btn btn-g',
+				  	'class'=>'btn btn-g btn-new-answer pull-right',
 				)); ?>
 		</div>
 	    <div id="com"></div>
 	</div>
+	<div class="col-xs-1 col-sm-1 col-md-1">
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

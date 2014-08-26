@@ -44,7 +44,7 @@
 			</p>
 			
 			<p class="book-thumb-txt">
-				<?= substr($data->description,0,300)?> <a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$data->id)?>"> ... weiterlesen</a>
+				<?= substr($data->description,0,300)?> <a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$data->id)?>"> <b>[ weiterlesen ]</b></a>
 			</p>
 			
 			<ul class="book-thumb-meta">

@@ -44,7 +44,7 @@ if(!YII::app()->user->isGuest)
                     
                     <div class="col-sm-3 col-md-5 pull-left">
                         <!-- <form role="search" method="get" action="<?=YII::app()->createAbsoluteUrl('')?>" class="navbar-form navbar-left"> -->
-                            <?= CHtml::beginForm(YII::app()->createAbsoluteUrl('site/bob'), 'get', array('id'=>'filter-form','class'=>'navbar-form navbar-left'))?>
+                            <?= CHtml::beginForm(YII::app()->createAbsoluteUrl('site/bob'), 'get', array('id'=>'filter-form','class'=>'navbar-form'))?>
                             <div class="input-group">
                                 <?= CHtml::textField('q', (isset($_GET['q'])) ? $_GET['q'] : '', array('class'=>'form-control', 'placeholder'=>'Bücher finden ...', 'name'=>'q', 'id'=>'srch-term'))?>
                             

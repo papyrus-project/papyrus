@@ -59,12 +59,11 @@
                 <h3>Buchcover ausw&auml;hlen</h3>
                 <script type="text/javascript">
                     var ImgArray = [
-                      "<?=Yii::app()->homeUrl.'/upload/cover/original/default1.jpg'; ?>",
-                      "<?=Yii::app()->homeUrl.'/upload/cover/original/default2.jpg'; ?>",
-                      "<?=Yii::app()->homeUrl.'/upload/cover/original/default3.jpg'; ?>",
-                      "<?=Yii::app()->homeUrl.'/upload/cover/original/default4.jpg'; ?>",
-                      "<?=Yii::app()->homeUrl.'/upload/cover/original/default5.jpg'; ?>",
-                      "<?=Yii::app()->homeUrl.'/upload/cover/original/default6.jpg'; ?>",
+                      "<?=Yii::app()->createAbsoluteUrl('/upload/cover/original/default1.jpg'); ?>",
+                      "<?=Yii::app()->createAbsoluteUrl('/upload/cover/original/default2.jpg'); ?>",
+                      "<?=Yii::app()->createAbsoluteUrl('/upload/cover/original/default3.jpg'); ?>",
+                      "<?=Yii::app()->createAbsoluteUrl('/upload/cover/original/default4.jpg'); ?>",
+                      "<?=Yii::app()->createAbsoluteUrl('/upload/cover/original/default5.jpg'); ?>",
                        <?php   $img = '';
                                 if(strlen($model->extension) < 6)
                                     $img = $model->id.'.'.$model->extension;
@@ -106,12 +105,6 @@
                         <label>
                             <input type="radio" name="optionsRadios" id="Radio4" value="default5" onclick="ChangeImg(4)" <?php if($model->extension == 'default5.jpg') echo 'checked'; ?>>
                             Kerker und Eidechsen
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="Radio5" value="default6" onclick="ChangeImg(5)" <?php if($model->extension == 'default6.jpg') echo 'checked'; ?>>
-                            Blutiger Abgang
                         </label>
                     </div>
                     <div class="radio">

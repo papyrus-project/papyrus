@@ -5,9 +5,13 @@
 	<td class="text-align-right">
 	    <?php if($got):?>
 	    	<a href="<?=YII::app()->createAbsoluteUrl('user/sendPm/'.$message->sender)?>">Antwort senden</a>
-	    	<a class="msg-delete" href="<?YII::app()->createAbsoluteUrl('user/delPm/'.$message->sender)?>"><span class="glyphicon glyphicon-trash"></span></a>
+	    	<a id="message-del-<?=$message->id?>" value="<?=$message->id?>" href="javaScript:void(0);"><span class="glyphicon glyphicon-trash"></span></a>
+	    	
     	<?php endif;?>
-		<script>$("#message-<?=$message->id?>").click(clickMessage);</script>
+		<script>
+			$("#message-del-<?=$message->id?>").click(clickMessageDel);
+			$("#message-<?=$message->id?>").click(clickMessage);
+		</script>
 	</td>  
 </tr>
 		

@@ -25,7 +25,7 @@
     	<label>Bewertung:</label>
 		<?php echo $form->hiddenField($model,'rating',array('class'=>'rating','value'=>'3','data-start'=>1,'data-stop'=>6)); ?>
 		<?=CHtml::ajaxSubmitButton(
-	          'Abschicken',
+	          'Bewertung senden',
 	          array('books/postComment', 'id'=>$id),
 	          array(
 	              'update'=>'#com',
