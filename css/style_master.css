@@ -605,3 +605,9 @@ iframe a{
 #publishNow {
     margin-bottom: 25px;
 }
+.uploadAdd {
+    margin-top: 15px;
+}
+.uploadPdf input {
+    margin-top: 5px;
+}
