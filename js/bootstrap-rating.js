@@ -91,8 +91,8 @@
   $.fn.rating.defaults = {
     filled: 'glyphicon glyphicon-star',
     empty: 'glyphicon glyphicon-star-empty',
-    start: 0,
-    stop: OFFSET,
+    start: 1,
+    stop: 6,
     step: 1
   };
 }(jQuery));

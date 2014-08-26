@@ -14,7 +14,7 @@ $form = $this->beginWidget(
     <div class="container">
         <div class="row col-md-6">
 		<!--<?= CHtml::fileField('PdfTable[blubb]','',array('class'=>'TestKlasse')); ?>-->
-		<h2>Jetzt veröffentlichen</h2>
+		<h2 id="publishNow">Jetzt veröffentlichen</h2>
 			<label class="radio-inline">
 				<input type="radio" name="uploadType" id="inlineRadio1" class="uploadType" checked value="single"> Gesamtwerk veröffentlichen
 			</label>
@@ -22,8 +22,7 @@ $form = $this->beginWidget(
 				<input type="radio" name="uploadType" id="inlineRadio1"  class="uploadType" value="multi"> Kapitelweise veröffentlichen
 			</label>
             
-            <h2></h2>
-            <h3>Ein Buch hochladen</h3>
+            <h3 id="uploadABook">Ein Buch hochladen</h3>
 			<div class="form-group">
 				<?php echo $form->labelEx($model,'Pdf Datei/en');?>
 				<div class="uploadPdf">
@@ -45,8 +44,8 @@ $form = $this->beginWidget(
 			</div>
 			
 		    <div class="form-group">
-				<?= CHtml::activeLabel($model,'Altersbeschrenkung'); ?>
-				<?= CHtml::dropDownList('PdfTable[age_restriction]','',array(0=>'Keine Altersbeschrenkung',6=>'Ab 6',12=>'Ab 12',16=>'Ab 16',18=>'Ab 18',)); ?>
+				<?= CHtml::activeLabel($model,'Empfohlene Altersfreigabe'); ?>
+				<?= CHtml::dropDownList('PdfTable[age_restriction]','',array(0=>'Keine Angabe',6=>'Ab 6',12=>'Ab 12',16=>'Ab 16',18=>'Ab 18',)); ?>
 			</div>
 			
 			<div class="form-group">
@@ -138,9 +137,9 @@ $form = $this->beginWidget(
 				<?php echo CHtml::SubmitButton('Hochladen und Veröffentlichen',array('class'=>'btn btn-g'));?>
 			</div>
 			
-			<div class="form-group">
-				<input type="checkbox" name="agb" required /> Hiermit stimme ich der 
-				<a href="<?= Yii::app()->createAbsoluteUrl('site/agbs') ?>">AGB</a> zu
+			<div class="form-group" id="acceptAGBGroup">
+				<input type="checkbox" name="agb" required /> <span id="acceptAGB">Hiermit stimme ich der</span> 
+				<a href="<?= Yii::app()->createAbsoluteUrl('site/agbs') ?>" target="agb">AGB</a> zu
 			</div>
 			
 			<script> 

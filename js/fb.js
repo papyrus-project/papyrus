@@ -21,3 +21,10 @@
 		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
+		
+function setHeight(){
+    var height = $(window).height();
+    $('#wrapper-height').css('min-height', height-185+'px');
+}
+$(window).load(setHeight);
+$(window).on('resize',setHeight);

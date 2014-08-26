@@ -42,9 +42,9 @@
 	            <div class="form-group">
 		            <label>Geschlecht</label>
 		            <select class="form-control" name='sex'>
-			            <option value='0' <?php echo $model->sex==0?'selected="selected"':'' ?>>Keine Angabe</option>
-			            <option value='1' <?php echo $model->sex==1?'selected="selected"':'' ?>>M&auml;nnlich</option>
-			            <option value='2' <?php echo $model->sex==2?'selected="selected"':'' ?>>Weiblich</option>
+			            <option value='1' <?php echo $model->sex==1?'selected="selected"':'' ?>>Keine Angabe</option>
+			            <option value='2' <?php echo $model->sex==2?'selected="selected"':'' ?>>M&auml;nnlich</option>
+			            <option value='3' <?php echo $model->sex==3?'selected="selected"':'' ?>>Weiblich</option>
 		            </select>
 	            </div>
 	            <div class="form-group">
@@ -57,7 +57,8 @@
 	            </div>
 
 	            <div class="form-group">
-		            <button class="btn btn-g" type="submit">Speichern</button>
+		            <button class="btn btn-g" type="submit">Speichern<span class="glyphicon glyphicon-ok"></span></button>
+		            <button class="btn btn-r pull-right" onclick="window.location.href='<?=YII::app()->createAbsoluteUrl('user/profile/'.$model->id)?>'">Abbrechen<span class="glyphicon glyphicon-remove"></span></button>
 	            </div>
             </form>
         </div>
