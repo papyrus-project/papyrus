@@ -111,6 +111,13 @@ Yii::app()->clientScript->registerScript('filter',
                               ),
                               'id'=>'ajaxListView',
                               'ajaxType'=>'post',
+                              'pagerCssClass' => 'pagination',
+                              'pager'=> array('cssFile'=>Yii::app()->request->baseUrl.'/css/pager.css'),
+                              'summaryCssClass' => 'row',
+                              'sorterCssClass' => 'row',
+                              'itemsCssClass' => 'row',
+                              //'loadingCssClass' => 'row',
+                              //'pager' => array('nextPageCssClass'=>'btn-b'),
                           ));
                       } ?>
             </div>
