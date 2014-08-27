@@ -27,7 +27,7 @@ return array (
   'Not set' => 'Nicht gesetzt',
   'Please specify the "attributes" property.' => 'Bitte geben Sie die "attributes"-Eigenschaft an.',
   'Please specify the "data" property.' => 'Bitte definieren Sie die "data"-Eigenschaft.',
-  'Sort by: ' => 'Sortieren nach:',
+  'Sort by: ' => '<b>Sortieren nach</b>',
   'The "dataProvider" property cannot be empty.' => 'Die Eigenschaft "dataProvider" darf nicht leer sein.',
   'The attribute must be specified in the format of "Name:Type:Label", where "Type" and "Label" are optional.' => 'Das Attribut muss im Format "Name:Typ:Label" angegeben werden, wobei "Typ" und "Label" optional sind.',
   'The button type "{type}" is not supported.' => 'Buttontyp "{type}" wird nicht unterstützt.',

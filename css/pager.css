@@ -27,6 +27,8 @@
   text-decoration: none;
   border: 1px solid #ddd;
   border-left-width: 0;
+  background: #FFF;
+  background-color: #FFF; 
 }
 .pagination a:hover,
 .pagination .selected a {
