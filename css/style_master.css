@@ -660,3 +660,61 @@ iframe a{
 	font-size:12px;
 	margin-bottom: 25px; 
 }
+
+/* text disclaimer pages */
+.text-disclaimer {
+    
+}
+.text-disclaimer ul li {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.text-disclaimer .pushMe .glyphicon {
+    margin-left: 10px;
+}
+.text-disclaimer .pushMe {
+    margin-top: 25px;
+}
+.text-disclaimer .label-proto {
+    background: #71BC8F;
+    border-bottom: 2px solid #558E6C;
+}
+.text-disclaimer .label-inf {
+    margin-left: 40px;
+    margin-right: 5px;
+    background: #76B3C4;
+    border-bottom: 2px solid #55838E;
+}
+.text-disclaimer .label-cred {
+    margin-left: 5px;
+    background: #BC7171;
+    border-bottom: 2px solid #8E5655;
+}
+.text-disclaimer h2 {
+    font-family: "Droid Serif", Arial, sans-serif;
+    font-size: 28px;
+    color: #355259;
+    padding-bottom: 25px;
+    margin-top: 25px;
+    border-bottom: 1px solid #E6E6E6;
+}
+.text-disclaimer h3 {
+    font-family: "Droid Serif", Arial, sans-serif;
+    font-size: 18px;
+    color: #355259;
+    margin-top: 35px;
+}
+.text-disclaimer h4 {
+    color: #355259;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+.text-disclaimer .text-disclaimer-small {
+    font-size: 12px;
+    color: #2E332F;
+}
+.text-droid {
+    font-family: "Droid Serif", Arial, sans-serif;
+    font-size: 12px;
+}
