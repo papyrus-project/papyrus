@@ -35,7 +35,7 @@ if(!YII::app()->user->isGuest)
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand page-scroll" href="<?=YII::app()->createAbsoluteUrl('')?>"><?=YII::app()->name?></a>
+                    <a class="navbar-brand page-scroll" href="<?=YII::app()->createAbsoluteUrl('')?>"><?=YII::app()->name?> <label class="label label-meta">beta</label></a>
                 </div>
                 
 
@@ -125,7 +125,7 @@ if(!YII::app()->user->isGuest)
                 </div> 
             </div>
             <div class="row">
-                <p>© <?=date('Y')?> Florian Jacobsen, Team "Bookwork"</p>
+                <p>© <?=date('Y')?> Team "Bookwork"</p>
             </div>
         </div>
     </footer>
