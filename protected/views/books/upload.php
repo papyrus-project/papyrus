@@ -26,7 +26,7 @@ $form = $this->beginWidget(
 			<div class="form-group">
 				<?php echo $form->labelEx($model,'Pdf Datei/en');?>
 				<div class="uploadPdf">
-					<input type="text" class="form-control input-chapter" name="PdfTable[name][]" style="display:none">
+					<input type="text" placeholder="Kapitelname (Ohne Nummerierung o.&Auml;.)" class="form-control input-chapter" name="PdfTable[name][]" style="display:none">
 					<?php echo $form->fileField($model,'file_path',array('required'=>'required'));?>
 			 	</div>
 				<button class="uploadAdd btn btn-b" type="button" >Kapitel Hinzuf&uuml;gen <span class="glyphicon glyphicon-plus-sign"></span></button>
@@ -36,16 +36,51 @@ $form = $this->beginWidget(
 				<?php echo $form->labelEx($model,'title');?>
 				<?php echo $form->textField($model,'title',array('class'=>'form-control'));?>
 			 	<?php echo $form->error($model,'title'); ?>
+                <label class="checkbox-inline" style="margin-top: 10px">
+                    <?= CHtml::activeCheckBox($model,'wip'); ?> Titel befindet sich noch in der Bearbeitung <span class="label book-thumb-label" style="margin-left: 5px;font-size:14px">WIP</span>
+                </label>
 			</div>
 			<div class="form-group">
 				<?php echo $form->labelEx($model,'description');?>
-				<?php echo $form->textArea($model,'description',array('class'=>'form-control'));?>
+				<?php echo $form->textArea($model,'description',array('class'=>'form-control', 'rows'=>5));?>
 			 	<?php echo $form->error($model,'description'); ?>
 			</div>
-			
+			<div class="form-group">
+                <?= CHtml::activeLabel($model,'Literarische Gattung'); ?>
+                <?= CHtml::dropDownList('booktype_id',
+                                                        '',CHtml::listData(Booktype::model()->findAll(), 'id', 'type'), 
+                                                        array('class'=>'form-control')); ?>
+            </div>
+            <div class="form-group">
+                <?= CHtml::activeLabel($model,'genre'); ?>
+                <?= CHtml::dropDownList('genres', 
+                                                        '', 
+                                                        CHtml::listData(Genres::model()->findAll(), 'id', 'genre'), 
+                                                        array(  'multiple' => 'multiple', 
+                                                                'class'=>'chosen-select form-control', 
+                                                                'data-placeholder'=>' ')); ?>
+                <span class="help-block hint">Mehrere Angaben m&ouml;glich</span>
+            </div>
+            <div class="form-group">
+                <?= CHtml::activeLabel($model,'language_id'); ?>
+                <?= CHtml::dropDownList('language_id',
+                                                        $model->language_id,CHtml::listData(Languanges::model()->findAll(), 'id', 'language'), 
+                                                        array('class'=>'form-control')); ?>
+            </div>
 		    <div class="form-group">
 				<?= CHtml::activeLabel($model,'Empfohlene Altersfreigabe'); ?>
-				<?= CHtml::dropDownList('PdfTable[age_restriction]','',array(0=>'Keine Angabe',6=>'Ab 6',12=>'Ab 12',16=>'Ab 16',18=>'Ab 18',)); ?>
+				<?= CHtml::dropDownList('age_restriction',
+                    $model->age_restriction,array(  0=>'Keine Altersempfehlung', 
+                                                    6=>'Ab 6 Jahren', 
+                                                    12=>'Ab 12 Jahren', 
+                                                    16=>'Ab 16 Jahren',
+                                                    18=>'Ab 18 Jahren'), 
+                    array('class'=>'form-control')); ?>
+                <p>
+                    <label class="checkbox-inline" style="margin-top: 10px">
+                        <?= CHtml::activeCheckBox($model,'nsfw'); ?> Der Titel enth&auml;lt <span class="label book-thumb-gore" style="margin-left: 5px;font-size:14px">Explizites Material</span>
+                    </label>
+                </p>
 			</div>
 			
 			<div class="form-group">
@@ -85,19 +120,19 @@ $form = $this->beginWidget(
                     <div class="radio">
                         <label>
                             <input type="radio" name="optionsRadios" id="Radio2" value="default3" onclick="ChangeImg(2)" <?php if($model->extension == 'default3.jpg') echo 'checked';?>>
-                            Abenteuer ahoj!
+                            Mord im Blumenbeet
                         </label>
                     </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="optionsRadios" id="Radio3" value="default4" onclick="ChangeImg(3)" <?php if($model->extension == 'default4.jpg') echo 'checked';?>>
-                            Unendliche Weite
+                            Kerker und Eidechsen
                         </label>
                     </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="optionsRadios" id="Radio4" value="default5" onclick="ChangeImg(4)" <?php if($model->extension == 'default5.jpg') echo 'checked'; ?>>
-                            Kerker und Eidechsen
+                            Unendliche Weite
                         </label>
                     </div>
                     <div class="radio">
@@ -133,13 +168,14 @@ $form = $this->beginWidget(
                 </div>
             </div>
             
-			<div class="row-buttons">
-				<?php echo CHtml::SubmitButton('Hochladen und Veröffentlichen',array('class'=>'btn btn-g'));?>
+			<div class="row-buttons" style="margin-top:35px">
+				<button type="submit" class="btn btn-g">Hochladen und Ver&ouml;ffentlichen <span class="glyphicon glyphicon-ok"></span></button>
+				<button type="button" class="btn btn-r pull-right" style="margin-left: 5px" onclick="window.location.href='<?=YII::app()->createAbsoluteUrl('user/profile/'.YII::app()->user->id)?>'">Abbrechen <span class="glyphicon glyphicon-remove"></span></button>
 			</div>
 			
 			<div class="form-group" id="acceptAGBGroup">
 				<input type="checkbox" name="agb" required /> <span id="acceptAGB">Hiermit stimme ich der</span> 
-				<a href="<?= Yii::app()->createAbsoluteUrl('site/agbs') ?>" target="agb">AGB</a> zu
+				<a href="<?= Yii::app()->createAbsoluteUrl('site/impressum#agb') ?>" target="agb">AGB</a> zu
 			</div>
 			
 			<script> 

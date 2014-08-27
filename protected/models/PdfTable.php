@@ -19,15 +19,27 @@ class PdfTable extends CActiveRecord{
 		return array(
 			array('extension','file','types'=>'jpg,jpeg,png', 'allowEmpty' => true),
 			array('title','required'),
-			array('title, description, age_restriction, base_id','safe'),
+			array('updated, title, description, words, booktype_id, language_id, wip, nsfw, age_restriction, cover_artist', 'safe'),
 		);
 	}
 	
+    public function addBookGenres($genres, $id) {
+        $connection=Yii::app()->db; 
+        $command=$connection->createCommand('
+			DELETE
+			FROM alex.books_bookgenre
+			where books_id = ' . $id . ';
+			
+			INSERT INTO alex.books_bookgenre (books_id,bookgenre_id) VALUES
+			' . $genres . '
+			');
+        $rowCount=$command->execute();
+    }
 	public function attributeLabels()
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
+			'title' => 'Buchtitel',
 			'description' => 'Klappentext',
 			'age_restriction' => 'Age Restriction',
 			'extension' => 'File extension',

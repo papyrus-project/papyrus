@@ -201,6 +201,9 @@ section .text-quote-author {
 #user-profile {
     /*background: #fff;*/
 }
+.user-portrait{
+	margin-bottom:25px;
+}
 #user-profile ul,
 #book-profile ul {
     padding: 0;
@@ -341,12 +344,12 @@ button>span,
     font-size: 10px;
 }
 
-#book-profile .book-thumb-label,
+.book-thumb-label,
 .book-thumb .book-thumb-label {
     background: #71BC8F;
     border-bottom: 2px solid #558E6C;
 }
-#book-profile .book-thumb-gore,
+.book-thumb-gore,
 .book-thumb .book-thumb-gore {
     background: #8E5655;
     border-bottom: 2px solid #593535;
@@ -717,4 +720,7 @@ iframe a{
 .text-droid {
     font-family: "Droid Serif", Arial, sans-serif;
     font-size: 12px;
+}
+.chosen-choices{
+	margin-bottom: 10px
 }

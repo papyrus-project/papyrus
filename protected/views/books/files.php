@@ -143,7 +143,7 @@
             	<div class="row">
                     <h2 id="book-profile-sub-heading">Aus dem Buch</h2>
                     <ul id="book-series">
-            			<li class="text-muted"><span class="glyphicon glyphicon-tag"></span><a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$model->base_id)?>"><?=$model->parentBook->title?></a></li>
+            			<li class="text-muted"><span class="glyphicon glyphicon-book"></span> <a href="<?=YII::app()->createAbsoluteUrl('books/files/'.$model->base_id)?>"><?=$model->parentBook->title?></a></li>
         			</ul>
             	</div>
             	<?php endif;?>

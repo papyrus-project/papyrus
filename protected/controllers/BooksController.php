@@ -67,7 +67,8 @@ class BooksController extends Controller
 		//Meta daten fuer Facebookshare
         Yii::app()->clientScript->registerMetaTag($model->description, 'og:description');
         Yii::app()->clientScript->registerMetaTag($model->title, 'og:title');
-        
+        Yii::app()->clientScript->registerMetaTag(YII::app()->createAbsoluteUrl('/upload/cover/original/'.((strlen($model->extension)<=5?$model->id.'.':'').$model->extension)), 'og:image');
+       
 		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments,'rating'=>$rating));
 	}
 	
@@ -205,6 +206,7 @@ class BooksController extends Controller
 	private function uploadFile($uploadFile,$uploadCover,$baseId=0){
 		$model = new PdfTable();
 		$model->attributes = $_POST['PdfTable'];
+		$model->attributes = $_POST;
 		$model->title = CHtml::encode($_POST['PdfTable']['title']);
 		$model->description = CHtml::encode($_POST['PdfTable']['description']);
 		$model->base_id = $baseId;
@@ -240,6 +242,13 @@ class BooksController extends Controller
 					rename(Yii::app()->basePath.'/../upload/pdf/'.$model->base_id.'.pdf',Yii::app()->basePath.'/../upload/pdf/'.$model->id.'.pdf');
 				}
 			}
+			if(isset($_POST['genres'])) {
+                foreach($_POST['genres'] as $genre_id=>$checked){
+                    $genres[] = '('.$model->id.','.$checked.')';
+                }
+                $genresStr = implode(",", $genres) . ';';
+                $model->addBookGenres($genresStr, $model->id); //Add Interest
+            }
 			if($uploadCover){
 				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/original/'.$model->id.'.'.$model->extension);
 			}
@@ -287,6 +296,15 @@ class BooksController extends Controller
         $model->text = CHtml::decode($model->text);
         echo $this->renderPartial('editComment', array('model' => $model, 'id'=>$model->id), true, true);
     }
+	
+	public function actionDel($id){
+		$model = Books::model()->findByPk($id);
+		if($model && $model->author == YII::app()->user->id){
+			$model->status = 2;
+			$model->save();
+		}
+		$this->redirect(YII::app()->createAbsoluteUrl('user/profile/'.YII::app()->user->id));
+	}
 
 	public function actionDownload($id,$format){
 		$ext = array(

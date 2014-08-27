@@ -111,9 +111,8 @@ if(!YII::app()->user->isGuest)
                 <div class="col-md-8">
                     <ul class="pull-left">
                         <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum')?>">Impressum</a></li>
-                        <li><a href="<?=YII::app()->createAbsoluteUrl('site/contact')?>">Kontakt</a></li>
-                        <li><a href="<?=YII::app()->createAbsoluteUrl('site/agbs')?>">AGBs</a></li>
-                        <li><a href="<?=YII::app()->createAbsoluteUrl('site/dse')?>">Datenschutzerklärung</a></li>
+                        <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum#agb')?>">AGBs</a></li>
+                        <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum#dse')?>">Datenschutzerklärung</a></li>
                     </ul>
                 </div> 
                 <div class="col-md-4">

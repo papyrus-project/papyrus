@@ -128,8 +128,8 @@ class Books extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
-			'description' => 'Description',
+			'title' => 'Buchtitel',
+			'description' => 'Klappentext',
 			'age_restriction' => 'Age Restriction',
 			'extension' => 'File extension',
 			'cover_artist' => 'Cover Artist',

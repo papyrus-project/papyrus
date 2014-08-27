@@ -8,13 +8,13 @@
             <div class="form-group">
                 <?= CHtml::activeLabel($model,'titel'); ?>
                 <?= CHtml::activeTextField($model,'title', array('class'=>'form-control',)); ?><p>
-                    <label class="checkbox-inline">
-                        <?= CHtml::activeCheckBox($model,'wip'); ?> In Arbeit (WIP) <a href="#">?</a>
-                    </label>
+                <label class="checkbox-inline" style="margin-top: 10px">
+                    <?= CHtml::activeCheckBox($model,'wip'); ?> Titel befindet sich noch in der Bearbeitung <span class="label book-thumb-label" style="margin-left: 5px;font-size:14px">WIP</span>
+                </label>
                 </p>
             </div>
             <div class="form-group">
-                <?= CHtml::activeLabel($model,'Klappentext'); ?>
+                <?= CHtml::activeLabel($model,'description'); ?>
                 <?= CHtml::activeTextArea($model,'description', array('class'=>'form-control', 'rows'=>5)); ?>
             </div>
             <div class="form-group">
@@ -30,7 +30,7 @@
                                                         CHtml::listData(Genres::model()->findAll(), 'id', 'genre'), 
                                                         array(  'multiple' => 'multiple', 
                                                                 'class'=>'chosen-select form-control', 
-                                                                'data-placeholder'=>'Genres eingeben')); ?>
+                                                                'data-placeholder'=>' ')); ?>
                 <span class="help-block">Mehrere Angaben m&ouml;glich</span>
             </div>
             <div class="form-group">
@@ -49,8 +49,8 @@
                                                                                         18=>'Ab 18 Jahren'), 
                                                         array('class'=>'form-control')); ?>
                 <p>
-                    <label class="checkbox-inline">
-                        <?= CHtml::activeCheckBox($model,'nsfw'); ?> Explizites Material (Mature Content) <a href="#">?</a>
+                    <label class="checkbox-inline" style="margin-top: 10px">
+                        <?= CHtml::activeCheckBox($model,'nsfw'); ?> Der Titel enth&auml;lt <span class="label book-thumb-gore" style="margin-left: 5px;font-size:14px">Explizites Material</span>
                     </label>
                 </p>
             </div>
@@ -92,19 +92,19 @@
                     <div class="radio">
                         <label>
                             <input type="radio" name="optionsRadios" id="Radio2" value="default3" onclick="ChangeImg(2)" <?php if($model->extension == 'default3.jpg') echo 'checked';?>>
-                            Abenteuer ahoj!
+                            Mord im Blumenbeet
                         </label>
                     </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="optionsRadios" id="Radio3" value="default4" onclick="ChangeImg(3)" <?php if($model->extension == 'default4.jpg') echo 'checked';?>>
-                            Unendliche Weite
+                            Kerker und Eidechsen
                         </label>
                     </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="optionsRadios" id="Radio4" value="default5" onclick="ChangeImg(4)" <?php if($model->extension == 'default5.jpg') echo 'checked'; ?>>
-                            Kerker und Eidechsen
+                            Unendliche Weite
                         </label>
                     </div>
                     <div class="radio">
@@ -142,7 +142,8 @@
 
             <div class="form-group form-send">
                 <p>
-                    <?= CHtml::submitButton('Speichern', array('class'=>'btn btn-g')); ?>
+                	<button type="submit" class="btn btn-g">Speichern<span class="glyphicon glyphicon-ok"></span></button>				
+                	<button type="button" class="btn btn-r pull-right" style="margin-left: 5px" onclick="window.location.href='<?=YII::app()->createAbsoluteUrl('user/profile/'.YII::app()->user->id)?>'">Abbrechen <span class="glyphicon glyphicon-remove"></span></button>
                 </p>
             </div>
             <?= CHtml::endForm(); ?>
