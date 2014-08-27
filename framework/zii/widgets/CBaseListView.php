@@ -267,8 +267,10 @@ abstract class CBaseListView extends CWidget
 
 		if($pager['pages']->getPageCount()>1)
 		{
+            echo '<div class="row">';
 			echo '<div class="'.$this->pagerCssClass.'">';
 			$this->widget($class,$pager);
+			echo '</div>';
 			echo '</div>';
 		}
 		else

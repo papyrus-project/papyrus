@@ -28,17 +28,19 @@
   padding: 0 14px;
   line-height: 34px;
   text-decoration: none;
-  border: 1px solid #ddd;
+  border: 1px solid #355259;
   border-left-width: 0;
-  color: #0088cc;
+  color: #fff;
+  background-color: #55838E;
 }
 .pagination a:hover,
 .pagination .selected a {
-  background-color: #f5f5f5;
-  color: #005580;
+  background-color: #76B3C4;
+  color: #fff;
 }
 .pagination .active a {
   color: #999999;
+  background-color: #76B3C4;
   cursor: default;
 }
 .pagination .disabled span,
