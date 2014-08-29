@@ -33,7 +33,7 @@
 				<?php foreach($data->genres as $genre):?>
 					<span class="label label-meta"><?=$genre->genreName->genre?></span>
 				<?php endforeach;?>
-				<span class="label label-meta"><?= $data->age_restriction?'Ab '.$data->age_restriction.' Jahren':'Ohne Alters begrenzung'?></span>
+				<span class="label label-meta"><?= $data->age_restriction?'Ab '.$data->age_restriction.' Jahren':'Ohne Altersbegrenzung'?></span>
 				<span class="label label-meta"><?= $data->language->language?></span>
 				
 			</p>
@@ -66,7 +66,7 @@
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="<?=YII::app()->createAbsoluteUrl('books/edit/'.$data->id)?>">Bearbeiten</a></li>
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="<?=YII::app()->createAbsoluteUrl('books/del/'.$data->id)?>">Entfernen</a></li>
 						<?php endif;?>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Verstöße Melden</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="mailto:info@papyrus-project.noip.me">Verstöße Melden</a></li>
 				</ul>
 				</div>
 				<?php endif; ?>

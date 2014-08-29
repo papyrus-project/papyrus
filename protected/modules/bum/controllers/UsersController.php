@@ -576,7 +576,7 @@ class UsersController extends BumController
             if(isset($_POST['Users']))
             {
                 $model->attributes=$_POST['Users'];
-
+				$model->user_name=CHtml::encode($_POST['Users']['user_name']);
                 // check the invitation code
                 $invitation->attributes = $_POST['Invitations'];
                 $invitation->email = $model->email;
@@ -589,7 +589,7 @@ class UsersController extends BumController
 
 	                $modelUsersData->invitations_left=Yii::app()->getModule('bum')->invitationDefaultNumber;            
 	                $modelUsersData->id = $model->id;
-					$modelUsersData->birthday = $_POST['userdata']['day'].'.'.$_POST['userdata']['month'].'.'.$_POST['userdata']['year'];
+					$modelUsersData->birthday = CHtml::encode($_POST['userdata']['day']).'.'.CHtml::encode($_POST['userdata']['month']).'.'.CHtml::encode($_POST['userdata']['year']);
 					//$modelUsersData->name = CHtml::encode($_POST['userdata']['name']);
 					$modelUsersData->sex = $_POST['userdata']['sex'];
                     $invitation->id_user_invited = $model->id;

@@ -24,7 +24,7 @@ $form = $this->beginWidget(
             
             <h3 id="uploadABook">Ein Buch hochladen</h3>
 			<div class="form-group">
-				<?php echo $form->labelEx($model,'Pdf Datei/en');?>
+				<?php echo $form->labelEx($model,'PDF-Datei/en');?>
 				<div class="uploadPdf">
 					<input type="text" placeholder="Kapitelname (Ohne Nummerierung o.&Auml;.)" class="form-control input-chapter" name="PdfTable[name][]" style="display:none">
 					<?php echo $form->fileField($model,'file_path',array('required'=>'required'));?>

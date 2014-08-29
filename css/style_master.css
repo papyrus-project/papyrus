@@ -323,6 +323,9 @@ button>span,
     font-size: 12px;
     padding-right: 5px;
 }
+#user-profile a>span {
+	margin-right:3px;
+}
 #book-profile .comment-date {
     font-size: 12px;
 }

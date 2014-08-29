@@ -50,7 +50,7 @@
                     <span class="label label-cred">Dokumentation</span>
                 </li>
 
-                <li class="pushMe">Unterstützt durch den betreudenden Dozenten <b>Tobias Hiep</b><span class="glyphicon glyphicon-ok"></span></li>
+                <li class="pushMe">Unterstützt durch den betreuenden Dozenten <b>Tobias Hiep</b><span class="glyphicon glyphicon-ok"></span></li>
             </ul>
 
 

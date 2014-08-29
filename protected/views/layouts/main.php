@@ -81,10 +81,10 @@ if(!YII::app()->user->isGuest)
                         </li>
                     	<?php else: ?>
                         <li>
-                            <a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.YII::app()->user->id)?>"><span class="glyphicon glyphicon-user"></span> Profil</a>
+                            <a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.YII::app()->user->id)?>"><span class="glyphicon glyphicon-user"  style="margin-right:3px"></span> Profil</a>
                         </li>
                         <li>
-                            <a href="<?=YII::app()->createAbsoluteUrl('user/messages')?>"><span class="glyphicon glyphicon-envelope"></span> Postfach <?php if($newMessages>0):?><span class="badge badge-pn"><?= $newMessages ?></span><?php endif;?></a>
+                            <a href="<?=YII::app()->createAbsoluteUrl('user/messages')?>"><span class="glyphicon glyphicon-envelope" style="margin-right:3px"></span> Postfach <?php if($newMessages>0):?><span class="badge badge-pn"><?= $newMessages ?></span><?php endif;?></a>
                         </li>
                         <li>
                             <a href="<?=YII::app()->createAbsoluteUrl('site/logout')?>">Abmelden</a>
@@ -113,6 +113,8 @@ if(!YII::app()->user->isGuest)
                         <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum')?>">Impressum</a></li>
                         <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum#agb')?>">AGBs</a></li>
                         <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum#dse')?>">Datenschutzerklärung</a></li>
+                        <li><a class="btn btn-g" style="font-size:12px;" href="https://docs.google.com/forms/d/1gStIuHcLucogGgOzm0I1G2TBjUPRHHewsXl1wtxcxF0/viewform">Jetzt Bewerten</a></li>
+                        <li><a class="btn btn-g" style="font-size:12px;" href="<?=YII::app()->createAbsoluteUrl('site/usabilty')?>">Usability Testaufgaben</a></li>
                     </ul>
                 </div> 
                 <div class="col-md-4">

@@ -200,5 +200,8 @@ class SiteController extends Controller
 	public function actionImpressum(){
 		$this->render('impressment');
 	}
-
+	public function actionUsabilty(){
+		header('Content-Disposition: attachment; filename="Bookwork-Usability-Test.pdf"');
+		readfile(YII::app()->basePath.'/../upload/Useabilty.pdf');
+	}
 }

@@ -31,7 +31,7 @@
                     <p>
                     	<div class="dropdown">
 						  <button class="btn btn-g dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-						    Herunterlanden
+						    Herunterladen
 						    <span class="glyphicon glyphicon-download"></span>
 						  </button>
 						  <ul class="dropdown-menu download" role="menu" aria-labelledby="dropdownMenu1">
@@ -70,14 +70,10 @@
                         <h3>Abzeichen Verlauf</h3>
 
                         <ul class="col-xs-8 col-sm-8 col-md-8">
-                            <li class="text-muted"><span class="book-badge glyphicon glyphicon-bookmark"></span> Meiste Downloads heute</li>
-                            <li class="text-muted"><span class="book-badge glyphicon glyphicon-fire"></span> Heiß diskutiert</li> 
                             <li class="text-muted"><span class="book-badge glyphicon glyphicon-flag"></span> Veröffentlichung</li>                               
                         </ul>
                         <ul class="col-xs-4 col-sm-4 col-md-4">
-                            <li>06.06.2014</li>
-                            <li>02.01.2014</li>
-                            <li>01.01.2014</li>
+                            <li><?=date('d.m.Y',$model->created)?></li>
                         </ul>
                     </div>
                     

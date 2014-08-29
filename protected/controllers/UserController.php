@@ -126,7 +126,7 @@ class UserController extends Controller
 		$books = Books::model()->owns($_POST['id'])->published()->with('bookgenres')->findAll(array('limit'=>$this->profile_pc,'offset'=>$page*$this->profile_pc,'order'=>'id desc'));
 		YII::app()->session['page'] = ++$page;
 		if(!$books){
-			throw new CHttpException(204,'Keine Buecher mehr vorhanden');
+			throw new CHttpException(204,'Keine B&uuml;cher mehr vorhanden');
 		}
 		foreach($books as $book){
 			$rating = Comments::model()->findBySql('select SUM(`rating`) as `rating`, count(id) as `count` from comments WHERE ref_id=:id AND rating != 0', array(':id'=>$book->id));
@@ -141,7 +141,7 @@ class UserController extends Controller
 			$array[] = $value->books_id;
 		}
 		if(!$favs){
-			throw new CHttpException(204,'Keine Buecher vorhanden');
+			throw new CHttpException(204,'Keine B&uuml;cher vorhanden');
 		}
 		$books = Books::model()->findAllByAttributes(array('id'=>$array));
 		$booksRender = '';
@@ -157,7 +157,7 @@ class UserController extends Controller
 		$favs = BooksFavorites::model()->findAll(array('limit'=>$this->profile_pc,'offset'=>$page*$this->profile_pc,'condition'=>'users_id = "'.$id.'"'));
 		
 		if(!$favs){
-			throw new CHttpException(204,'Keine Buecher mehr vorhanden');
+			throw new CHttpException(204,'Keine B&uuml;cher mehr vorhanden');
 		}
 		foreach ($favs as $key => $value) {
 			$array[] = $value->books_id;
@@ -177,11 +177,11 @@ class UserController extends Controller
 			$array[] = $value->subscripted_id;
 		}
 		if(!$subs){
-			throw new CHttpException(204,'Keine Buecher vorhanden');
+			throw new CHttpException(204,'Keine B&uuml;cher vorhanden');
 		}
 		$books = Books::model()->findAllByAttributes(array('author'=>$array),array('limit'=>$this->profile_pc,'order'=>'id desc'));
 		if(!$books){
-			throw new CHttpException(204,'Keine Buecher vorhanden');
+			throw new CHttpException(204,'Keine B&uuml;cher vorhanden');
 		}
 		$booksRender = '';
 		foreach($books as $book){
@@ -198,11 +198,11 @@ class UserController extends Controller
 			$array[] = $value->subscripted_id;
 		}
 		if(!$subs){
-			throw new CHttpException(204,'Keine Buecher vorhanden');
+			throw new CHttpException(204,'Keine B&uuml;cher vorhanden');
 		}
 		$books = Books::model()->findAllByAttributes(array('author'=>$array),array('limit'=>$this->profile_pc,'offset'=>$page*$this->profile_pc,'order'=>'id desc'));
 		if(!$books){
-			throw new CHttpException(204,'Keine Buecher vorhanden');
+			throw new CHttpException(204,'Keine B&uuml;cher vorhanden');
 		}
 		YII::app()->session['page'] = ++$page;
 		foreach($books as $book){

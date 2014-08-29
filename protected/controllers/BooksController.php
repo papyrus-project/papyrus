@@ -193,7 +193,7 @@ class BooksController extends Controller
 				$newBookId = $this->uploadFile($uploadFile,$uploadCover);
 			}
 			//Eintrag in die Datenbank
-			$this->redirect(array('books/edit/'.$newBookId));
+			$this->redirect(array('user/profile/'.YII::app()->user->id));
 		}
 		
 		$this->render('upload',array('model'=>$model));
@@ -328,7 +328,7 @@ class BooksController extends Controller
 			}
 			$zip->close();
 			header('Content-Type: application/zip');
-			header('Content-disposition: attachment; filename='.$zipname);
+			header('Content-disposition: attachment; filename="'.$zipname.'"');
 			header('Content-Length: ' . filesize($zipname));
 			readfile($zipname);
 			unlink($zipname);
@@ -356,7 +356,7 @@ class BooksController extends Controller
 		}
 		$books = Books::model()->published()->findAllByAttributes(array('author'=>$subsArray),array('limit'=>2,'offset'=>2*$_SESSION['feedPage']++));
 		if(!$books)
-			throw new CHttpException(204,'Keine Buecher mehr vorhanden');
+			throw new CHttpException(204,'Keine B&uuml;cher mehr vorhanden');
 		$this->renderPartial('moreFeed',array('books'=>$books));
 	}
 	
