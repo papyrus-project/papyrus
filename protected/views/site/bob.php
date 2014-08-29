@@ -57,14 +57,14 @@ Yii::app()->clientScript->registerScript('filter',
                     </ul>
 
                     <h3 class="meta-list-heading-big text-muted">Filtern nach</h3>
-                    <p class="meta-list-heading">Genre</p>
+<!--                     <p class="meta-list-heading">Genre</p>
                     <ul>
                         <?php foreach(Genres::model()->findAll() as $genre): ?>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="genre<?= $genre->id ?>" value="<?= $genre->id ?>" name="genre[]">
-                            <?= $genre->genre ?></li>
+                            <input type="checkbox" class="filterItem" id="genre<?= ''//$genre->id ?>" value="<?= ''//$genre->id ?>" name="genre[]">
+                            <?= ''//$genre->genre ?></li>
                         <?php endforeach ?>
-                    </ul>
+                    </ul> -->
                     <p class="meta-list-heading">Literarische Gattung</p>
                     <ul>
                         <?php foreach(Booktype::model()->findAll() as $type): ?>
