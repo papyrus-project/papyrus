@@ -35,68 +35,66 @@ class SiteController extends Controller
         $books = Books::model()->published()->recently()->with('bookgenres')->findAll();
         $this->render('index', array('books' => $books));
     }
-	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array(), $wip = '', $nsfw = '')
+	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array(), $wip = 0, $nsfw = 0)
 	{
-        if(isset($_POST['q']))
-            $q = $_POST['q'];
-        if(isset($_POST['type']))
-            $type = $_POST['type'];
-        if(isset($_POST['lang']))
-            $lang = $_POST['lang'];
-        if(isset($_POST['age']))
-            $age = $_POST['age'];
-        if(isset($_POST['genre']))
-            $genre = $_POST['genre'];
-        if(isset($_POST['wip']))
-            $wip = $_POST['wip'];
-        if(isset($_POST['nsfw']))
-            $nsfw = $_POST['nsfw'];
-        
+        //if(isset($_POST['q']))
+        //    $q = $_POST['q'];
+        //if(isset($_POST['type']))
+        //    $type = $_POST['type'];
+        //if(isset($_POST['lang']))
+        //    $lang = $_POST['lang'];
+        //if(isset($_POST['age']))
+        //    $age = $_POST['age'];
+        //if(isset($_POST['genre']))
+        //    $genre = $_POST['genre'];
+        //if(isset($_POST['wip']))
+        //    $wip = $_POST['wip'];
+        //if(isset($_POST['nsfw']))
+        //    $nsfw = $_POST['nsfw'];
+
         $criteria = new CDbCriteria();
-        if( count( $genre ) > 0 ) {
-            $genreCrit = new CDbCriteria();
-            //$genreCrit->together = true;
-            $genreCrit->with = array('bookgenres');
-            
-            foreach($genre as $value)
-                if($value >=0)
-                    $genreCrit->addSearchCondition( 'bookgenres.bookgenre_id', $value, true, 'OR' );
-            $criteria->mergeWith($genreCrit, 'AND');
-        }
-        if( count( $age ) > 0 ) {
+        if( count( $age ) > 0  && $age) {
             $ageCrit = new CDbCriteria();
             foreach($age as $value)
-                if($value >=0)
-                    $ageCrit->addSearchCondition( 'age_restriction', $value, true, 'OR' );
+                $ageCrit->/*addColumnCondition( array('age_restriction'=>$value), 'OR');*/addSearchCondition( 'age_restriction', $value, true, 'OR' );
             $criteria->mergeWith($ageCrit, 'AND');
         }
         if( count( $type ) > 0 ) {
             $typeCrit = new CDbCriteria();
             
             foreach($type as $value)
-                if($value >=0)
-                    $typeCrit->addSearchCondition( 'booktype_id', $value, true, 'OR' );
+                $typeCrit->/*addColumnCondition( array('booktype_id'=>$value), 'OR');*/addSearchCondition( 'booktype_id', $value, true, 'OR' );
             $criteria->mergeWith($typeCrit, 'AND');
         }
         if( count( $lang ) > 0 ) {
             $langCrit = new CDbCriteria();
             
-            foreach($type as $value)
-                if($value >=0)
-                    $langCrit->addSearchCondition( 'language_id', $value, true, 'OR' );
+            foreach($lang as $value)
+                $langCrit->/*addColumnCondition( array('language_id'=>$value), 'OR');*/addSearchCondition( 'language_id', $value, true, 'OR' );
             $criteria->mergeWith($langCrit, 'AND');
         }
         
         if( $wip != '1' ) {
             $wipCrit = new CDbCriteria();
-            $wipCrit->addSearchCondition( 'wip', "0", true, 'AND' );
+            $wipCrit->addColumnCondition( array('wip'=>0), 'AND');
             $criteria->mergeWith($wipCrit, 'AND');
         }
         
         if( $nsfw != '1' ) {
             $nsfwCrit = new CDbCriteria();
-            $nsfwCrit->addSearchCondition( 'nsfw', "0", true, 'AND' );
+            $nsfwCrit->addColumnCondition( array('nsfw'=>0), 'AND');
             $criteria->mergeWith($nsfwCrit, 'AND');
+        }
+        if( count( $genre ) > 0 ) {
+            $genreCrit = new CDbCriteria();
+            $genreCrit->with = array('bookgenres');
+            $genreCrit->group = 't.id';
+            $genreCrit->together = true;
+            
+            foreach($genre as $value)
+                if($value >=0)
+                    $genreCrit->/*addColumnCondition( array('bookgenres.bookgenre_id'=>$value), 'OR');*/addSearchCondition( 'bookgenres.bookgenre_id', $value, true, 'OR' );
+            $criteria->mergeWith($genreCrit, 'AND');
         }
         if( strlen( $q ) > 0 ) {
             $text = new CDbCriteria();
@@ -104,17 +102,10 @@ class SiteController extends Controller
             $text->addSearchCondition( 'description', $q, true, 'OR' );
             $criteria->mergeWith($text, 'AND');
         }
-        $criteria->addSearchCondition( 'status', 1, true, 'AND' );
-        $criteria->addSearchCondition( 'base_id', "0", true, 'AND' );
-
-        $dataProvider = new CActiveDataProvider( 'Books', array( 'criteria' => $criteria, 'pagination'=>array('pageSize'=>5,) ) );
         
-        $q = '';
-        $type = array();
-        $lang = array();
-        $age = array();
-        $genre = array();
-        $wip = '';
+        $criteria->addColumnCondition( array('status'=>1), 'AND');
+        $criteria->addColumnCondition( array('base_id'=>0), 'AND');
+        $dataProvider = new CActiveDataProvider( 'Books', array( 'criteria' => $criteria, 'pagination'=>array('pageSize'=>5,) ) );
         
         $this->render('bob',array('dataProvider' => $dataProvider));
         if(isset($_GET)) {
