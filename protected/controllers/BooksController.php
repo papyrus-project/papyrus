@@ -263,6 +263,7 @@ class BooksController extends Controller
 			//print('sh /var/www/upload/pdf/test.sh '.$model->id);die();
 			if($uploadCover){
 				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/original/'.$model->id.'.'.$model->extension);
+                ImageEdit::resize(0.75, Yii::app()->basePath.'/../upload/cover/original/'.$model->id.'.'.$model->extension);
 			}
 			return $model->id;
 		}

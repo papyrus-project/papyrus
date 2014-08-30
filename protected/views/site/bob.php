@@ -18,20 +18,67 @@ Yii::app()->clientScript->registerScript('search',
 );
 Yii::app()->clientScript->registerScript('filter',
         "$('.filterItem').change(function(){
+        var genre=[];
+        var lang=[];
+        var type=[];
+        var age=[];
+        var wip=0;
+        var nsfw=0;
     category = $('.filterItem').map(function() {
         if(this.checked)
-            return '&'+this.name+'='+this.value; 
-        else
-            return '&'+this.name+'=-1'; 
+            switch(this.name) {
+                case 'genre[]':
+                    genre.push(this.value);
+                    break;
+                case 'type[]':
+                    type.push(this.value);
+                    break;
+                case 'age[]':
+                    age.push(this.value);
+                    break;
+                case 'lang[]':
+                    lang.push(this.value);
+                    break;
+                case 'wip':
+                    wip = this.value;
+                    break;
+                case 'nsfw':
+                    nsfw = this.value;
+                    break;
+                default:
+                    console.log('meep');
+            }
+            return '&'+this.name+'='+this.value;  
         
-    }).get();//.serialize();
+    }).get();
     
-    //category = category.toString().replace(',','');
-    var index;
-    var getParam = '';
-    for (index = 0; index < category.length; ++index) {
-        getParam = getParam + category[index];
-    }
+    var getParam = '&wip=' + wip + '&nsfw=' + nsfw;
+    
+    if(genre.length > 0)
+        for (index = 0; index < genre.length; ++index) {
+            getParam = getParam + '&genre[]=' + genre[index];
+        }    
+    else
+            getParam = getParam + '&genre[]=';
+    if(type.length > 0)
+        for (index = 0; index < type.length; ++index) {
+            getParam = getParam + '&type[]=' + type[index];
+        }
+    else
+            getParam = getParam + '&type[]=';
+    if(lang.length > 0)
+        for (index = 0; index < lang.length; ++index) {
+            getParam = getParam + '&lang[]=' + lang[index];
+        }
+    else
+            getParam = getParam + '&lang[]=';
+    if(age.length > 0)
+        for (index = 0; index < age.length; ++index) {
+            getParam = getParam + '&age[]=' + age[index];
+        }
+    else
+            getParam = getParam + '&age[]=';
+        
     console.log(getParam);
     $.fn.yiiListView.update(
         'ajaxListView',
@@ -57,14 +104,14 @@ Yii::app()->clientScript->registerScript('filter',
                     </ul>
 
                     <h3 class="meta-list-heading-big text-muted">Filtern nach</h3>
-<!--                     <p class="meta-list-heading">Genre</p>
+                     <p class="meta-list-heading">Genre</p>
                     <ul>
                         <?php foreach(Genres::model()->findAll() as $genre): ?>
                         <li class="meta-list-item">
-                            <input type="checkbox" class="filterItem" id="genre<?= ''//$genre->id ?>" value="<?= ''//$genre->id ?>" name="genre[]">
-                            <?= ''//$genre->genre ?></li>
+                            <input type="checkbox" class="filterItem" id="genre<?= $genre->id ?>" value="<?= $genre->id ?>" name="genre[]">
+                            <?= $genre->genre ?></li>
                         <?php endforeach ?>
-                    </ul> -->
+                    </ul> 
                     <p class="meta-list-heading">Literarische Gattung</p>
                     <ul>
                         <?php foreach(Booktype::model()->findAll() as $type): ?>
