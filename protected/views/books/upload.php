@@ -21,13 +21,12 @@ $form = $this->beginWidget(
 			<label class="radio-inline">
 				<input type="radio" name="uploadType" id="inlineRadio1"  class="uploadType" value="multi"> Kapitelweise veröffentlichen
 			</label>
-            
             <h3 id="uploadABook">Ein Buch hochladen</h3>
 			<div class="form-group">
 				<?php echo $form->labelEx($model,'PDF-Datei/en');?>
 				<div class="uploadPdf">
 					<input type="text" placeholder="Kapitelname (Ohne Nummerierung o.&Auml;.)" class="form-control input-chapter" name="PdfTable[name][]" style="display:none">
-					<?php echo $form->fileField($model,'file_path',array('required'=>'required'));?>
+					<?php echo $form->fileField($model,'file_path',array('required'=>'required','accepted'=>'.pdf'));?>
 			 	</div>
 				<button class="uploadAdd btn btn-b" type="button" >Kapitel Hinzuf&uuml;gen <span class="glyphicon glyphicon-plus-sign"></span></button>
 			 	<?php echo $form->error($model,'file_path'); ?>
@@ -164,7 +163,7 @@ $form = $this->beginWidget(
                 <div class="cover-preview">
                     <p>
                         <label for="input-file">Eigenes Buchcover hinzuf&uuml;gen</label></p>
-                        <?= CHtml::activeFileField($model, 'extension'); ?>
+                        <?= CHtml::activeFileField($model, 'extension',array('accepted'=>'.jpg, .png, .jpeg')); ?>
                 </div>
             </div>
             

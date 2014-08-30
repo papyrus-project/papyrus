@@ -132,7 +132,7 @@ return array (
   'No columns are being updated for table "{table}".' => 'Für Tabelle "{table}" werden keine Felder aktualisiert.',
   'No counter columns are being updated for table "{table}".' => 'Für die Tabelle "{table}" werden keine Zähler-Felder aktualisiert.',
   'Object configuration must be an array containing a "class" element.' => 'Objekt-Konfiguration muss ein Array sein, das ein "class"-Element beinhaltet.',
-  'Please fix the following input errors:' => 'Bitte beheben Sie folgende Eingabefehler:',
+  'Please fix the following input errors:' => 'Ups, es ist ein Fehler aufgetreten!',
   'Powered by {yii}.' => 'Powered by {yii}.',
   'Property "{class}.{property}" is not defined.' => 'Eigenschaft "{class}.{property} ist nicht definiert.',
   'Property "{class}.{property}" is read only.' => 'Eigenschaft "{class}.{property} kann nur gelesen werden.',

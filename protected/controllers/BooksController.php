@@ -162,38 +162,40 @@ class BooksController extends Controller
 	public function actionUpload(){
 		$model = new PdfTable();
 		if(isset($_POST['PdfTable'])){
-			//print(nl2br(print_r($_POST)));
-            //die();
 			//Cover Datei
-			$uploadCover = '';
-            if($_POST['optionsRadios'] == 'custom')
-            {
-                //Cover Datei
-                $uploadCover = CUploadedFile::getInstance($model,'extension');
-                if($uploadCover){
-                    $covername = "{$uploadCover}";
-                    $coverInfo = pathinfo($covername);
-                    $model->extension = $coverInfo['extension'];
-                }
-            }
-            else
-                $model->extension = $_POST['optionsRadios'].'.jpg';
-			//$uploadCover = CUploadedFile::getInstance($model,'extension');
-			
-			if($_POST['uploadType']=='multi'){
-				$uploadFiles = CUploadedFile::getInstances($model,'file_path');
-				$newBookId = $this->uploadFile($uploadFiles[0],$uploadCover);
-				foreach ($uploadFiles as $value=>$uploadFile) {
-					$_POST['PdfTable']['title'] = $_POST['PdfTable']['name'][$value]?$_POST['PdfTable']['name'][$value]:'Kapitel '.($value+1);
-					$this->uploadFile($uploadFile,$uploadCover,$newBookId);
+			$model->attributes = $_POST['PdfTable'];
+			$model->attributes = $_POST;
+			if($model->validate()){
+				$uploadCover = '';
+	            if($_POST['optionsRadios'] == 'custom')
+	            {
+	                //Cover Datei
+	                $uploadCover = CUploadedFile::getInstance($model,'extension');
+	                if($uploadCover){
+	                    $covername = "{$uploadCover}";
+	                    $coverInfo = pathinfo($covername);
+	                    $model->extension = $coverInfo['extension'];
+	                }
+	            }
+	            else
+	                $model->extension = $_POST['optionsRadios'].'.jpg';
+				//$uploadCover = CUploadedFile::getInstance($model,'extension');
+				
+				if($_POST['uploadType']=='multi'){
+					$uploadFiles = CUploadedFile::getInstances($model,'file_path');
+					$newBookId = $this->uploadFile($uploadFiles[0],$uploadCover);
+					foreach ($uploadFiles as $value=>$uploadFile) {
+						$_POST['PdfTable']['title'] = $_POST['PdfTable']['name'][$value]?$_POST['PdfTable']['name'][$value]:'Kapitel '.($value+1);
+						$this->uploadFile($uploadFile,$uploadCover,$newBookId);
+					}
+				} else {
+					//PDF Datei verarbeiten
+					$uploadFile = CUploadedFile::getInstance($model,'file_path');
+					$newBookId = $this->uploadFile($uploadFile,$uploadCover);
 				}
-			} else {
-				//PDF Datei verarbeiten
-				$uploadFile = CUploadedFile::getInstance($model,'file_path');
-				$newBookId = $this->uploadFile($uploadFile,$uploadCover);
+				//Eintrag in die Datenbank
+				$this->redirect(array('user/profile/'.YII::app()->user->id));
 			}
-			//Eintrag in die Datenbank
-			$this->redirect(array('user/profile/'.YII::app()->user->id));
 		}
 		
 		$this->render('upload',array('model'=>$model));
@@ -241,6 +243,15 @@ class BooksController extends Controller
 				if(!is_file(Yii::app()->basePath.'/../upload/pdf/'.$model->id.'.pdf')){
 					rename(Yii::app()->basePath.'/../upload/pdf/'.$model->base_id.'.pdf',Yii::app()->basePath.'/../upload/pdf/'.$model->id.'.pdf');
 				}
+				$finfo = finfo_open(FILEINFO_MIME_TYPE);
+				if(finfo_file($finfo,Yii::app()->basePath.'/../upload/pdf/'.$model->id.'.pdf')!='application/pdf'){
+					$model->addError('file_path','Datei muss eine PDF sein');
+					$this->render('upload',array('model'=>$model));
+					unlink(Yii::app()->basePath.'/../upload/pdf/'.$model->id.'.pdf');
+					$model->delete();
+					die();
+				}
+				
 			}
 			if(isset($_POST['genres'])) {
                 foreach($_POST['genres'] as $genre_id=>$checked){
@@ -249,12 +260,13 @@ class BooksController extends Controller
                 $genresStr = implode(",", $genres) . ';';
                 $model->addBookGenres($genresStr, $model->id); //Add Interest
             }
+			//print('sh /var/www/upload/pdf/test.sh '.$model->id);die();
 			if($uploadCover){
 				$uploadCover->saveAs(Yii::app()->basePath.'/../upload/cover/original/'.$model->id.'.'.$model->extension);
 			}
 			return $model->id;
 		}
-		print_r($model->getErrors());die();
+		$this->render('upload',array('model'=>$model));die();
 		//throw new Exception("Error Processing Request", 1);
 		
 	}

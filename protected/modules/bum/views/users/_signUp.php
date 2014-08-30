@@ -29,6 +29,7 @@
         echo $form->errorSummary(array($model, $model->invitations)); 
     else:
         echo $form->errorSummary(array($model)); 
+        echo $form->errorSummary(array($model2)); 
     endif;
     
     ?><fieldset>
@@ -64,8 +65,9 @@
     	<legend>Pers&ouml;nliche Angaben</legend>
     	
     	<div class="form-group">
-    		<label>Name</label>
+    		<label>Name <span class="required">*</span></label>
 			<input class='form-control' type="text" value="<?=isset($_POST['userdata'])?$_POST['userdata']['name']:''?>" name="userdata[name]"/>
+            <?php echo $form->error($model2,'name'); ?>
 		</div>
 		
 		<div class="form-group">

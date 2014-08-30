@@ -33,6 +33,7 @@
 	              		$("#com").prepend(data);
 	              		$("#newComment").children().detach();
 						$("#com > div:first-child input").rating();
+						$(".ratings").text(parseInt($(".ratings").text())+1);
 	              }',
 	          ), 
 	          array(

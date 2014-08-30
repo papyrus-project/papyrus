@@ -113,8 +113,6 @@ if(!YII::app()->user->isGuest)
                         <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum')?>">Impressum</a></li>
                         <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum#agb')?>">AGBs</a></li>
                         <li><a href="<?=YII::app()->createAbsoluteUrl('site/impressum#dse')?>">Datenschutzerklärung</a></li>
-                        <li><a class="btn btn-g" style="font-size:12px;" href="https://docs.google.com/forms/d/1gStIuHcLucogGgOzm0I1G2TBjUPRHHewsXl1wtxcxF0/viewform">Jetzt Bewerten</a></li>
-                        <li><a class="btn btn-g" style="font-size:12px;" href="<?=YII::app()->createAbsoluteUrl('site/usabilty')?>">Usability Testaufgaben</a></li>
                     </ul>
                 </div> 
                 <div class="col-md-4">
@@ -127,7 +125,7 @@ if(!YII::app()->user->isGuest)
                 </div> 
             </div>
             <div class="row">
-                <p>© <?=date('Y')?> Team "Bookwork"</p>
+                <p>© <?=date('Y')?> Team "Bookworks"</p>
             </div>
         </div>
     </footer>

@@ -78,7 +78,9 @@ class UserController extends Controller
 			else
 				$id = Yii::app()->user->id;
 		$model = UserData::model()->findByPk($id);
-		
+		if(!$model){
+			$this->redirect(YII::app()->createAbsoluteUrl(''));
+		}
 		$own = Books::model()->findAllByAttributes(array('author'=>$model->id));
 		$array = array();
 		foreach ($own as $key => $value) {
@@ -213,10 +215,10 @@ class UserController extends Controller
 
 	public function actionSendPm($id){
 		if($id == YII::app()->user->id || YII::app()->user->isGuest){
-			$this->redirect(YII::app()->createUrl(''));
+			$this->redirect(YII::app()->createAbsoluteUrl(''));
 		}
 		if(!UserData::model()->findByPk($id)){
-			$this->redirect(YII::app()->createUrl(''));
+			$this->redirect(YII::app()->createAbsoluteUrl(''));
 		}
 		$model=new Messages();
 		if(isset($_POST['Messages'])){

@@ -13,4 +13,4 @@
 $this->pageTitle=Yii::app()->name . ' - Registrieren';
 ?>
 
-<?php echo $this->renderPartial('_signUp', array('model'=>$model,)); ?>
+<?php echo $this->renderPartial('_signUp', array('model'=>$model,'model2'=>$model2)); ?>

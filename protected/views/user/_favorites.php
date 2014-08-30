@@ -2,6 +2,7 @@
 	<?= $books ?>
 </div>
 <!-- content pull block -->
+<?php if($books):?>
 <p class="content-pull">
     <?= CHtml::ajaxLink(
         'Mehr B&uuml;cher <span class="glyphicon glyphicon-chevron-down"></span>',
@@ -19,3 +20,4 @@
     	array('id' => 'moreFavorites'.uniqid())
     );?>
 </p>
+<?php endif; ?>

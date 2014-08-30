@@ -607,7 +607,7 @@ class UsersController extends BumController
                         if(Yii::app()->mail->send($message)){
                             Yii::app()->user->setFlash('success', "A comfirmation email has been sent to the provided email address!");
                             //Yii::app()->user->setFlash('success', "<p>{$message->body}</p>");
-                            $this->redirect(array('/site/index'));
+                            $this->redirect(array('/users/login'));
                         }else{
                             Yii::app()->user->setFlash('error', "A comfirmation email could not been send to the provided email address!");
                             $this->redirect(array('users/resendSignUpConfirmationEmail'));
@@ -618,6 +618,7 @@ class UsersController extends BumController
             $model->invitations = $invitation;
             $this->render('_signUp',array(
                 'model'=>$model,
+                'model2'=>$modelUsersData,
             ));
         }else{
             Yii::app()->user->setFlash('notice', "SignUp is disabled! No SingUp is allowed!");

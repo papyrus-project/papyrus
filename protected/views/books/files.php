@@ -151,7 +151,7 @@
                 </div>
                 
                 <div class="row">                            
-                     <h2 class="book-profile-blurb-heading">Bewertungen <span class="badge"> <?=Comments::model()->countByAttributes(array('ref_id'=>$model->id,'belongsTo'=>0))?></span></h2>
+                     <h2 class="book-profile-blurb-heading">Bewertungen <span class="badge ratings"> <?=Comments::model()->countByAttributes(array('ref_id'=>$model->id,'belongsTo'=>0))?></span></h2>
                 </div>
                 <?php if(!YII::app()->user->isGuest&&$model->author!=YII::app()->user->id&&!Comments::model()->findByAttributes(array('ref_id'=>$model->id,'belongsTo'=>0,'users_id'=>YII::app()->user->id))):?>
 	                <div class="row">
