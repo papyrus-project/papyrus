@@ -168,10 +168,10 @@ class Books extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true,'OR');
 		$criteria->compare('description',$this->description,true,'OR');
-		//$criteria->compare('age_restriction',$this->age_restriction);
+		$criteria->compare('age_restriction',$this->age_restriction);
 		//$criteria->compare('extension',$this->extension,true);
 		//$criteria->compare('cover_artist',$this->cover_artist,true);
-		//$criteria->compare('base_id',$this->base_id);
+		$criteria->compare('base_id',$this->base_id);
 		//$criteria->compare('created',$this->created,true);
 		//$criteria->compare('downloads',$this->downloads);
 		//$criteria->compare('favorite_count',$this->favorite_count);
