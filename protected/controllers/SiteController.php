@@ -39,44 +39,42 @@ class SiteController extends Controller
 	 */ 
 	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array(), $wip = 0, $nsfw = 0)
 	{
-        //if(isset($_POST['q']))
-        //    $q = $_POST['q'];
-        //if(isset($_POST['type']))
-        //    $type = $_POST['type'];
-        //if(isset($_POST['lang']))
-        //    $lang = $_POST['lang'];
-        //if(isset($_POST['age']))
-        //    $age = $_POST['age'];
-        //if(isset($_POST['genre']))
-        //    $genre = $_POST['genre'];
-        //if(isset($_POST['wip']))
-        //    $wip = $_POST['wip'];
-        //if(isset($_POST['nsfw']))
-        //    $nsfw = $_POST['nsfw'];
-
         $criteria = new CDbCriteria();
-        if( count( $age ) > 0  && $age) {
+        if( count( $age ) > 0 ) {
             $ageCrit = new CDbCriteria();
-            foreach($age as $value)
-                $ageCrit->/*addColumnCondition( array('age_restriction'=>$value), 'OR');*/addSearchCondition( 'age_restriction', $value, true, 'OR' );
+            $age16=false;
+            foreach($age as $value) {
+                if($value == '16')
+                    $age16 = true;
+            }
+            foreach($age as $value) {
+                if($value == '6' && !$age16) {
+                    $ageCrit6 = new CDbCriteria();
+                    $ageCrit6->addSearchCondition( 'age_restriction', '16', true, 'AND', 'NOT LIKE' );
+                    $ageCrit6->addSearchCondition( 'age_restriction', '6', true, 'AND', 'LIKE' );
+                    $ageCrit->mergeWith($ageCrit6, 'OR');
+                }
+                else
+                    $ageCrit->addSearchCondition( 'age_restriction', $value, true, 'OR' );
+            }
             $criteria->mergeWith($ageCrit, 'AND');
         }
         if( count( $type ) > 0 ) {
             $typeCrit = new CDbCriteria();
             
             foreach($type as $value)
-                $typeCrit->/*addColumnCondition( array('booktype_id'=>$value), 'OR');*/addSearchCondition( 'booktype_id', $value, true, 'OR' );
+                $typeCrit->addSearchCondition( 'booktype_id', $value, true, 'OR' );
             $criteria->mergeWith($typeCrit, 'AND');
         }
         if( count( $lang ) > 0 ) {
             $langCrit = new CDbCriteria();
             
             foreach($lang as $value)
-                $langCrit->/*addColumnCondition( array('language_id'=>$value), 'OR');*/addSearchCondition( 'language_id', $value, true, 'OR' );
+                $langCrit->addSearchCondition( 'language_id', $value, true, 'OR' );
             $criteria->mergeWith($langCrit, 'AND');
         }
         
-        if( $wip != '1' ) {
+        if( $wip == '0' ) {
             $wipCrit = new CDbCriteria();
             $wipCrit->addColumnCondition( array('wip'=>0), 'AND');
             $criteria->mergeWith($wipCrit, 'AND');
@@ -95,7 +93,7 @@ class SiteController extends Controller
             
             foreach($genre as $value)
                 if($value >=0)
-                    $genreCrit->/*addColumnCondition( array('bookgenres.bookgenre_id'=>$value), 'OR');*/addSearchCondition( 'bookgenres.bookgenre_id', $value, true, 'OR' );
+                    $genreCrit->addSearchCondition( 'bookgenres.bookgenre_id', $value, true, 'OR' );
             $criteria->mergeWith($genreCrit, 'AND');
         }
         if( strlen( $q ) > 0 ) {

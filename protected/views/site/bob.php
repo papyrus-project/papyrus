@@ -7,12 +7,12 @@ Yii::app()->clientScript->registerScript('search',
         clearTimeout(ajaxUpdateTimeout);
         ajaxUpdateTimeout = setTimeout(function () {
             $.fn.yiiListView.update(
-// this is the id of the CListView
+                // this is the id of the CListView
                 'ajaxListView',
                 {data: ajaxRequest}
             )
         },
-// this is the delay
+        // this is the delay
         300);
     });"
 );
@@ -151,16 +151,14 @@ Yii::app()->clientScript->registerScript('filter',
 
             <div class="col-md-9">
                 <?php if(isset($dataProvider)){
-                          //yii::app()->language = 'de';
                           $this->widget('zii.widgets.CListView', array(
                               'dataProvider'=>$dataProvider,
-                              'itemView'=>'application.views.books._BookPreview',   // refers to the partial view named '_post'
+                              'itemView'=>'application.views.books._BookPreview',
                               'sortableAttributes'=>array(
                                   'title'=>'Titel',
                                   'id'=>'Datum',
                               ),
                               'id'=>'ajaxListView',
-                              //'ajaxType'=>'post',
                               'pagerCssClass' => 'pagination',
                               'pager'=> array(  'cssFile'=>Yii::app()->request->baseUrl.'/css/pager.css', 
                                                 'header'=>'',
@@ -171,8 +169,6 @@ Yii::app()->clientScript->registerScript('filter',
                               'summaryCssClass' => 'col-md-6 pull-left positionL',
                               'sorterCssClass' => 'col-md-6 pull-right positionR',
                               'itemsCssClass' => 'row',
-                              //'loadingCssClass' => 'row',
-                              //'pager' => array('nextPageCssClass'=>'btn-b'),
                           ));
                       } ?>
             </div>
