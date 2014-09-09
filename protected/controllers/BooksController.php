@@ -390,7 +390,7 @@ class BooksController extends Controller
         echo $this->renderPartial('answers', array('comments' => $comments), true, true);
     }
     /*
-	 * Speichern undd anzeigen der aenderung einer Bewertung/Antwort
+	 * Speichern und anzeigen der aenderung einer Bewertung/Antwort
 	 */
     public function actionSaveEdit($id){
         $model = Comments::model()->findByPk($id);
@@ -436,22 +436,4 @@ class BooksController extends Controller
         $model = new Comments();
         $this->renderPartial('newComment',array('model'=>$model, 'id'=>$id),false,true);
 	}
-	/*
-	 * Editform anzeigen
-	 */
-    public function actionEditComment($id){
-        $model = new Comments();
-        $this->render('editComment',array('model'=>$model, 'id'=>$id));
-	}
-	/*
-	 * Form fuer Antwort anzeigen
-	 */
-    public function actionNewAnswer($id, $belongsTo=0){
-        $model = new Comments();
-        $this->render('newAnswer',array('model'=>$model, 'id'=>$id, 'belongsTo'=>$belongsTo));
-	}
-    public function actionAnswer(){
-        $comments = array();
-        $this->render('answer',array('comment'=>$comments));
-    }
 }

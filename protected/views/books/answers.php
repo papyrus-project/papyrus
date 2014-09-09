@@ -14,7 +14,7 @@ foreach($comments as $comment):?>
                         geschrieben am <?= Yii::time($comment->date); ?>
                     </p>
                 </div>
-                <div class="row">
+                <div id="text<?= $comment->id; ?>" class="row">
                     <p class="comment-text">
                         <?= $comment->text; ?>
                     </p>
@@ -36,7 +36,7 @@ foreach($comments as $comment):?>
                                 'Bearbeiten',
                                 array('books/showEditCommentForm', 'id'=>$comment->id),
                                 array(
-                                    'update'=>'#'.$comment->id,
+                                    'update'=>'#text'.$comment->id,
                                 ), 
                                 array('id' => 'edit'.uniqid(), 'role'=>'menuitem', 'tabindex'=>'-1')
                             );?>
