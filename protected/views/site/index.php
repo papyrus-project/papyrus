@@ -11,9 +11,9 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
             <div class="intro-lead-in">Jede Geschichte hat einen Anfang</div>
             <div class="intro-heading"><?=YII::app()->name?></div>
             <ul class="intro-list">
-                <li><span class="glyphicon glyphicon-ok-sign"></span> Hunderte EBooks als <b>kostenloser</b> Download in alle gängigen Formate</li>
+                <li><span class="glyphicon glyphicon-ok-sign"></span> Hunderte EBooks als <b>kostenlosen</b> Download in allen gängigen Formatem</li>
                 <li><span class="glyphicon glyphicon-ok-sign"></span> Werke von freien Autoren lesen, kommentieren und bewerten</li>
-                <li><span class="glyphicon glyphicon-ok-sign"></span> Lade deine Werke kostenlos entweder als Gesamtwerk oder kapitelweise hoch</li>
+                <li><span class="glyphicon glyphicon-ok-sign"></span> Lade deine Werke kostenlos als Gesamtwerk oder kapitelweise hoch</li>
             </ul>
             <p class="intro-teaser">Jetzt kostenlos registrieren!</p>
             <button onclick="window.location.href='<?=YII::app()->createAbsoluteUrl('users/signup')?>'" class="btn btn-g">Benutzerkonto anlegen</button>
@@ -34,24 +34,27 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
                 <img class="services-pictograph" src="img/pictograph_book_512.png" alt="pictograph" />
                 <h4 class="service-heading">Schreibe, Lese, Erlebe!</h4>
                 <p class="text-muted">
-                    <b>Bookwork</b> bietet dir die Möglichkeit eigene werke in einer <b>aktiven Community</b> zu veröffentlichen.</br> 
-                    Oder stöbere einfach durch andere Autoren und entdecke die Bücher von morgen.
+                    Bookworks bietet dir die Möglichkeit, eigene Werke in einer <b>aktiven Community</b> zu 
+					veröffentlichen.<br/>
+					Stöbere ganz <b>einfach und kostenlos</b> durch eine Vielzahl unbekannter Werke von freien Autoren 
+					und entdecke die Bücher von morgen. 
                 </p>
             </div>
             <div class="col-md-4">
                 <img class="services-pictograph" src="img/pictograph_community_512.png" alt="pictograph" />
                 <h4 class="service-heading">Werde Teil der Community!</h4>
                 <p class="text-muted">
-                    Werde Mitglied in unserer Community um die Werke anderer Mitglieder zu lesen, bewerten und erhalte Feedback zu eigenen Werken von anderen Hobbyautoren. 
+                	Werde Mitglied in unserer Community, um die Werke anderer Mitglieder zu lesen und zu bewerten 
+					und erhalte Feedback zu deinen eigenen Werken von anderen Hobbyautoren.
                 </p>
             </div>
             <div class="col-md-4">
                 <img class="services-pictograph" src="img/pictograph_badge_512.png" alt="pictograph" />
                 <h4 class="service-heading">Ausgezeichnet!</h4>
                 <p class="text-muted">
-                    Veröffentlicht und dann Vergessen? Nicht bei Uns!<br>
-                    Unser <b>Badge System</b> macht uns einzigartig, indem es Spaß mit Nützlichem verbindet. Erhalte Auszeichnungen für deine Werke und verfolge so deren
-                    Fortschritt innerhalb der Community. 
+                    Veröffentlicht und dann Vergessen? Nicht bei Uns!<br/>
+					Unser <b>Badge System</b> macht uns einzigartig, indem es Spaß mit Nützlichem verbindet. Erhalte 
+					Auszeichnungen für deine Werke und verfolge so deren Fortschritt innerhalb der Community.
                 </p>
             </div>
         </div>
@@ -79,15 +82,14 @@ $this->pageTitle=Yii::app()->name.' - landingpage';
 							'title' => $book->title,
 							'size' => 'thumb',
 							'group'=> 'cover',
-							'class' => '',
-							'id' => '',
+							'id'=>'picture'.$book->id
 						));?>
 					</a>
                     <div class="caption">
                         <a href="<?=YII::app()->createAbsoluteUrl('user/profile/'.$book->author)?>"><?=$book->author0->name?></a>
                         <h3><?=$book->title?></h3>
                         <p>
-                            <input type="hidden" readonly class="rating" data-start="1" data-end="6" value="<?= $rating->count?round($rating->rating/$rating->count):''?>" />
+                            <input type="text" style="display:none" class="rating" data-start="1" data-end="6" value="<?= $rating->count?round($rating->rating/$rating->count):''?>" readonly>
                         </p>
                         <button class="btn btn-g">Herunterladen</button>
                     </div>

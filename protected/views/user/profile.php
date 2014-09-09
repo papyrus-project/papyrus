@@ -51,11 +51,11 @@
 
 						<li class="text-muted">Letzte Aktivität</li>
 						<li class="text-muted">Mitglied seit</li>
-						<br>
+						<br/>
 						<li class="text-muted"><span class="glyphicon glyphicon-star"></span> Abonnements</li>
 						<li class="text-muted"><span class="glyphicon glyphicon-bookmark"></span> Favorisiert</li>
 						<li class="text-muted"><span class="glyphicon glyphicon-save"></span> Heruntergeladen</li>
-						<br>
+						<br/>
 						<li class="text-muted">Geschlecht</li>
 						<li class="text-muted">Geburtstag</li>
 						<li class="text-muted">Wohnort</li>

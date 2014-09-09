@@ -209,9 +209,9 @@ $form = $this->beginWidget(
 			    
 			}
 			</script>
-		<?php
-			$this->endWidget();
-		?>
 		</div>
 	</div>
 </section>
+<?php
+	$this->endWidget();
+?>

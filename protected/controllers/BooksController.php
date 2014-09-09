@@ -16,7 +16,9 @@ class BooksController extends Controller
 			),
 		);
 	}
-	
+	/*
+	 * Funktion zum darstellen eines Buches
+	 */
 	public function actionFiles($id){
         //zur startseite, wenn id fehlt
         if(!$id)
@@ -72,6 +74,9 @@ class BooksController extends Controller
 		$this->render('files',array('model' => $model, 'lang' => $lang, 'genres' => $genres, 'type'=>$type, 'author'=>$author, 'commentForm'=>$commentForm, 'comments'=>$comments,'rating'=>$rating));
 	}
 	
+	/*
+	 * Editieren eines Buches
+	 */
 	public function actionEdit($id){
         Yii::import('application.Components.*');
         require_once('ImageEdit.php');
@@ -159,6 +164,9 @@ class BooksController extends Controller
         $this->render('edit',array('model'=>$model,'selectedGenres' => $selectedGenres));
 	}
 	
+	/*
+	 * Uploadform
+	 */
 	public function actionUpload(){
 		$model = new PdfTable();
 		if(isset($_POST['PdfTable'])){
@@ -200,11 +208,9 @@ class BooksController extends Controller
 		
 		$this->render('upload',array('model'=>$model));
 	}
-
-	public function actionBookList($id){
-		$model = Books::model()->findAll();
-	}
-	
+	/*
+	 * Abspeichern eines hochgeladenen Buches/Kapitels
+	 */
 	private function uploadFile($uploadFile,$uploadCover,$baseId=0){
 		$model = new PdfTable();
 		$model->attributes = $_POST['PdfTable'];
@@ -272,6 +278,9 @@ class BooksController extends Controller
 		
 	}
 
+	/*
+	 * neue Bewertung speichern
+	 */
     public function actionPostComment($id){
         
         //comments
@@ -319,6 +328,9 @@ class BooksController extends Controller
 		$this->redirect(YII::app()->createAbsoluteUrl('user/profile/'.YII::app()->user->id));
 	}
 
+	/*
+	 * Gibt einem die Datei des Buchs/Kapitels oder alle Kapitel in einem Zip
+	 */
 	public function actionDownload($id,$format){
 		$ext = array(
 			1=>'.pdf',
@@ -351,37 +363,23 @@ class BooksController extends Controller
 		}
 	}
     
-	public function actionFeed(){
-		$subs = Subscription::model()->findAllByAttributes(array('subscriber_id'=>YII::app()->user->id),array('select'=>'subscripted_id'));
-		foreach($subs as $sub){
-			$subsArray[] = $sub->subscripted_id;
-		}
-		$books = Books::model()->published()->findAllByAttributes(array('author'=>$subsArray),array('limit'=>2));
-		
-		$_SESSION['feedPage']=1;
-		$this->render('feed',array('books'=>$books));
-	}
-	
-	public function actionMoreFeed(){
-		$subs = Subscription::model()->findAllByAttributes(array('subscriber_id'=>YII::app()->user->id),array('select'=>'subscripted_id'));
-		foreach($subs as $sub){
-			$subsArray[] = $sub->subscripted_id;
-		}
-		$books = Books::model()->published()->findAllByAttributes(array('author'=>$subsArray),array('limit'=>2,'offset'=>2*$_SESSION['feedPage']++));
-		if(!$books)
-			throw new CHttpException(204,'Keine B&uuml;cher mehr vorhanden');
-		$this->renderPartial('moreFeed',array('books'=>$books));
-	}
-	
+	/*
+	 * Neu geschriebene Antwort auf eine Bewertugn anzeigen
+	 */
     public function actionShowNewCommentForm($id){
         $commentForm = new Comments();
         echo $this->renderPartial('newComment', array('model' => $commentForm, 'id'=>$id), true, true);
     }
-    
+    /*
+	 * Form fuer eine Antwort anzeigen
+	 */
     public function actionShowNewAnswerForm($id, $belongsTo=null){
         $commentForm = new Comments();
         echo $this->renderPartial('newAnswer', array('model' => $commentForm, 'id'=>$id, 'belongsTo'=>$belongsTo), true, true);
     }
+	/*
+	 * Alle Bisherigen Antworten auf eine Bewertung anzeigen
+	 */
     public function actionShowAnswers($id, $belongsTo){
         $comments = array();
         $commentList = Comments::model()->with('users')->findAllByAttributes(array('ref_id'=>$id));
@@ -391,7 +389,9 @@ class BooksController extends Controller
         }
         echo $this->renderPartial('answers', array('comments' => $comments), true, true);
     }
-    
+    /*
+	 * Speichern undd anzeigen der aenderung einer Bewertung/Antwort
+	 */
     public function actionSaveEdit($id){
         $model = Comments::model()->findByPk($id);
         $model->text = CHtml::encode(print_r($_POST['Comments']['text'], true));
@@ -407,7 +407,9 @@ class BooksController extends Controller
         echo        'element.innerHTML = "<p class=\"comment-text\">' . $model->text . '</p>";';
         echo    '</script>';
     }
-    
+    /*
+	 * speichern/anzeigen einer neuen Antwort
+	 */
     public function actionPostAnswer($id, $belongsTo=0){
         if(isset($_POST['Comments'])) {
             $commentForm = new Comments();
@@ -427,15 +429,23 @@ class BooksController extends Controller
             }
         }
     }
-    
+    /*
+	 * Form fuer Bewertung anzeigen
+	 */
     public function actionNewComment($id){
         $model = new Comments();
         $this->renderPartial('newComment',array('model'=>$model, 'id'=>$id),false,true);
 	}
+	/*
+	 * Editform anzeigen
+	 */
     public function actionEditComment($id){
         $model = new Comments();
         $this->render('editComment',array('model'=>$model, 'id'=>$id));
 	}
+	/*
+	 * Form fuer Antwort anzeigen
+	 */
     public function actionNewAnswer($id, $belongsTo=0){
         $model = new Comments();
         $this->render('newAnswer',array('model'=>$model, 'id'=>$id, 'belongsTo'=>$belongsTo));

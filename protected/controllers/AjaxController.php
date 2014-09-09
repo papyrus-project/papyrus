@@ -17,7 +17,10 @@ class AjaxController extends Controller
 			),
 		);
 	}
-	
+	/*
+	 * Togglet ob ein Buch favorisiert ist
+	 * Gibt zurueck was beim naechsten aufruf passier (ent/-favorisieren)
+	 */
 	public function actionFavoriseBook(){
 		$book=$_POST['book'];
 		$user=Yii::app()->user->id;
@@ -40,11 +43,15 @@ class AjaxController extends Controller
 		}
 	}
 	
+	/*
+	 * Togglet ob ein Author favorisiert ist
+	 * Gibt zurueck was beim naechsten aufruf passier (de/-abonnieren)
+	 */
 	public function actionSubscribe(){
 		$sub=$_POST['subsripted'];
 		$user=Yii::app()->user->id;
 		if($sub == $user)
-			throw new CHttpException(401,'u no sub urself');
+			throw new CHttpException(401,'Can not subscribe yourself');
 		else if(YII::app()->user->isGuest)
 			throw new CHttpException(401,'Login required');
 		else{
@@ -59,13 +66,6 @@ class AjaxController extends Controller
 				$model->delete();
 				echo ('Abonnieren ');
 			}
-		}
-	}
-	
-	public function actionTest(){
-		$blub = Subscription::model()->findAllByAttributes(array('subscriber_id'=>array(1,6),),array('limit'=>2,'offset'=>2));
-		foreach ($blub as $key => $value) {
-			print_r($value->subscriber_id);
 		}
 	}
 }

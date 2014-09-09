@@ -21,7 +21,9 @@ class UserController extends Controller
 			),
 		);
 	}
-	
+	/*
+	 * Profil editieren
+	 */
 	public function actionEdit(){
         Yii::import('application.Components.*');
         require_once('ImageEdit.php');
@@ -69,7 +71,9 @@ class UserController extends Controller
 		$this->render('edit',array(
 			'model'=>$model));
 	}
-	
+	/*
+	 * Profil anzeigen
+	 */
 	public function actionProfile($id){
 		YII::app()->session['page']=1;
 		if(!$id)
@@ -107,7 +111,9 @@ class UserController extends Controller
 			'booksRender'=>$booksRender,
 		));
 	}
-
+	/*
+	 * Anzeigen von Buechern die vom Author $id erstellt wurde
+	 */
 	public function action_Own($id){
 		YII::app()->session['page'] = 1;
 		$books = Books::model()->owns($id)->published()->with('bookgenres')->findAll(array('limit'=>$this->profile_pc,'order'=>'id desc'));
@@ -122,7 +128,9 @@ class UserController extends Controller
 		}*/
 		$this->renderPartial('_own',array('books'=>$booksRender,'userId'=>$id),false,true);
 	}
-
+	/*
+	 * Anzeigen von mehr Buechern die vom Author $id erstellt wurde
+	 */
 	public function action_MoreOwn(){
 		$page = YII::app()->session['page'];
 		$books = Books::model()->owns($_POST['id'])->published()->with('bookgenres')->findAll(array('limit'=>$this->profile_pc,'offset'=>$page*$this->profile_pc,'order'=>'id desc'));
@@ -135,7 +143,9 @@ class UserController extends Controller
 			$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'userId'=>$_POST['id'],'showOptions'=>true,'rating'=>$rating));
 		}
 	}
-
+	/*
+	 * anzeigen von Buechern die man Favorisiert hat
+	 */
 	public function action_Favorites($id){
 		YII::app()->session['page'] = 1;
 		$favs = BooksFavorites::model()->findAll(array('limit'=>$this->profile_pc,'condition'=>'users_id = "'.$id.'"'));
@@ -154,6 +164,9 @@ class UserController extends Controller
 		$this->renderPartial('_favorites',array('books'=>$booksRender,'userId'=>$id),false,true);
 	}
 	
+	/*
+	 * anzeigen von mehr Buechern die man Favorisiert hat
+	 */
 	public function action_moreFavorites($id){
 		$page = YII::app()->session['page'];
 		$favs = BooksFavorites::model()->findAll(array('limit'=>$this->profile_pc,'offset'=>$page*$this->profile_pc,'condition'=>'users_id = "'.$id.'"'));
@@ -171,7 +184,9 @@ class UserController extends Controller
 			$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'userId'=>$_POST['id'],'showOptions'=>true,'rating'=>$rating));
 		}
 	}
-	
+	/*
+	 * Anzeigen von Buechern der favorisierten Authoren
+	 */
 	public function action_subs($id){
 		YII::app()->session['page'] = 1;
 		$subs = Subscription::model()->findAll(array('condition'=>'subscriber_id = "'.$id.'"'));
@@ -192,7 +207,9 @@ class UserController extends Controller
 		}
 		$this->renderPartial('_subs',array('books'=>$booksRender,'userId'=>$id),false,true);
 	}
-	
+	/*
+	 * Anzeigen von mehr Buechern der favorisierten Authoren
+	 */
 	public function action_moreSubs(){
 		$page = YII::app()->session['page'];
 		$subs = Subscription::model()->findAll(array('condition'=>'subscriber_id = "'.$_POST['id'].'"'));
@@ -212,7 +229,9 @@ class UserController extends Controller
         	$this->renderPartial('application.views.books._BookPreview',array('data'=>$book,'userId'=>$_POST['id'],'showOptions'=>true,'rating'=>$rating));
 		}
 	}
-
+	/*
+	 * Anzeigen der Nachrichten Form / speichern der Nachricht
+	 */
 	public function actionSendPm($id){
 		if($id == YII::app()->user->id || YII::app()->user->isGuest){
 			$this->redirect(YII::app()->createAbsoluteUrl(''));
@@ -236,14 +255,18 @@ class UserController extends Controller
 		}
 		$this->render('sendPm',array('model'=>$model));
 	}
-	
+	/*
+	 * Nachricht loeschen
+	 */
 	public function actionPmDel($id){
 		$model = Messages::model()->findByPk($id);
 		if($model->receiver != YII::app()->user->id)
 			throw new CHttpException(402,'');
 		$model->delete();
 	}
-	
+	/*
+	 * Nachricht anzeigen
+	 */
 	public function actionMessage($id){
 		$model = Messages::model()->findByPk($id);
 		if(YII::app()->user->id != $model->sender && YII::app()->user->id != $model->receiver){
@@ -255,7 +278,9 @@ class UserController extends Controller
 			$this->renderPartial('pmView',array('message'=>$model));
 		}
 	}
-	
+	/*
+	 * Nachrichtenliste anzeigen
+	 */
 	public function actionMessages(){
 		YII::app()->session['page']=1;
 		YII::app()->session['type']=1;
@@ -268,7 +293,9 @@ class UserController extends Controller
 		}
 		$this->render('pmList',array('messages'=>$messages,'countIn'=>$countIn,'countOut'=>$countOut));
 	}
-	
+	/*
+	 * Anzeigen der ersten Seite erhaltener Nachrichten
+	 */
 	public function actionlistPmR($id){
 		YII::app()->session['page']=1;
 		YII::app()->session['type']=1;
@@ -279,6 +306,9 @@ class UserController extends Controller
 		}
 	}
 	
+	/*
+	 * Anzeigen der ersten Seite gesendeter Nachrichten
+	 */
 	public function actionlistPmS($id){
 		YII::app()->session['page']=1;
 		YII::app()->session['type']=2;
@@ -289,6 +319,9 @@ class UserController extends Controller
 		}
 	}
 	
+	/*
+	 * Liste aktuallisieren der erhaltenen/gesendeten Nachrichten
+	 */
 	public function actionlistPmM($id,$format){
 		$page = YII::app()->session['page'];
 		

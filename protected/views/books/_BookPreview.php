@@ -57,19 +57,19 @@
 		</div>
 		<!-- dropdown menus -->
 		<div class="col-md-1 dropdown-meta" style="text-align:right;">
-			<p>
-				<?php if(isset($showOptions)&&$showOptions==true):?>
-				<div class="dropdown">
-					<a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-config" style="text-align:left;">
-						<?php if($data->author == YII::app()->user->id):?>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="<?=YII::app()->createAbsoluteUrl('books/edit/'.$data->id)?>">Bearbeiten</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="<?=YII::app()->createAbsoluteUrl('books/del/'.$data->id)?>">Entfernen</a></li>
-						<?php endif;?>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="mailto:info@papyrus-project.noip.me">Verstöße Melden</a></li>
-				</ul>
-				</div>
-				<?php endif; ?>
-			</p>
+			<?php if(isset($showOptions)&&$showOptions==true):?>
+				<p>
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-config" style="text-align:left;">
+							<?php if($data->author == YII::app()->user->id):?>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?=YII::app()->createAbsoluteUrl('books/edit/'.$data->id)?>">Bearbeiten</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?=YII::app()->createAbsoluteUrl('books/del/'.$data->id)?>">Entfernen</a></li>
+							<?php endif;?>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="mailto:info@papyrus-project.noip.me">Verstöße Melden</a></li>
+						</ul>
+					</div>
+				</p>	
+			<?php endif; ?>
 		</div>
 	</div><!-- /.book-thumb -->

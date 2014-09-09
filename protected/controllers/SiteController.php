@@ -22,8 +22,7 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
+	 * Index Seite anzeigen
 	 */
     public function actionIndex()
 	{
@@ -35,6 +34,9 @@ class SiteController extends Controller
         $books = Books::model()->published()->recently()->with('bookgenres')->findAll();
         $this->render('index', array('books' => $books));
     }
+	/*
+	 * Such Seite anzeigen & erneuern
+	 */ 
 	public function actionBob( $q = '', array $type = array(), array $lang = array(), array $age = array(), array $genre = array(), $wip = 0, $nsfw = 0)
 	{
         //if(isset($_POST['q']))

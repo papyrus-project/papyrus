@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	    <!-- Chosen -->
 		<link rel="stylesheet" href="<?= Yii::app()->request->baseUrl; ?>/css/chosen/chosen.css">
@@ -35,7 +35,7 @@ if(!YII::app()->user->isGuest)
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand page-scroll" href="<?=YII::app()->createAbsoluteUrl('')?>"><?=YII::app()->name?> <label class="label label-meta">beta</label></a>
+                    <a class="navbar-brand page-scroll" href="<?=YII::app()->createAbsoluteUrl('')?>"><?=YII::app()->name?></a>
                 </div>
                 
 
@@ -62,11 +62,11 @@ if(!YII::app()->user->isGuest)
                                         </div>
                                     </form>
                                 </div>-->
-                    
+                    	
+                        	</div>
                         <?= CHtml::endForm();?>
                         <!-- </form> -->
-                        </div>
-                    </div>
+                	</div>
                         
                         <ul class="nav navbar-nav navbar-right">
                         <li class="hidden">
