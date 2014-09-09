@@ -1,4 +1,8 @@
 <?php
+/*
+ * Klasse fuer books Table
+ * Diese Klasse wird nur beim Upload verwendet
+ */
 class PdfTable extends CActiveRecord{
 	
 	public $id;

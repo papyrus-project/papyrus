@@ -450,8 +450,4 @@ class BooksController extends Controller
         $model = new Comments();
         $this->render('newAnswer',array('model'=>$model, 'id'=>$id, 'belongsTo'=>$belongsTo));
 	}
-    public function actionAnswer(){
-        $comments = array();
-        $this->render('answer',array('comment'=>$comments));
-    }
 }

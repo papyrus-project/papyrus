@@ -52,7 +52,7 @@ foreach($comments as $comment):?>
                             );?>
                             </li>
                             <?php endif; ?>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Verst??e Melden</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="mailto:info@bookworks.noip.me">Verst&ouml;&szlig;e Melden</a></li>
                         </ul>
                     </div>
                 </p>

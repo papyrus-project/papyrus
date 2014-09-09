@@ -1,4 +1,7 @@
 <?php
+/*
+ * Consolen Befehl um die Buecher zu convertieren & zu publizieren
+ */
 class BookUpdateCommand extends CConsoleCommand{
 	public function run(){
 		$command = Yii::app()->db->createCommand('

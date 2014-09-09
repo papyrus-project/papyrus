@@ -1,4 +1,7 @@
 <?php
+/*
+ * Klasse fuer die Booksgenres tabelle
+ */
 class Genres extends CActiveRecord
 {
     //public $genre_id;
