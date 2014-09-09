@@ -1,4 +1,9 @@
 <?php 
+/*  
+*   Seite zum Anzeigen der Suchergebnisse
+*   
+*   generierung der Filterparameter durch Javascript
+*/
 Yii::app()->clientScript->registerScript('search',
     "var ajaxUpdateTimeout;
     var ajaxRequest;
@@ -79,7 +84,6 @@ Yii::app()->clientScript->registerScript('filter',
     else
             getParam = getParam + '&age[]=';
         
-    console.log(getParam);
     $.fn.yiiListView.update(
         'ajaxListView',
         {data: getParam}
